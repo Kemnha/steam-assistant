@@ -4,14 +4,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="STEAM Lab Pro - Interactive educational platform for Science, Technology, Engineering, Arts, and Mathematics learning with PhET simulations, AI tutoring, and comprehensive tools.">
+  <meta name="keywords"
+    content="STEAM education, interactive learning, PhET simulations, educational platform, science, technology, engineering, arts, mathematics">
+  <meta name="author" content="STEAM Lab Pro">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="STEAM Lab Pro - Ultimate Interactive Learning Platform">
+  <meta property="og:description"
+    content="Dive into interactive experiments, solve complex problems, get instant AI help, and track your learning journey.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/assets/steam-lab-preview.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+
   <title>STEAM Lab Pro - The Ultimate Interactive Platform</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Preload critical resources -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
+          fontFamily: {
+            'sans': ['Inter', 'system-ui', 'sans-serif'],
+          },
           colors: {
             primary: '#5D5CDE',
             secondary: '#1E40AF',
@@ -30,17 +56,125 @@
             'pulse-fast': 'pulse 1s infinite',
             'spin-slow': 'spin 3s linear infinite',
             'wiggle': 'wiggle 1s ease-in-out infinite',
+            'fade-in': 'fadeIn 0.6s ease-out',
+            'slide-up': 'slideUp 0.4s ease-out',
+            'scale-in': 'scaleIn 0.3s ease-out',
           },
           keyframes: {
             wiggle: {
               '0%, 100%': { transform: 'rotate(-3deg)' },
               '50%': { transform: 'rotate(3deg)' },
+            },
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(10px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            scaleIn: {
+              '0%': { opacity: '0', transform: 'scale(0.95)' },
+              '100%': { opacity: '1', transform: 'scale(1)' },
             }
+          },
+          backdropBlur: {
+            'xs': '2px',
           }
         }
       }
     }
   </script>
+
+  <!-- Custom CSS for enhanced styling -->
+  <style>
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(45deg, #5D5CDE, #1E40AF);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(45deg, #4C4BCD, #1D3A9F);
+    }
+
+    /* Loading animation */
+    .loading-spinner {
+      border: 3px solid rgba(93, 92, 222, 0.3);
+      border-radius: 50%;
+      border-top: 3px solid #5D5CDE;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+    }
+
+    /* Enhanced hover effects */
+    .hover-lift {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .hover-lift:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Glassmorphism effect */
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Dark mode glass */
+    .dark .glass {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Simulation highlighting */
+    .simulation-highlight {
+      animation: pulse-highlight 2s ease-in-out;
+      transition: all 0.3s ease;
+    }
+
+    @keyframes pulse-highlight {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.02);
+      }
+    }
+
+    /* Quick action button states */
+    .quick-action-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .quick-action-btn:disabled:hover {
+      transform: none !important;
+      scale: 1 !important;
+    }
+  </style>
 </head>
 
 <body
@@ -68,51 +202,60 @@
             </p>
           </div>
         </div>
+        <!-- Mobile menu button -->
+        <div class="lg:hidden">
+          <button onclick="toggleMobileMenu()"
+            class="p-2 rounded-lg bg-white/50 dark:bg-gray-700/50 hover:bg-white dark:hover:bg-gray-600 transition-all backdrop-blur-sm">
+            <i class="fas fa-bars text-gray-600 dark:text-gray-400"></i>
+          </button>
+        </div>
+
         <div class="flex items-center space-x-4">
+          <!-- Desktop Navigation -->
           <div
             class="hidden lg:flex items-center space-x-1 bg-white/50 dark:bg-gray-700/50 rounded-xl p-1 backdrop-blur-sm">
             <button onclick="showSection('dashboard')"
-              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 bg-primary text-white"
+              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 bg-primary text-white hover-lift"
               data-section="dashboard">
               <i class="fas fa-home mr-2"></i>Dashboard
             </button>
             <button onclick="showSection('labs')"
-              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400"
+              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
               data-section="labs">
               <i class="fas fa-flask mr-2"></i>Experiments
             </button>
             <button onclick="showSection('assignments')"
-              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400"
+              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
               data-section="assignments">
               <i class="fas fa-tasks mr-2"></i>Tasks
             </button>
             <button onclick="showSection('notes')"
-              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400"
+              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
               data-section="notes">
               <i class="fas fa-sticky-note mr-2"></i>Notes
             </button>
             <button onclick="showSection('calendar')"
-              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400"
+              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
               data-section="calendar">
               <i class="fas fa-calendar mr-2"></i>Calendar
             </button>
             <button onclick="showSection('calculator')"
-              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400"
+              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
               data-section="calculator">
               <i class="fas fa-calculator mr-2"></i>Calculator
             </button>
             <button onclick="showSection('data')"
-              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400"
+              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
               data-section="data">
               <i class="fas fa-chart-bar mr-2"></i>Data
             </button>
             <button onclick="showSection('resources')"
-              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400"
+              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
               data-section="resources">
               <i class="fas fa-book mr-2"></i>Resources
             </button>
             <button onclick="showSection('gradebook')"
-              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400"
+              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
               data-section="gradebook">
               <i class="fas fa-chart-line mr-2"></i>Inventory
             </button>
@@ -135,15 +278,123 @@
             </button>
 
             <button onclick="toggleTheme()"
-              class="p-2 rounded-lg bg-white/50 dark:bg-gray-700/50 hover:bg-white dark:hover:bg-gray-600 transition-all hover:scale-110 transform backdrop-blur-sm">
-              <i class="fas fa-moon dark:hidden"></i>
-              <i class="fas fa-sun hidden dark:inline"></i>
+              class="p-2 rounded-lg bg-white/50 dark:bg-gray-700/50 hover:bg-white dark:hover:bg-gray-600 transition-all hover:scale-110 transform backdrop-blur-sm hover-lift"
+              title="Toggle theme (Ctrl+T)" id="themeToggle">
+              <i class="fas fa-moon text-gray-600 dark:text-gray-400 transition-colors"></i>
+              <i class="fas fa-sun text-yellow-500 hidden transition-colors"></i>
             </button>
           </div>
         </div>
       </div>
     </div>
   </nav>
+
+  <!-- Mobile Navigation Menu -->
+  <div id="mobileMenu" class="lg:hidden fixed inset-0 z-50 hidden">
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" onclick="toggleMobileMenu()"></div>
+    <div
+      class="fixed top-0 right-0 h-full w-80 bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg shadow-2xl transform transition-transform duration-300 translate-x-full"
+      id="mobileMenuPanel">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-8">
+          <h2 class="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            Navigation</h2>
+          <button onclick="toggleMobileMenu()"
+            class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all">
+            <i class="fas fa-times text-gray-600 dark:text-gray-400"></i>
+          </button>
+        </div>
+
+        <nav class="space-y-2">
+          <button onclick="showSection('dashboard'); toggleMobileMenu()"
+            class="mobile-nav-btn w-full text-left p-4 rounded-xl bg-primary text-white font-medium transition-all hover:scale-105 transform shadow-lg"
+            data-section="dashboard">
+            <i class="fas fa-home mr-3"></i>Dashboard
+          </button>
+          <button onclick="showSection('labs'); toggleMobileMenu()"
+            class="mobile-nav-btn w-full text-left p-4 rounded-xl bg-white/50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 font-medium transition-all hover:scale-105 transform hover:bg-white dark:hover:bg-gray-700"
+            data-section="labs">
+            <i class="fas fa-flask mr-3"></i>Experiments
+          </button>
+          <button onclick="showSection('assignments'); toggleMobileMenu()"
+            class="mobile-nav-btn w-full text-left p-4 rounded-xl bg-white/50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 font-medium transition-all hover:scale-105 transform hover:bg-white dark:hover:bg-gray-700"
+            data-section="assignments">
+            <i class="fas fa-tasks mr-3"></i>Tasks
+          </button>
+          <button onclick="showSection('notes'); toggleMobileMenu()"
+            class="mobile-nav-btn w-full text-left p-4 rounded-xl bg-white/50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 font-medium transition-all hover:scale-105 transform hover:bg-white dark:hover:bg-gray-700"
+            data-section="notes">
+            <i class="fas fa-sticky-note mr-3"></i>Notes
+          </button>
+          <button onclick="showSection('calendar'); toggleMobileMenu()"
+            class="mobile-nav-btn w-full text-left p-4 rounded-xl bg-white/50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 font-medium transition-all hover:scale-105 transform hover:bg-white dark:hover:bg-gray-700"
+            data-section="calendar">
+            <i class="fas fa-calendar mr-3"></i>Calendar
+          </button>
+          <button onclick="showSection('calculator'); toggleMobileMenu()"
+            class="mobile-nav-btn w-full text-left p-4 rounded-xl bg-white/50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 font-medium transition-all hover:scale-105 transform hover:bg-white dark:hover:bg-gray-700"
+            data-section="calculator">
+            <i class="fas fa-calculator mr-3"></i>Calculator
+          </button>
+          <button onclick="showSection('data'); toggleMobileMenu()"
+            class="mobile-nav-btn w-full text-left p-4 rounded-xl bg-white/50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 font-medium transition-all hover:scale-105 transform hover:bg-white dark:hover:bg-gray-700"
+            data-section="data">
+            <i class="fas fa-chart-bar mr-3"></i>Data
+          </button>
+          <button onclick="showSection('resources'); toggleMobileMenu()"
+            class="mobile-nav-btn w-full text-left p-4 rounded-xl bg-white/50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 font-medium transition-all hover:scale-105 transform hover:bg-white dark:hover:bg-gray-700"
+            data-section="resources">
+            <i class="fas fa-book mr-3"></i>Resources
+          </button>
+          <button onclick="showSection('gradebook'); toggleMobileMenu()"
+            class="mobile-nav-btn w-full text-left p-4 rounded-xl bg-white/50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 font-medium transition-all hover:scale-105 transform hover:bg-white dark:hover:bg-gray-700"
+            data-section="gradebook">
+            <i class="fas fa-chart-line mr-3"></i>Inventory
+          </button>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- Optimized Loading Screen -->
+  <div id="loadingScreen"
+    class="fixed inset-0 z-50 bg-gradient-to-br from-primary via-purple-600 to-pink-600 flex items-center justify-center">
+    <div class="text-center text-white max-w-sm mx-auto px-6">
+
+      <!-- Simple Logo -->
+      <div class="mb-6">
+        <div class="w-16 h-16 mx-auto relative">
+          <div class="absolute inset-0 border-3 border-white/40 border-t-white rounded-full animate-spin"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <i class="fas fa-atom text-xl text-white"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Title -->
+      <div class="mb-6">
+        <h1 class="text-2xl font-bold mb-1 text-white">STEAM Lab Pro</h1>
+        <p class="text-white/70 text-sm">Ultimate Interactive Platform</p>
+      </div>
+
+      <!-- Progress -->
+      <div class="mb-4">
+        <div id="loadingStep" class="text-white/80 text-xs mb-2 h-4">Loading...</div>
+        <div class="w-full bg-white/20 rounded-full h-1">
+          <div id="loadingProgress" class="bg-white h-full rounded-full transition-all duration-300" style="width: 0%">
+          </div>
+        </div>
+        <div id="loadingPercentage" class="text-white/60 text-xs mt-1">0%</div>
+      </div>
+
+      <!-- Simple dots -->
+      <div class="flex justify-center space-x-1">
+        <div class="w-1.5 h-1.5 bg-white/60 rounded-full animate-pulse"></div>
+        <div class="w-1.5 h-1.5 bg-white/60 rounded-full animate-pulse" style="animation-delay: 0.2s;"></div>
+        <div class="w-1.5 h-1.5 bg-white/60 rounded-full animate-pulse" style="animation-delay: 0.4s;"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- MAIN CONTENT -->
 
@@ -278,22 +529,22 @@
           </h3>
           <div class="grid grid-cols-2 gap-3">
             <button onclick="quickLaunchLab('chemistry')"
-              class="p-4 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-xl hover:from-blue-500 hover:to-blue-700 transition-all hover:scale-105 transform shadow-lg">
+              class="quick-action-btn p-4 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-xl hover:from-blue-500 hover:to-blue-700 transition-all hover:scale-105 transform shadow-lg hover-lift">
               <i class="fas fa-vial text-xl mb-2"></i>
               <p class="text-sm font-bold">Chemistry Lab</p>
             </button>
             <button onclick="quickLaunchLab('physics')"
-              class="p-4 bg-gradient-to-r from-purple-400 to-purple-600 text-white rounded-xl hover:from-purple-500 hover:to-purple-700 transition-all hover:scale-105 transform shadow-lg">
+              class="quick-action-btn p-4 bg-gradient-to-r from-purple-400 to-purple-600 text-white rounded-xl hover:from-purple-500 hover:to-purple-700 transition-all hover:scale-105 transform shadow-lg hover-lift">
               <i class="fas fa-atom text-xl mb-2"></i>
               <p class="text-sm font-bold">Physics Sim</p>
             </button>
-            <button onclick="quickLaunchLab('math')"
-              class="p-4 bg-gradient-to-r from-green-400 to-green-600 text-white rounded-xl hover:from-green-500 hover:to-green-700 transition-all hover:scale-105 transform shadow-lg">
+            <button onclick="quickLaunchCalculator()"
+              class="quick-action-btn p-4 bg-gradient-to-r from-green-400 to-green-600 text-white rounded-xl hover:from-green-500 hover:to-green-700 transition-all hover:scale-105 transform shadow-lg hover-lift">
               <i class="fas fa-calculator text-xl mb-2"></i>
               <p class="text-sm font-bold">Math Tools</p>
             </button>
             <button onclick="openAI()"
-              class="p-4 bg-gradient-to-r from-pink-400 to-pink-600 text-white rounded-xl hover:from-pink-500 hover:to-pink-700 transition-all hover:scale-105 transform shadow-lg">
+              class="quick-action-btn p-4 bg-gradient-to-r from-pink-400 to-pink-600 text-white rounded-xl hover:from-pink-500 hover:to-pink-700 transition-all hover:scale-105 transform shadow-lg hover-lift">
               <i class="fas fa-robot text-xl mb-2"></i>
               <p class="text-sm font-bold">AI Helper</p>
             </button>
@@ -333,7 +584,7 @@
     <!-- EXPERIMENTS/LABS SECTION -->
     <section id="labs" class="section-content hidden">
       <!-- PHET Games Page -->
-      <section class="p-6">
+      <div class="p-6">
         <!-- Header -->
         <div class="mb-8 text-center">
           <h1 class="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">🎮
@@ -456,7 +707,7 @@
           </div>
 
         </div>
-      </section>
+      </div>
     </section>
 
     <!-- ASSIGNMENTS SECTION -->
@@ -1099,11 +1350,7 @@
     </div>
   </div>
 
-  <script>
-    function openAI() {
-      document.getElementById('aiModal').classList.remove('hidden');
-    }
-  </script>
+  <!-- Removed duplicate openAI function -->
 
   <!-- LAB MODAL -->
   <div id="labModal"
@@ -1545,41 +1792,7 @@
     // NAVIGATION
     // ====================================
 
-    function showSection(sectionId) {
-      // Hide all sections
-      document.querySelectorAll('.section-content').forEach(section => {
-        section.classList.add('hidden');
-      });
-
-      // Show selected section
-      document.getElementById(sectionId).classList.remove('hidden');
-      currentSection = sectionId;
-
-      // Update navigation with smooth transitions
-      updateActiveNavButton(sectionId);
-
-      // Section-specific initialization
-      switch (sectionId) {
-        case 'calendar':
-          generateCalendar();
-          break;
-        case 'assignments':
-          updateAssignmentCounts();
-          break;
-        case 'gradebook':
-          populateGradesTable();
-          break;
-        case 'data':
-          initializeDataCharts();
-          break;
-        case 'labs':
-          populateLabs();
-          break;
-      }
-
-      // Add activity
-      addActivityFeed(`📖 Viewed ${sectionId} section`);
-    }
+    // Removed duplicate showSection function - using enhanced version below
 
     function updateActiveNavButton(sectionId) {
       document.querySelectorAll('.nav-btn').forEach(btn => {
@@ -1596,17 +1809,34 @@
 
     function addActivityFeed(message) {
       const feed = document.getElementById('activityFeed');
+      if (!feed) return;
+
       const timestamp = new Date().toLocaleTimeString();
+      const fullTimestamp = new Date().toLocaleString();
+
+      // Get icon based on message content
+      const getActivityIcon = (msg) => {
+        if (msg.includes('🧪') || msg.includes('experiment')) return 'fa-flask';
+        if (msg.includes('📝') || msg.includes('note')) return 'fa-sticky-note';
+        if (msg.includes('📋') || msg.includes('assignment')) return 'fa-tasks';
+        if (msg.includes('🧮') || msg.includes('calculator')) return 'fa-calculator';
+        if (msg.includes('📅') || msg.includes('calendar')) return 'fa-calendar';
+        if (msg.includes('📊') || msg.includes('data')) return 'fa-chart-bar';
+        if (msg.includes('📚') || msg.includes('resource')) return 'fa-book';
+        if (msg.includes('🤖') || msg.includes('AI')) return 'fa-robot';
+        if (msg.includes('📖') || msg.includes('Viewed')) return 'fa-eye';
+        return 'fa-star';
+      };
 
       const activity = document.createElement('div');
-      activity.className = 'flex items-center space-x-3 p-3 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl border border-blue-200/50 dark:border-blue-700/50 transform hover:scale-105 transition-all';
+      activity.className = 'flex items-center space-x-3 p-3 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl border border-blue-200/50 dark:border-blue-700/50 transform hover:scale-105 transition-all animate-slide-up';
       activity.innerHTML = `
         <div class="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
-          <i class="fas fa-star text-white text-xs"></i>
+          <i class="fas ${getActivityIcon(message)} text-white text-xs"></i>
         </div>
         <div class="flex-1">
           <p class="font-medium text-sm">${message}</p>
-          <p class="text-xs text-gray-500">${timestamp}</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">${timestamp}</p>
         </div>
       `;
 
@@ -1618,10 +1848,76 @@
 
       feed.insertBefore(activity, feed.firstChild);
 
-      // Keep only last 5 activities
-      while (feed.children.length > 5) {
+      // Keep only last 8 activities (increased from 5)
+      while (feed.children.length > 8) {
         feed.removeChild(feed.lastChild);
       }
+
+      // Store in localStorage
+      const activities = JSON.parse(localStorage.getItem('steam_activities') || '[]');
+      activities.unshift({
+        message,
+        timestamp: fullTimestamp,
+        id: Date.now()
+      });
+
+      // Keep last 50 activities in storage
+      if (activities.length > 50) {
+        activities.splice(50);
+      }
+
+      localStorage.setItem('steam_activities', JSON.stringify(activities));
+    }
+
+    // Load activities from localStorage on page load
+    function loadActivityFeed() {
+      const activities = JSON.parse(localStorage.getItem('steam_activities') || '[]');
+      const feed = document.getElementById('activityFeed');
+
+      if (!feed) return;
+
+      // Clear existing content
+      feed.innerHTML = '';
+
+      if (activities.length === 0) {
+        feed.innerHTML = `
+          <div class="text-gray-500 dark:text-gray-400 text-sm text-center py-4">
+            Start experimenting to see your activity!
+          </div>
+        `;
+        return;
+      }
+
+      // Show last 8 activities
+      activities.slice(0, 8).forEach(activity => {
+        const activityEl = document.createElement('div');
+        activityEl.className = 'flex items-center space-x-3 p-3 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl border border-blue-200/50 dark:border-blue-700/50 transform hover:scale-105 transition-all';
+
+        const getActivityIcon = (msg) => {
+          if (msg.includes('🧪') || msg.includes('experiment')) return 'fa-flask';
+          if (msg.includes('📝') || msg.includes('note')) return 'fa-sticky-note';
+          if (msg.includes('📋') || msg.includes('assignment')) return 'fa-tasks';
+          if (msg.includes('🧮') || msg.includes('calculator')) return 'fa-calculator';
+          if (msg.includes('📅') || msg.includes('calendar')) return 'fa-calendar';
+          if (msg.includes('📊') || msg.includes('data')) return 'fa-chart-bar';
+          if (msg.includes('📚') || msg.includes('resource')) return 'fa-book';
+          if (msg.includes('🤖') || msg.includes('AI')) return 'fa-robot';
+          if (msg.includes('📖') || msg.includes('Viewed')) return 'fa-eye';
+          return 'fa-star';
+        };
+
+        activityEl.innerHTML = `
+          <div class="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
+            <i class="fas ${getActivityIcon(activity.message)} text-white text-xs"></i>
+          </div>
+          <div class="flex-1">
+            <p class="font-medium text-sm">${activity.message}</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">${new Date(activity.timestamp).toLocaleTimeString()}</p>
+          </div>
+        `;
+
+        feed.appendChild(activityEl);
+      });
     }
 
     // ====================================
@@ -1864,13 +2160,97 @@
     // ====================================
 
     function quickLaunchLab(category) {
-      const lab = labs.find(l => l.category === category || l.subject.toLowerCase().includes(category));
-      if (lab) {
-        openLab(lab.id);
-      } else {
-        showSection('labs');
-        filterLabs(category);
+      // Add visual feedback to the clicked button
+      const clickedButton = event.target.closest('.quick-action-btn');
+      if (clickedButton) {
+        const originalContent = clickedButton.innerHTML;
+        clickedButton.innerHTML = '<div class="loading-spinner mx-auto mb-2"></div><p class="text-sm font-bold">Loading...</p>';
+        clickedButton.disabled = true;
+
+        setTimeout(() => {
+          clickedButton.innerHTML = originalContent;
+          clickedButton.disabled = false;
+        }, 1500);
       }
+
+      // Navigate to experiments section
+      showSection('labs');
+
+      // Show notification about the selected category
+      const categoryNames = {
+        'chemistry': 'Chemistry Lab',
+        'physics': 'Physics Simulations',
+        'math': 'Math Tools',
+        'ai': 'AI Helper'
+      };
+
+      const categoryName = categoryNames[category] || category;
+      showNotification(`🚀 Launching ${categoryName}!`, 'success');
+
+      // Scroll to top of experiments section
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 300);
+
+      // Highlight relevant PhET simulations based on category
+      setTimeout(() => {
+        highlightRelevantSimulations(category);
+      }, 500);
+    }
+
+    // Function to highlight relevant simulations
+    function highlightRelevantSimulations(category) {
+      // Remove any existing highlights
+      document.querySelectorAll('.simulation-highlight').forEach(el => {
+        el.classList.remove('simulation-highlight');
+      });
+
+      // Add highlight class based on category
+      const simulationMap = {
+        'chemistry': ['States of Matter'],
+        'physics': ['Circuit Construction Kit', 'Forces & Motion', 'Energy Skate Park', 'Projectile Motion', 'Wave on a String'],
+        'math': ['Projectile Motion'] // Math-related physics
+      };
+
+      const relevantSims = simulationMap[category] || [];
+      relevantSims.forEach(simName => {
+        const simElements = document.querySelectorAll(`h2:contains("${simName}")`);
+        simElements.forEach(el => {
+          const card = el.closest('.bg-white');
+          if (card) {
+            card.classList.add('simulation-highlight');
+            card.style.boxShadow = '0 0 20px rgba(93, 92, 222, 0.5)';
+            card.style.border = '2px solid #5D5CDE';
+          }
+        });
+      });
+    }
+
+    // Quick launch calculator function
+    function quickLaunchCalculator() {
+      // Add visual feedback to the clicked button
+      const clickedButton = event.target.closest('.quick-action-btn');
+      if (clickedButton) {
+        const originalContent = clickedButton.innerHTML;
+        clickedButton.innerHTML = '<div class="loading-spinner mx-auto mb-2"></div><p class="text-sm font-bold">Loading...</p>';
+        clickedButton.disabled = true;
+
+        setTimeout(() => {
+          clickedButton.innerHTML = originalContent;
+          clickedButton.disabled = false;
+        }, 1500);
+      }
+
+      // Navigate to calculator section
+      showSection('calculator');
+
+      // Show notification
+      showNotification('🧮 Calculator launched!', 'success');
+
+      // Scroll to top
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 300);
     }
 
     function openZapierEmbed() {
@@ -3134,8 +3514,20 @@
     // ====================================
 
     function openAI() {
-      document.getElementById('aiModal').classList.remove('hidden');
-      document.getElementById('aiInput').focus();
+      const aiModal = document.getElementById('aiModal');
+      if (aiModal) {
+        aiModal.classList.remove('hidden');
+        showNotification('🤖 AI Tutor activated!', 'success');
+
+        // Focus on AI input if it exists
+        const aiInput = document.getElementById('aiInput');
+        if (aiInput) {
+          setTimeout(() => aiInput.focus(), 100);
+        }
+      } else {
+        // Fallback: show notification and navigate to a relevant section
+        showNotification('🤖 AI Tutor coming soon!', 'info');
+      }
     }
 
     function closeAI() {
@@ -4891,9 +5283,56 @@
     }
 
     function toggleTheme() {
-      document.documentElement.classList.toggle('dark');
-      addActivityFeed('🌓 Switched theme mode');
-      showToast('🌓 Theme switched!', 'success');
+      const html = document.documentElement;
+      const isDark = html.classList.contains('dark');
+
+      if (isDark) {
+        // Switch to light mode
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        addActivityFeed('☀️ Switched to light mode');
+        showNotification('☀️ Light mode activated!', 'success');
+      } else {
+        // Switch to dark mode
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        addActivityFeed('🌙 Switched to dark mode');
+        showNotification('🌙 Dark mode activated!', 'success');
+      }
+
+      // Update button icons
+      updateThemeButton();
+    }
+
+    // Initialize theme on page load
+    function initializeTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+
+      updateThemeButton();
+    }
+
+    // Update theme button icons
+    function updateThemeButton() {
+      const isDark = document.documentElement.classList.contains('dark');
+      const moonIcon = document.querySelector('.fas.fa-moon');
+      const sunIcon = document.querySelector('.fas.fa-sun');
+
+      if (moonIcon && sunIcon) {
+        if (isDark) {
+          moonIcon.classList.add('hidden');
+          sunIcon.classList.remove('hidden');
+        } else {
+          moonIcon.classList.remove('hidden');
+          sunIcon.classList.add('hidden');
+        }
+      }
     }
 
     function showCustomModal(title, content) {
@@ -5409,6 +5848,298 @@
     });
 
     window.onload = refreshDashboard;
+  </script>
+
+  <!-- Enhanced JavaScript Functionality -->
+  <script>
+    // Mobile menu functionality
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const mobileMenuPanel = document.getElementById('mobileMenuPanel');
+
+      if (mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.remove('hidden');
+        setTimeout(() => {
+          mobileMenuPanel.classList.remove('translate-x-full');
+        }, 10);
+      } else {
+        mobileMenuPanel.classList.add('translate-x-full');
+        setTimeout(() => {
+          mobileMenu.classList.add('hidden');
+        }, 300);
+      }
+    }
+
+    // Fast Loading screen
+    window.addEventListener('load', function () {
+      fastLoadingSequence();
+    });
+
+    function fastLoadingSequence() {
+      const progressBar = document.getElementById('loadingProgress');
+      const percentage = document.getElementById('loadingPercentage');
+      const loadingStep = document.getElementById('loadingStep');
+
+      if (!progressBar || !percentage || !loadingStep) return;
+
+      // Quick progress animation
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 25;
+        progressBar.style.width = progress + '%';
+        percentage.textContent = progress + '%';
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          loadingStep.textContent = 'Ready!';
+
+          // Quick fade out
+          setTimeout(() => {
+            const loadingScreen = document.getElementById('loadingScreen');
+            if (loadingScreen) {
+              loadingScreen.style.opacity = '0';
+              loadingScreen.style.transition = 'opacity 0.3s ease-out';
+              setTimeout(() => {
+                loadingScreen.style.display = 'none';
+              }, 300);
+            }
+          }, 200);
+        }
+      }, 100); // Much faster intervals
+    }
+
+    // Enhanced section switching with animations
+    function showSection(sectionId) {
+      // Hide all sections with fade out
+      document.querySelectorAll('.section-content').forEach(section => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(10px)';
+        setTimeout(() => {
+          section.classList.add('hidden');
+        }, 200);
+      });
+
+      // Update navigation buttons
+      document.querySelectorAll('.nav-btn, .mobile-nav-btn').forEach(btn => {
+        btn.classList.remove('bg-primary', 'text-white');
+        btn.classList.add('text-gray-600', 'dark:text-gray-400');
+        if (btn.classList.contains('mobile-nav-btn')) {
+          btn.classList.remove('bg-primary', 'text-white');
+          btn.classList.add('bg-white/50', 'dark:bg-gray-700/50', 'text-gray-700', 'dark:text-gray-300');
+        }
+      });
+
+      // Activate current section button
+      document.querySelectorAll(`[data-section="${sectionId}"]`).forEach(btn => {
+        btn.classList.add('bg-primary', 'text-white');
+        btn.classList.remove('text-gray-600', 'dark:text-gray-400');
+        if (btn.classList.contains('mobile-nav-btn')) {
+          btn.classList.remove('bg-white/50', 'dark:bg-gray-700/50', 'text-gray-700', 'dark:text-gray-300');
+        }
+      });
+
+      // Show target section with fade in
+      setTimeout(() => {
+        const targetSection = document.getElementById(sectionId);
+        if (targetSection) {
+          targetSection.classList.remove('hidden');
+          setTimeout(() => {
+            targetSection.style.opacity = '1';
+            targetSection.style.transform = 'translateY(0)';
+            targetSection.style.transition = 'all 0.3s ease-out';
+          }, 10);
+
+          // Section-specific initialization
+          switch (sectionId) {
+            case 'calendar':
+              if (typeof generateCalendar === 'function') generateCalendar();
+              break;
+            case 'assignments':
+              if (typeof updateAssignmentCounts === 'function') updateAssignmentCounts();
+              break;
+            case 'gradebook':
+              if (typeof populateGradesTable === 'function') populateGradesTable();
+              break;
+            case 'data':
+              if (typeof initializeDataCharts === 'function') initializeDataCharts();
+              break;
+            case 'labs':
+              if (typeof populateLabs === 'function') populateLabs();
+              break;
+          }
+
+          // Add activity
+          if (typeof addActivityFeed === 'function') {
+            addActivityFeed(`📖 Viewed ${sectionId} section`);
+          }
+        }
+      }, 200);
+    }
+
+    // Notification system
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.className = `fixed top-20 right-4 z-50 p-4 rounded-lg shadow-lg backdrop-blur-sm transform translate-x-full transition-all duration-300 ${type === 'success' ? 'bg-green-500/90 text-white' :
+        type === 'error' ? 'bg-red-500/90 text-white' :
+          type === 'warning' ? 'bg-yellow-500/90 text-white' :
+            'bg-blue-500/90 text-white'
+        }`;
+
+      notification.innerHTML = `
+        <div class="flex items-center space-x-2">
+          <i class="fas ${type === 'success' ? 'fa-check-circle' :
+          type === 'error' ? 'fa-exclamation-circle' :
+            type === 'warning' ? 'fa-exclamation-triangle' :
+              'fa-info-circle'
+        }"></i>
+          <span>${message}</span>
+        </div>
+      `;
+
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.classList.remove('translate-x-full');
+      }, 100);
+
+      setTimeout(() => {
+        notification.classList.add('translate-x-full');
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
+    }
+
+    // Enhanced save progress with feedback
+    function saveProgress() {
+      const saveBtn = document.querySelector('[onclick="saveProgress()"]');
+      const originalText = saveBtn.innerHTML;
+
+      saveBtn.innerHTML = '<div class="loading-spinner inline-block mr-2"></div>Saving...';
+      saveBtn.disabled = true;
+
+      // Simulate save operation
+      setTimeout(() => {
+        saveBtn.innerHTML = '<i class="fas fa-check mr-1"></i>Saved!';
+        showNotification('Progress saved successfully!', 'success');
+
+        setTimeout(() => {
+          saveBtn.innerHTML = originalText;
+          saveBtn.disabled = false;
+        }, 1500);
+      }, 1000);
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function (e) {
+      if (e.ctrlKey || e.metaKey) {
+        switch (e.key) {
+          case '1':
+            e.preventDefault();
+            showSection('dashboard');
+            break;
+          case '2':
+            e.preventDefault();
+            showSection('labs');
+            break;
+          case '3':
+            e.preventDefault();
+            showSection('assignments');
+            break;
+          case 's':
+            e.preventDefault();
+            saveProgress();
+            break;
+          case 't':
+          case 'T':
+            e.preventDefault();
+            toggleTheme();
+            break;
+        }
+      }
+
+      if (e.key === 'Escape') {
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (!mobileMenu.classList.contains('hidden')) {
+          toggleMobileMenu();
+        }
+      }
+    });
+
+    // Initialize tooltips for keyboard shortcuts
+    function initializeTooltips() {
+      const shortcuts = [
+        { selector: '[data-section="dashboard"]', text: 'Ctrl+1' },
+        { selector: '[data-section="labs"]', text: 'Ctrl+2' },
+        { selector: '[data-section="assignments"]', text: 'Ctrl+3' },
+        { selector: '[onclick="saveProgress()"]', text: 'Ctrl+S' },
+        { selector: '#themeToggle', text: 'Ctrl+T' }
+      ];
+
+      shortcuts.forEach(shortcut => {
+        const elements = document.querySelectorAll(shortcut.selector);
+        elements.forEach(el => {
+          el.title = `${el.textContent.trim()} (${shortcut.text})`;
+        });
+      });
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function () {
+      // Initialize theme first (before other UI elements)
+      initializeTheme();
+
+      initializeTooltips();
+
+      // Load activity feed from storage
+      loadActivityFeed();
+
+      // Initialize with dashboard section
+      setTimeout(() => {
+        showSection('dashboard');
+      }, 100);
+
+      // Welcome notification and activity
+      setTimeout(() => {
+        showNotification('Welcome to STEAM Lab Pro! 🚀', 'success');
+        addActivityFeed('🚀 Logged into STEAM Lab Pro');
+      }, 2000);
+
+      // Add some sample activities if none exist
+      setTimeout(() => {
+        const activities = JSON.parse(localStorage.getItem('steam_activities') || '[]');
+        if (activities.length === 0) {
+          addSampleActivities();
+        }
+      }, 3000);
+    });
+
+    // Add sample activities for new users
+    function addSampleActivities() {
+      const sampleActivities = [
+        '🎓 Welcome to STEAM Lab Pro!',
+        '📚 Explore the Resources section for learning materials',
+        '🧪 Try the PhET simulations in Experiments',
+        '🧮 Use the Calculator for math problems',
+        '📝 Create notes to track your learning'
+      ];
+
+      sampleActivities.forEach((activity, index) => {
+        setTimeout(() => {
+          addActivityFeed(activity);
+        }, index * 500);
+      });
+    }
+
+    // Performance monitoring
+    function logPerformance() {
+      if ('performance' in window) {
+        const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+        console.log(`Page loaded in ${loadTime}ms`);
+      }
+    }
+
+    window.addEventListener('load', logPerformance);
   </script>
 
 </body>
