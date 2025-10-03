@@ -1622,8 +1622,8 @@
       initializeProgressChart();
       generateCalendar();
 
-      // Update date/time every minute
-      setInterval(updateDateTime, 60000);
+      // Update date every 5 minutes (less frequent since we only show month/day)
+      setInterval(updateDateTime, 300000);
 
       // Auto-save every 5 minutes
       setInterval(saveProgress, 300000);
@@ -1647,15 +1647,22 @@
 
     function updateDateTime() {
       const now = new Date();
+      const dateElement = document.getElementById('currentDateTime');
+
+      if (!dateElement) return;
+
+      // Simple month and day format
       const options = {
-        weekday: 'short',
-        year: 'numeric',
         month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
+        day: 'numeric'
       };
-      document.getElementById('currentDateTime').textContent = now.toLocaleDateString('en-US', options);
+
+      const dateString = now.toLocaleDateString('en-US', options);
+
+      // Only update if the date has actually changed to prevent glitching
+      if (dateElement.textContent !== dateString) {
+        dateElement.textContent = dateString;
+      }
     }
 
     function checkDailyStreak() {
