@@ -792,996 +792,1131 @@
       </div>
     </section>
 
-    <!-- NOTEBOOKLM SECTION -->
+    <!-- NOTES SECTION -->
     <section id="notes" class="section-content hidden">
       <!-- Header -->
       <div class="mb-8">
         <div class="flex justify-between items-center mb-6">
           <div>
             <h2
-              class="text-4xl font-bold mb-2 bg-gradient-to-r from-purple-600 via-blue-600 to-green-600 bg-clip-text text-transparent">
-              🧠 NotebookLM Pro
+              class="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              📝 Smart Notes with AI
             </h2>
-            <p class="text-gray-600 dark:text-gray-400 text-lg">AI-Powered Research & Learning Assistant</p>
-            <div id="apiStatus" class="mt-2 text-sm">
-              <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">
-                <i class="fas fa-check-circle mr-1"></i>
-                🤖 AI Enabled - GPT-3.5-turbo Active
-              </span>
-              <button onclick="showApiConfig()" class="ml-2 text-blue-600 hover:text-blue-800 text-xs underline">
-                Manage API
-              </button>
-            </div>
+            <p class="text-gray-600 dark:text-gray-400 text-lg">Intelligent note-taking with AI assistance and web
+              research</p>
           </div>
           <div class="flex items-center space-x-3">
-            <button onclick="showNotebookView('sources')"
-              class="notebook-nav-btn bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-lg font-medium transition-all hover:scale-105 shadow-lg"
-              data-view="sources">
-              <i class="fas fa-upload mr-2"></i>Sources
+            <button onclick="createNewNote()"
+              class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg font-medium transition-all hover:scale-105 shadow-lg">
+              <i class="fas fa-plus mr-2"></i>New Note
             </button>
-            <button onclick="showNotebookView('chat')"
-              class="notebook-nav-btn bg-white/80 dark:bg-gray-700/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg font-medium transition-all hover:scale-105 shadow-lg"
-              data-view="chat">
-              <i class="fas fa-comments mr-2"></i>Chat
+            <button onclick="askAI()"
+              class="bg-gradient-to-r from-green-600 to-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-all hover:scale-105 shadow-lg">
+              <i class="fas fa-robot mr-2"></i>Ask AI
             </button>
-            <button onclick="showNotebookView('notes')"
-              class="notebook-nav-btn bg-white/80 dark:bg-gray-700/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg font-medium transition-all hover:scale-105 shadow-lg"
-              data-view="notes">
-              <i class="fas fa-sticky-note mr-2"></i>Notes
-            </button>
-            <button onclick="showNotebookView('audio')"
-              class="notebook-nav-btn bg-white/80 dark:bg-gray-700/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg font-medium transition-all hover:scale-105 shadow-lg"
-              data-view="audio">
-              <i class="fas fa-podcast mr-2"></i>Audio
+            <button onclick="toggleWebView()"
+              class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-lg font-medium transition-all hover:scale-105 shadow-lg">
+              <i class="fas fa-globe mr-2"></i>Web Research
             </button>
           </div>
         </div>
       </div>
 
-      <!-- Sources View -->
-      <div id="notebookSources" class="notebook-view">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <!-- Upload Area -->
-          <div class="lg:col-span-2">
-            <div
-              class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl border border-white/20 mb-6">
-              <h3 class="text-2xl font-bold mb-6 flex items-center">
-                <span
-                  class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mr-3">
-                  <i class="fas fa-cloud-upload-alt text-white"></i>
-                </span>
-                📚 Upload Your Sources
+      <!-- Main Note-Taking Interface -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[700px]">
+
+        <!-- Note Editor -->
+        <div
+          class="lg:col-span-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 flex flex-col">
+          <!-- Editor Header -->
+          <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-bold flex items-center">
+                <i class="fas fa-edit text-blue-600 mr-2"></i>
+                Note Editor
               </h3>
-
-              <div
-                class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-2xl p-8 text-center hover:border-blue-500 transition-all cursor-pointer"
-                onclick="document.getElementById('fileUpload').click()" ondrop="handleFileDrop(event)"
-                ondragover="handleDragOver(event)">
-                <div class="mb-4">
-                  <i class="fas fa-file-upload text-4xl text-gray-400 mb-4"></i>
-                  <p class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">Drop files here or click to
-                    upload</p>
-                  <p class="text-sm text-gray-500">Supports PDF, DOC, TXT, MD, and more</p>
-                </div>
-                <input type="file" id="fileUpload" multiple accept=".pdf,.doc,.docx,.txt,.md,.rtf" class="hidden"
-                  onchange="handleFileUpload(event)">
+              <div class="flex space-x-2">
+                <button onclick="saveNote()"
+                  class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-all">
+                  <i class="fas fa-save mr-1"></i>Save
+                </button>
+                <button onclick="exportNote()"
+                  class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-all">
+                  <i class="fas fa-download mr-1"></i>Export
+                </button>
               </div>
+            </div>
+            <input type="text" id="noteTitle" placeholder="Enter note title..."
+              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white/50 dark:bg-gray-700/50 text-lg font-semibold">
+          </div>
 
-              <!-- URL Input -->
-              <div class="mt-6">
-                <div class="flex space-x-3">
-                  <input type="url" id="urlInput" placeholder="Paste a URL to add web content..."
-                    class="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white/50 dark:bg-gray-700/50 text-base backdrop-blur-sm">
-                  <button onclick="addUrlSource()"
-                    class="bg-gradient-to-r from-green-500 to-blue-600 text-white px-6 py-3 rounded-xl font-medium transition-all hover:scale-105 shadow-lg">
-                    <i class="fas fa-plus mr-2"></i>Add URL
-                  </button>
-                </div>
+          <!-- Editor Content -->
+          <div class="flex-1 p-6">
+            <textarea id="noteContent" placeholder="Start writing your notes here...
+
+💡 Tips:
+• Use #hashtags for organization
+• Ask AI for help with research
+• Use the web iframe for reference
+
+Start typing to begin!"
+              class="w-full h-full resize-none border-none outline-none bg-transparent text-base leading-relaxed"
+              oninput="updateWordCount()"></textarea>
+          </div>
+
+          <!-- Editor Footer -->
+          <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+            <div class="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400">
+              <div class="flex space-x-4">
+                <span id="wordCount">0 words</span>
+                <span id="charCount">0 characters</span>
+                <span id="lastSaved" class="text-green-600"></span>
               </div>
+              <div class="flex space-x-2">
+                <button onclick="insertTemplate('outline')" class="hover:text-blue-600 transition-colors">📋
+                  Outline</button>
+                <button onclick="insertTemplate('summary')" class="hover:text-green-600 transition-colors">📄
+                  Summary</button>
+                <button onclick="insertTemplate('research')" class="hover:text-purple-600 transition-colors">🔍
+                  Research</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
-              <!-- Quick Add Buttons -->
-              <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
-                <button onclick="addSampleSource('textbook')"
-                  class="p-4 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-xl hover:from-blue-500 hover:to-blue-700 transition-all hover:scale-105 shadow-lg">
-                  <i class="fas fa-book text-xl mb-2"></i>
-                  <p class="text-sm font-bold">Sample Textbook</p>
+        <!-- Sidebar -->
+        <div class="lg:col-span-1 space-y-4">
+
+          <!-- AI Assistant -->
+          <div
+            class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+            <h4 class="font-bold mb-3 flex items-center">
+              <i class="fas fa-robot text-green-600 mr-2"></i>
+              AI Assistant
+            </h4>
+            <div class="space-y-3">
+              <input type="text" id="aiQuestion" placeholder="Ask AI anything..."
+                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 text-sm"
+                onkeypress="handleAIKeyPress(event)">
+              <button onclick="askAI()"
+                class="w-full bg-gradient-to-r from-green-600 to-blue-600 text-white py-2 rounded-lg text-sm font-medium hover:scale-105 transition-all">
+                <i class="fas fa-paper-plane mr-1"></i>Ask AI
+              </button>
+              <div id="aiResponse" class="bg-blue-50 dark:bg-blue-900/30 p-3 rounded-lg text-sm hidden">
+                <p class="text-blue-800 dark:text-blue-200">AI response will appear here...</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Web Research -->
+          <div
+            class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+            <h4 class="font-bold mb-3 flex items-center">
+              <i class="fas fa-globe text-purple-600 mr-2"></i>
+              Web Research
+            </h4>
+            <div class="space-y-3">
+              <input type="url" id="webUrl" placeholder="Enter URL for research..."
+                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 text-sm">
+              <div class="flex space-x-2">
+                <button onclick="loadWebsite()"
+                  class="flex-1 bg-purple-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-purple-700 transition-all">
+                  <i class="fas fa-external-link-alt mr-1"></i>Load
                 </button>
-                <button onclick="addSampleSource('research')"
-                  class="p-4 bg-gradient-to-r from-purple-400 to-purple-600 text-white rounded-xl hover:from-purple-500 hover:to-purple-700 transition-all hover:scale-105 shadow-lg">
-                  <i class="fas fa-microscope text-xl mb-2"></i>
-                  <p class="text-sm font-bold">Research Paper</p>
-                </button>
-                <button onclick="addSampleSource('lecture')"
-                  class="p-4 bg-gradient-to-r from-green-400 to-green-600 text-white rounded-xl hover:from-green-500 hover:to-green-700 transition-all hover:scale-105 shadow-lg">
-                  <i class="fas fa-chalkboard-teacher text-xl mb-2"></i>
-                  <p class="text-sm font-bold">Lecture Notes</p>
-                </button>
-                <button onclick="addSampleSource('wikipedia')"
-                  class="p-4 bg-gradient-to-r from-orange-400 to-orange-600 text-white rounded-xl hover:from-orange-500 hover:to-orange-700 transition-all hover:scale-105 shadow-lg">
-                  <i class="fab fa-wikipedia-w text-xl mb-2"></i>
-                  <p class="text-sm font-bold">Wikipedia</p>
+                <button onclick="toggleWebView()"
+                  class="flex-1 bg-gray-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-gray-700 transition-all">
+                  <i class="fas fa-eye mr-1"></i>Toggle
                 </button>
               </div>
             </div>
           </div>
 
-          <!-- Sources List -->
-          <div class="lg:col-span-1">
-            <div
-              class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 sticky top-24">
-              <h4 class="text-xl font-bold mb-4 flex items-center">
-                <i class="fas fa-layer-group text-blue-600 mr-2"></i>
-                Your Sources
-              </h4>
-              <div id="sourcesList" class="space-y-3 max-h-96 overflow-y-auto">
-                <div class="text-center py-8 text-gray-500">
-                  <i class="fas fa-inbox text-3xl mb-3"></i>
-                  <p>No sources added yet</p>
-                  <p class="text-sm">Upload files to get started</p>
-                </div>
+          <!-- My Notes List -->
+          <div
+            class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+            <h4 class="font-bold mb-3 flex items-center">
+              <i class="fas fa-folder text-blue-600 mr-2"></i>
+              My Notes
+            </h4>
+            <div id="notesList" class="space-y-2 max-h-48 overflow-y-auto">
+              <div class="text-center py-4 text-gray-500">
+                <i class="fas fa-sticky-note text-2xl mb-2"></i>
+                <p class="text-sm">No notes yet</p>
               </div>
-              <button onclick="analyzeAllSources()" id="analyzeBtn"
-                class="w-full mt-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-xl font-bold transition-all hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled>
-                <i class="fas fa-brain mr-2"></i>Analyze Sources
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div
+            class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+            <h4 class="font-bold mb-3 flex items-center">
+              <i class="fas fa-magic text-orange-600 mr-2"></i>
+              Quick Actions
+            </h4>
+            <div class="space-y-2">
+              <button onclick="summarizeNote()"
+                class="w-full text-left p-2 text-sm bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-all">
+                📄 Summarize Note
+              </button>
+              <button onclick="improveWriting()"
+                class="w-full text-left p-2 text-sm bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/50 transition-all">
+                ✏️ Improve Writing
+              </button>
+              <button onclick="generateIdeas()"
+                class="w-full text-left p-2 text-sm bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/50 transition-all">
+                💡 Generate Ideas
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Chat View -->
-      <div id="notebookChat" class="notebook-view hidden">
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 h-[600px]">
-          <!-- Chat Area -->
+      <!-- Web Research Iframe (Hidden by default) -->
+      <div id="webFrame"
+        class="mt-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 hidden">
+        <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+          <h4 class="font-bold flex items-center">
+            <i class="fas fa-globe text-purple-600 mr-2"></i>
+            Web Research
+          </h4>
+          <button onclick="toggleWebView()" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="p-4">
+          <iframe id="researchFrame" src=""
+            class="w-full h-96 rounded-lg border border-gray-300 dark:border-gray-600"></iframe>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2">
+        <div
+          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl border border-white/20 mb-6">
+          <h3 class="text-2xl font-bold mb-6 flex items-center">
+            <span
+              class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mr-3">
+              <i class="fas fa-cloud-upload-alt text-white"></i>
+            </span>
+            📚 Upload Your Sources
+          </h3>
+
           <div
-            class="lg:col-span-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 flex flex-col">
-            <!-- Chat Header -->
-            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
-              <h3 class="text-xl font-bold flex items-center">
-                <span
-                  class="w-8 h-8 bg-gradient-to-r from-green-500 to-blue-600 rounded-lg flex items-center justify-center mr-3">
-                  <i class="fas fa-robot text-white text-sm"></i>
-                </span>
-                💬 AI Research Assistant
-              </h3>
-              <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Ask questions about your uploaded sources</p>
+            class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-2xl p-8 text-center hover:border-blue-500 transition-all cursor-pointer"
+            onclick="document.getElementById('fileUpload').click()" ondrop="handleFileDrop(event)"
+            ondragover="handleDragOver(event)">
+            <div class="mb-4">
+              <i class="fas fa-file-upload text-4xl text-gray-400 mb-4"></i>
+              <p class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">Drop files here or click to
+                upload</p>
+              <p class="text-sm text-gray-500">Supports PDF, DOC, TXT, MD, and more</p>
             </div>
+            <input type="file" id="fileUpload" multiple accept=".pdf,.doc,.docx,.txt,.md,.rtf" class="hidden"
+              onchange="handleFileUpload(event)">
+          </div>
 
-            <!-- Messages -->
-            <div id="chatMessages" class="flex-1 p-6 overflow-y-auto space-y-4">
-              <div class="flex items-start space-x-3">
-                <div
-                  class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                  <i class="fas fa-robot text-white text-xs"></i>
-                </div>
-                <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-2xl rounded-tl-sm max-w-md">
-                  <p class="text-sm">Hello! I'm your AI research assistant. Upload some sources and I'll help you
-                    analyze them, answer questions, and generate insights. What would you like to explore today?</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Chat Input -->
-            <div class="p-6 border-t border-gray-200 dark:border-gray-700">
-              <div class="flex space-x-3">
-                <input type="text" id="chatInput" placeholder="Ask a question about your sources..."
-                  class="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white/50 dark:bg-gray-700/50 text-base backdrop-blur-sm"
-                  onkeypress="handleChatKeyPress(event)">
-                <button onclick="sendChatMessage()"
-                  class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-medium transition-all hover:scale-105 shadow-lg">
-                  <i class="fas fa-paper-plane"></i>
-                </button>
-              </div>
-
-              <!-- Suggested Questions -->
-              <div class="mt-4 flex flex-wrap gap-2" id="suggestedQuestions">
-                <button onclick="askSuggestedQuestion('What are the main themes in my sources?')"
-                  class="text-xs px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-all">
-                  What are the main themes?
-                </button>
-                <button onclick="askSuggestedQuestion('Summarize the key findings')"
-                  class="text-xs px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-all">
-                  Summarize key findings
-                </button>
-                <button onclick="askSuggestedQuestion('Find contradictions or debates')"
-                  class="text-xs px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-all">
-                  Find contradictions
-                </button>
-              </div>
+          <!-- URL Input -->
+          <div class="mt-6">
+            <div class="flex space-x-3">
+              <input type="url" id="urlInput" placeholder="Paste a URL to add web content..."
+                class="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white/50 dark:bg-gray-700/50 text-base backdrop-blur-sm">
+              <button onclick="addUrlSource()"
+                class="bg-gradient-to-r from-green-500 to-blue-600 text-white px-6 py-3 rounded-xl font-medium transition-all hover:scale-105 shadow-lg">
+                <i class="fas fa-plus mr-2"></i>Add URL
+              </button>
             </div>
           </div>
 
-          <!-- Chat Sidebar -->
-          <div class="lg:col-span-1 space-y-4">
-            <!-- Source Context -->
-            <div
-              class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
-              <h4 class="font-bold mb-3 flex items-center">
-                <i class="fas fa-link text-blue-600 mr-2"></i>
-                Active Sources
-              </h4>
-              <div id="activeSources" class="space-y-2 text-sm">
-                <p class="text-gray-500">No sources selected</p>
-              </div>
-            </div>
-
-            <!-- Quick Actions -->
-            <div
-              class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
-              <h4 class="font-bold mb-3 flex items-center">
-                <i class="fas fa-magic text-purple-600 mr-2"></i>
-                Quick Actions
-              </h4>
-              <div class="space-y-2">
-                <button onclick="generateSummary()"
-                  class="w-full text-left p-2 text-sm bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-all">
-                  📄 Generate Summary
-                </button>
-                <button onclick="createStudyGuide()"
-                  class="w-full text-left p-2 text-sm bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/50 transition-all">
-                  📚 Create Study Guide
-                </button>
-                <button onclick="generateQuiz()"
-                  class="w-full text-left p-2 text-sm bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/50 transition-all">
-                  🧠 Generate Quiz
-                </button>
-                <button onclick="findConnections()"
-                  class="w-full text-left p-2 text-sm bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-lg hover:bg-orange-100 dark:hover:bg-orange-900/50 transition-all">
-                  🔗 Find Connections
-                </button>
-              </div>
-            </div>
+          <!-- Quick Add Buttons -->
+          <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
+            <button onclick="addSampleSource('textbook')"
+              class="p-4 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-xl hover:from-blue-500 hover:to-blue-700 transition-all hover:scale-105 shadow-lg">
+              <i class="fas fa-book text-xl mb-2"></i>
+              <p class="text-sm font-bold">Sample Textbook</p>
+            </button>
+            <button onclick="addSampleSource('research')"
+              class="p-4 bg-gradient-to-r from-purple-400 to-purple-600 text-white rounded-xl hover:from-purple-500 hover:to-purple-700 transition-all hover:scale-105 shadow-lg">
+              <i class="fas fa-microscope text-xl mb-2"></i>
+              <p class="text-sm font-bold">Research Paper</p>
+            </button>
+            <button onclick="addSampleSource('lecture')"
+              class="p-4 bg-gradient-to-r from-green-400 to-green-600 text-white rounded-xl hover:from-green-500 hover:to-green-700 transition-all hover:scale-105 shadow-lg">
+              <i class="fas fa-chalkboard-teacher text-xl mb-2"></i>
+              <p class="text-sm font-bold">Lecture Notes</p>
+            </button>
+            <button onclick="addSampleSource('wikipedia')"
+              class="p-4 bg-gradient-to-r from-orange-400 to-orange-600 text-white rounded-xl hover:from-orange-500 hover:to-orange-700 transition-all hover:scale-105 shadow-lg">
+              <i class="fab fa-wikipedia-w text-xl mb-2"></i>
+              <p class="text-sm font-bold">Wikipedia</p>
+            </button>
           </div>
         </div>
       </div>
 
-      <!-- Notes View -->
-      <div id="notebookNotes" class="notebook-view hidden">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <!-- Notes Editor -->
-          <div class="lg:col-span-2">
-            <div
-              class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 h-[600px] flex flex-col">
-              <!-- Editor Header -->
-              <div class="p-6 border-b border-gray-200 dark:border-gray-700">
-                <div class="flex justify-between items-center">
-                  <h3 class="text-xl font-bold flex items-center">
-                    <span
-                      class="w-8 h-8 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-lg flex items-center justify-center mr-3">
-                      <i class="fas fa-edit text-white text-sm"></i>
-                    </span>
-                    ✏️ Smart Note Editor
-                  </h3>
-                  <div class="flex space-x-2">
-                    <button onclick="saveCurrentNote()"
-                      class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-all">
-                      <i class="fas fa-save mr-1"></i>Save
-                    </button>
-                    <button onclick="createNewNote()"
-                      class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-all">
-                      <i class="fas fa-plus mr-1"></i>New
-                    </button>
-                  </div>
-                </div>
-                <input type="text" id="noteTitle" placeholder="Note title..."
-                  class="w-full mt-3 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 text-lg font-semibold">
-              </div>
+      <!-- Sources List -->
+      <div class="lg:col-span-1">
+        <div
+          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 sticky top-24">
+          <h4 class="text-xl font-bold mb-4 flex items-center">
+            <i class="fas fa-layer-group text-blue-600 mr-2"></i>
+            Your Sources
+          </h4>
+          <div id="sourcesList" class="space-y-3 max-h-96 overflow-y-auto">
+            <div class="text-center py-8 text-gray-500">
+              <i class="fas fa-inbox text-3xl mb-3"></i>
+              <p>No sources added yet</p>
+              <p class="text-sm">Upload files to get started</p>
+            </div>
+          </div>
+          <button onclick="analyzeAllSources()" id="analyzeBtn"
+            class="w-full mt-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-xl font-bold transition-all hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled>
+            <i class="fas fa-brain mr-2"></i>Analyze Sources
+          </button>
+        </div>
+      </div>
+  </div>
+  </div>
 
-              <!-- Editor Content -->
-              <div class="flex-1 p-6">
-                <textarea id="noteContent" placeholder="Start writing your notes here... 
+  <!-- Chat View -->
+  <div id="notebookChat" class="notebook-view hidden">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 h-[600px]">
+      <!-- Chat Area -->
+      <div
+        class="lg:col-span-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 flex flex-col">
+        <!-- Chat Header -->
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+          <h3 class="text-xl font-bold flex items-center">
+            <span
+              class="w-8 h-8 bg-gradient-to-r from-green-500 to-blue-600 rounded-lg flex items-center justify-center mr-3">
+              <i class="fas fa-robot text-white text-sm"></i>
+            </span>
+            💬 AI Research Assistant
+          </h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Ask questions about your uploaded sources</p>
+        </div>
+
+        <!-- Messages -->
+        <div id="chatMessages" class="flex-1 p-6 overflow-y-auto space-y-4">
+          <div class="flex items-start space-x-3">
+            <div
+              class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+              <i class="fas fa-robot text-white text-xs"></i>
+            </div>
+            <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-2xl rounded-tl-sm max-w-md">
+              <p class="text-sm">Hello! I'm your AI research assistant. Upload some sources and I'll help you
+                analyze them, answer questions, and generate insights. What would you like to explore today?</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat Input -->
+        <div class="p-6 border-t border-gray-200 dark:border-gray-700">
+          <div class="flex space-x-3">
+            <input type="text" id="chatInput" placeholder="Ask a question about your sources..."
+              class="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white/50 dark:bg-gray-700/50 text-base backdrop-blur-sm"
+              onkeypress="handleChatKeyPress(event)">
+            <button onclick="sendChatMessage()"
+              class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-medium transition-all hover:scale-105 shadow-lg">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+
+          <!-- Suggested Questions -->
+          <div class="mt-4 flex flex-wrap gap-2" id="suggestedQuestions">
+            <button onclick="askSuggestedQuestion('What are the main themes in my sources?')"
+              class="text-xs px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-all">
+              What are the main themes?
+            </button>
+            <button onclick="askSuggestedQuestion('Summarize the key findings')"
+              class="text-xs px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-all">
+              Summarize key findings
+            </button>
+            <button onclick="askSuggestedQuestion('Find contradictions or debates')"
+              class="text-xs px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-all">
+              Find contradictions
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Sidebar -->
+      <div class="lg:col-span-1 space-y-4">
+        <!-- Source Context -->
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+          <h4 class="font-bold mb-3 flex items-center">
+            <i class="fas fa-link text-blue-600 mr-2"></i>
+            Active Sources
+          </h4>
+          <div id="activeSources" class="space-y-2 text-sm">
+            <p class="text-gray-500">No sources selected</p>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+          <h4 class="font-bold mb-3 flex items-center">
+            <i class="fas fa-magic text-purple-600 mr-2"></i>
+            Quick Actions
+          </h4>
+          <div class="space-y-2">
+            <button onclick="generateSummary()"
+              class="w-full text-left p-2 text-sm bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-all">
+              📄 Generate Summary
+            </button>
+            <button onclick="createStudyGuide()"
+              class="w-full text-left p-2 text-sm bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/50 transition-all">
+              📚 Create Study Guide
+            </button>
+            <button onclick="generateQuiz()"
+              class="w-full text-left p-2 text-sm bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/50 transition-all">
+              🧠 Generate Quiz
+            </button>
+            <button onclick="findConnections()"
+              class="w-full text-left p-2 text-sm bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-lg hover:bg-orange-100 dark:hover:bg-orange-900/50 transition-all">
+              🔗 Find Connections
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notes View -->
+  <div id="notebookNotes" class="notebook-view hidden">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Notes Editor -->
+      <div class="lg:col-span-2">
+        <div
+          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 h-[600px] flex flex-col">
+          <!-- Editor Header -->
+          <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+            <div class="flex justify-between items-center">
+              <h3 class="text-xl font-bold flex items-center">
+                <span
+                  class="w-8 h-8 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-lg flex items-center justify-center mr-3">
+                  <i class="fas fa-edit text-white text-sm"></i>
+                </span>
+                ✏️ Smart Note Editor
+              </h3>
+              <div class="flex space-x-2">
+                <button onclick="saveCurrentNote()"
+                  class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-all">
+                  <i class="fas fa-save mr-1"></i>Save
+                </button>
+                <button onclick="createNewNote()"
+                  class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-all">
+                  <i class="fas fa-plus mr-1"></i>New
+                </button>
+              </div>
+            </div>
+            <input type="text" id="noteTitle" placeholder="Note title..."
+              class="w-full mt-3 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 text-lg font-semibold">
+          </div>
+
+          <!-- Editor Content -->
+          <div class="flex-1 p-6">
+            <textarea id="noteContent" placeholder="Start writing your notes here... 
 
 💡 Pro tip: Reference your sources by typing @source-name
 🔗 Create connections with [[topic-name]]
 📝 Use #tags for organization"
-                  class="w-full h-full resize-none border-none outline-none bg-transparent text-base leading-relaxed"></textarea>
-              </div>
-
-              <!-- Editor Footer -->
-              <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
-                <div class="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400">
-                  <div class="flex space-x-4">
-                    <span id="wordCount">0 words</span>
-                    <span id="charCount">0 characters</span>
-                  </div>
-                  <div class="flex space-x-2">
-                    <button onclick="insertTemplate('outline')" class="hover:text-blue-600 transition-colors">📋
-                      Outline</button>
-                    <button onclick="insertTemplate('summary')" class="hover:text-green-600 transition-colors">📄
-                      Summary</button>
-                    <button onclick="insertTemplate('analysis')" class="hover:text-purple-600 transition-colors">🔍
-                      Analysis</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+              class="w-full h-full resize-none border-none outline-none bg-transparent text-base leading-relaxed"></textarea>
           </div>
 
-          <!-- Notes Sidebar -->
-          <div class="lg:col-span-1 space-y-4">
-            <!-- AI Suggestions -->
-            <div
-              class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
-              <h4 class="font-bold mb-3 flex items-center">
-                <i class="fas fa-lightbulb text-yellow-600 mr-2"></i>
-                AI Suggestions
-              </h4>
-              <div id="aiSuggestions" class="space-y-2 text-sm">
-                <div class="p-3 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg">
-                  <p class="text-yellow-800 dark:text-yellow-200">💡 Start writing to get AI-powered suggestions for
-                    improving your notes!</p>
-                </div>
+          <!-- Editor Footer -->
+          <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+            <div class="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400">
+              <div class="flex space-x-4">
+                <span id="wordCount">0 words</span>
+                <span id="charCount">0 characters</span>
               </div>
-            </div>
-
-            <!-- My Notes List -->
-            <div
-              class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
-              <h4 class="font-bold mb-3 flex items-center">
-                <i class="fas fa-folder text-blue-600 mr-2"></i>
-                My Notes
-              </h4>
-              <div id="notesList" class="space-y-2 max-h-64 overflow-y-auto">
-                <div class="text-center py-4 text-gray-500">
-                  <i class="fas fa-sticky-note text-2xl mb-2"></i>
-                  <p class="text-sm">No notes yet</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Tags & Categories -->
-            <div
-              class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
-              <h4 class="font-bold mb-3 flex items-center">
-                <i class="fas fa-tags text-green-600 mr-2"></i>
-                Tags & Topics
-              </h4>
-              <div id="noteTags" class="flex flex-wrap gap-1">
-                <span
-                  class="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full">#physics</span>
-                <span
-                  class="text-xs px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full">#quantum</span>
-                <span
-                  class="text-xs px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full">#research</span>
+              <div class="flex space-x-2">
+                <button onclick="insertTemplate('outline')" class="hover:text-blue-600 transition-colors">📋
+                  Outline</button>
+                <button onclick="insertTemplate('summary')" class="hover:text-green-600 transition-colors">📄
+                  Summary</button>
+                <button onclick="insertTemplate('analysis')" class="hover:text-purple-600 transition-colors">🔍
+                  Analysis</button>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Audio View -->
-      <div id="notebookAudio" class="notebook-view hidden">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <!-- Audio Generator -->
-          <div
-            class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl border border-white/20">
-            <h3 class="text-2xl font-bold mb-6 flex items-center">
-              <span
-                class="w-10 h-10 bg-gradient-to-r from-pink-500 to-red-600 rounded-xl flex items-center justify-center mr-3">
-                <i class="fas fa-microphone text-white"></i>
-              </span>
-              🎙️ AI Podcast Generator
-            </h3>
-
-            <div class="space-y-6">
-              <!-- Podcast Settings -->
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-sm font-bold mb-2">Podcast Style</label>
-                  <select id="podcastStyle"
-                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50">
-                    <option value="overview">Overview Discussion</option>
-                    <option value="deep-dive">Deep Dive Analysis</option>
-                    <option value="debate">Debate Format</option>
-                    <option value="interview">Interview Style</option>
-                    <option value="study-guide">Study Guide</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block text-sm font-bold mb-2">Duration</label>
-                  <select id="podcastDuration"
-                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50">
-                    <option value="5">5 minutes</option>
-                    <option value="10" selected>10 minutes</option>
-                    <option value="15">15 minutes</option>
-                    <option value="20">20 minutes</option>
-                  </select>
-                </div>
-              </div>
-
-              <!-- Focus Areas -->
-              <div>
-                <label class="block text-sm font-bold mb-2">Focus Areas (Optional)</label>
-                <textarea id="podcastFocus"
-                  placeholder="Specify particular topics or questions you want the podcast to focus on..."
-                  class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 h-20 resize-none"></textarea>
-              </div>
-
-              <!-- Generate Button -->
-              <button onclick="generatePodcast()" id="generatePodcastBtn"
-                class="w-full bg-gradient-to-r from-pink-600 to-red-600 text-white py-4 rounded-xl font-bold text-lg transition-all hover:scale-105 shadow-lg">
-                <i class="fas fa-magic mr-2"></i>Generate AI Podcast
-              </button>
-
-              <!-- Progress -->
-              <div id="podcastProgress" class="hidden">
-                <div class="bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                  <div id="podcastProgressBar"
-                    class="bg-gradient-to-r from-pink-600 to-red-600 h-2 rounded-full transition-all duration-300"
-                    style="width: 0%"></div>
-                </div>
-                <p id="podcastProgressText" class="text-sm text-gray-600 dark:text-gray-400 mt-2 text-center">Preparing
-                  podcast...</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Audio Player & Library -->
-          <div class="space-y-6">
-            <!-- Current Podcast -->
-            <div
-              class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-              <h4 class="text-xl font-bold mb-4 flex items-center">
-                <i class="fas fa-play-circle text-green-600 mr-2"></i>
-                Now Playing
-              </h4>
-
-              <div id="currentPodcast" class="text-center py-8 text-gray-500">
-                <i class="fas fa-podcast text-4xl mb-3"></i>
-                <p>No podcast generated yet</p>
-                <p class="text-sm">Generate your first AI podcast above!</p>
-              </div>
-
-              <!-- Audio Player (Hidden initially) -->
-              <div id="audioPlayer" class="hidden">
-                <div
-                  class="bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 p-4 rounded-2xl mb-4">
-                  <h5 id="podcastTitle" class="font-bold text-lg mb-2">Your AI Podcast</h5>
-                  <p id="podcastDescription" class="text-sm text-gray-600 dark:text-gray-400">AI-generated discussion
-                    based on your sources</p>
-                </div>
-
-                <audio id="audioElement" controls class="w-full mb-4">
-                  <source id="audioSource" src="" type="audio/mpeg">
-                  Your browser does not support the audio element.
-                </audio>
-
-                <div class="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400">
-                  <span id="currentTime">0:00</span>
-                  <div class="flex space-x-2">
-                    <button onclick="changePlaybackSpeed(0.75)" class="hover:text-blue-600">0.75x</button>
-                    <button onclick="changePlaybackSpeed(1)" class="hover:text-blue-600">1x</button>
-                    <button onclick="changePlaybackSpeed(1.25)" class="hover:text-blue-600">1.25x</button>
-                    <button onclick="changePlaybackSpeed(1.5)" class="hover:text-blue-600">1.5x</button>
-                  </div>
-                  <span id="totalTime">0:00</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Podcast Library -->
-            <div
-              class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-              <h4 class="text-xl font-bold mb-4 flex items-center">
-                <i class="fas fa-library text-blue-600 mr-2"></i>
-                Podcast Library
-              </h4>
-
-              <div id="podcastLibrary" class="space-y-3 max-h-64 overflow-y-auto">
-                <div class="text-center py-4 text-gray-500">
-                  <i class="fas fa-headphones text-2xl mb-2"></i>
-                  <p class="text-sm">Your generated podcasts will appear here</p>
-                </div>
-              </div>
+      <!-- Notes Sidebar -->
+      <div class="lg:col-span-1 space-y-4">
+        <!-- AI Suggestions -->
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+          <h4 class="font-bold mb-3 flex items-center">
+            <i class="fas fa-lightbulb text-yellow-600 mr-2"></i>
+            AI Suggestions
+          </h4>
+          <div id="aiSuggestions" class="space-y-2 text-sm">
+            <div class="p-3 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg">
+              <p class="text-yellow-800 dark:text-yellow-200">💡 Start writing to get AI-powered suggestions for
+                improving your notes!</p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- CALENDAR SECTION -->
-    <section id="calendar" class="section-content hidden">
-      <div class="mb-8">
-        <div class="flex justify-between items-center mb-6">
-          <div>
-            <h2
-              class="text-3xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              📅 Smart Academic Calendar</h2>
-            <p class="text-gray-600 dark:text-gray-400">Google Calendar integration with intelligent reminders.
-            <div id="calendarSection">
-              <iframe
-                src="https://calendar.google.com/calendar/embed?src=4fc31f36c20f654e12fbd6bc4bca5cc2926f1764a8266a136bd71bdf835af5da%40group.calendar.google.com&ctz=Asia%2FHo_Chi_Minh"
-                style="border: 0" width="970" height="600" frameborder="0" scrolling="no">
-              </iframe>
+        <!-- My Notes List -->
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+          <h4 class="font-bold mb-3 flex items-center">
+            <i class="fas fa-folder text-blue-600 mr-2"></i>
+            My Notes
+          </h4>
+          <div id="notesList" class="space-y-2 max-h-64 overflow-y-auto">
+            <div class="text-center py-4 text-gray-500">
+              <i class="fas fa-sticky-note text-2xl mb-2"></i>
+              <p class="text-sm">No notes yet</p>
             </div>
-            <!-- Events and Reminders -->
-            <div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div
-                class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-                <h3 class="text-lg font-semibold mb-4 flex items-center">
-                  <span
-                    class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
-                    <i class="fas fa-calendar text-white text-sm"></i>
-                  </span>
-                  📅 Upcoming Events
-                </h3>
-                <div id="upcomingEvents" class="space-y-3 max-h-70 overflow-y-auto">
-                  <div class="text-gray-500 text-sm">WRO 2025 !!! </div>
-                </div>
-              </div>
-
-              <div
-                class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-                <h3 class="text-lg font-semibold mb-4 flex items-center">
-                  <span
-                    class="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg flex items-center justify-center mr-3">
-                    <i class="fas fa-clock text-white text-sm"></i>
-                  </span>
-                  ⏰ Today's Schedule
-                </h3>
-                <div id="todaySchedule" class="space-y-3 max-h-64 overflow-y-auto">
-                  <div class="text-gray-500 text-sm">WRO 2025 !!!</div>
-                </div>
-              </div>
-
-              <div
-                class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-                <h3 class="text-lg font-semibold mb-4 flex items-center">
-                  <span
-                    class="w-8 h-8 bg-gradient-to-r from-red-500 to-pink-600 rounded-lg flex items-center justify-center mr-3">
-                    <i class="fas fa-bell text-white text-sm"></i>
-                  </span>
-                  🔔 Active Reminders
-                </h3>
-                <div id="activeReminders" class="space-y-3 max-h-64 overflow-y-auto">
-                  <div class="text-gray-500 text-sm">WRO 2025 !!!</div>
-                </div>
-              </div>
-            </div>
-    </section>
-
-    <!-- CALCULATOR SECTION -->
-    <section id="calculator" class="section-content hidden">
-      <div class="mb-8">
-        <h2 class="text-3xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">🔬
-          Advanced Scientific Calculator</h2>
-        <p class="text-gray-600 dark:text-gray-400 mb-6">Powerful mathematical tools for complex calculations</p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Calculator Interface -->
-        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-          <div class="mb-4">
-            <input type="text" id="calculatorDisplay"
-              class="w-full px-4 py-4 text-xl border border-gray-300 dark:border-gray-600 rounded-2xl bg-white/50 dark:bg-gray-700/50 font-mono text-right backdrop-blur-sm"
-              readonly placeholder="0">
-          </div>
-
-          <div class="grid grid-cols-5 gap-2">
-            <!-- Scientific Functions Row -->
-            <button onclick="addToCalculator('Math.sin(')"
-              class="calc-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">sin</button>
-            <button onclick="addToCalculator('Math.cos(')"
-              class="calc-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">cos</button>
-            <button onclick="addToCalculator('Math.tan(')"
-              class="calc-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">tan</button>
-            <button onclick="addToCalculator('Math.log10(')"
-              class="calc-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">log</button>
-            <button onclick="addToCalculator('Math.log(')"
-              class="calc-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">ln</button>
-
-            <!-- Advanced Functions Row -->
-            <button onclick="addToCalculator('Math.sqrt(')"
-              class="calc-btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">√</button>
-            <button onclick="addToCalculator('Math.pow(')"
-              class="calc-btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">x^y</button>
-            <button onclick="addToCalculator('Math.PI')"
-              class="calc-btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">π</button>
-            <button onclick="addToCalculator('Math.E')"
-              class="calc-btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">e</button>
-            <button onclick="clearCalculator()"
-              class="calc-btn bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">C</button>
-
-            <!-- Numbers and Operations -->
-            <button onclick="addToCalculator('7')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">7</button>
-            <button onclick="addToCalculator('8')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">8</button>
-            <button onclick="addToCalculator('9')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">9</button>
-            <button onclick="addToCalculator('/')"
-              class="calc-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">÷</button>
-            <button onclick="deleteLast()"
-              class="calc-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">⌫</button>
-
-            <button onclick="addToCalculator('4')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">4</button>
-            <button onclick="addToCalculator('5')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">5</button>
-            <button onclick="addToCalculator('6')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">6</button>
-            <button onclick="addToCalculator('*')"
-              class="calc-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">×</button>
-            <button onclick="addToCalculator('(')"
-              class="calc-btn bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">(</button>
-
-            <button onclick="addToCalculator('1')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">1</button>
-            <button onclick="addToCalculator('2')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">2</button>
-            <button onclick="addToCalculator('3')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">3</button>
-            <button onclick="addToCalculator('-')"
-              class="calc-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">-</button>
-            <button onclick="addToCalculator(')')"
-              class="calc-btn bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">)</button>
-
-            <button onclick="addToCalculator('0')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg col-span-2">0</button>
-            <button onclick="addToCalculator('.')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">.</button>
-            <button onclick="addToCalculator('+')"
-              class="calc-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">+</button>
-            <button onclick="calculate()"
-              class="calc-btn bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">=</button>
-          </div>
-
-          <div class="space-y-2 mt-4">
-            <button onclick="plotFunction()"
-              class="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white py-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">
-              <i class="fas fa-chart-line mr-2"></i>Plot Function
-            </button>
-            <button onclick="solveEquation()"
-              class="w-full bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white py-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">
-              <i class="fas fa-equals mr-2"></i>Solve Equation
-            </button>
           </div>
         </div>
 
-        <!-- Results and Visualization -->
+        <!-- Tags & Categories -->
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+          <h4 class="font-bold mb-3 flex items-center">
+            <i class="fas fa-tags text-green-600 mr-2"></i>
+            Tags & Topics
+          </h4>
+          <div id="noteTags" class="flex flex-wrap gap-1">
+            <span
+              class="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full">#physics</span>
+            <span
+              class="text-xs px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full">#quantum</span>
+            <span
+              class="text-xs px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full">#research</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio View -->
+  <div id="notebookAudio" class="notebook-view hidden">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Audio Generator -->
+      <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl border border-white/20">
+        <h3 class="text-2xl font-bold mb-6 flex items-center">
+          <span
+            class="w-10 h-10 bg-gradient-to-r from-pink-500 to-red-600 rounded-xl flex items-center justify-center mr-3">
+            <i class="fas fa-microphone text-white"></i>
+          </span>
+          🎙️ AI Podcast Generator
+        </h3>
+
         <div class="space-y-6">
-          <div
-            class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-            <h3 class="text-lg font-semibold mb-4">📊 Calculation Results</h3>
-            <div id="calculatorResults" class="space-y-2 max-h-48 overflow-y-auto">
-              <p class="text-gray-500 text-sm">Enter calculations to see results here</p>
+          <!-- Podcast Settings -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-bold mb-2">Podcast Style</label>
+              <select id="podcastStyle"
+                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50">
+                <option value="overview">Overview Discussion</option>
+                <option value="deep-dive">Deep Dive Analysis</option>
+                <option value="debate">Debate Format</option>
+                <option value="interview">Interview Style</option>
+                <option value="study-guide">Study Guide</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-bold mb-2">Duration</label>
+              <select id="podcastDuration"
+                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50">
+                <option value="5">5 minutes</option>
+                <option value="10" selected>10 minutes</option>
+                <option value="15">15 minutes</option>
+                <option value="20">20 minutes</option>
+              </select>
             </div>
           </div>
 
-          <div
-            class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-            <h3 class="text-lg font-semibold mb-4">📈 Function Visualization</h3>
-            <div class="mb-4">
-              <input type="text" id="functionInput" placeholder="Enter function like x*x or Math.sin(x)"
-                class="w-full px-3 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm">
+          <!-- Focus Areas -->
+          <div>
+            <label class="block text-sm font-bold mb-2">Focus Areas (Optional)</label>
+            <textarea id="podcastFocus"
+              placeholder="Specify particular topics or questions you want the podcast to focus on..."
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 h-20 resize-none"></textarea>
+          </div>
+
+          <!-- Generate Button -->
+          <button onclick="generatePodcast()" id="generatePodcastBtn"
+            class="w-full bg-gradient-to-r from-pink-600 to-red-600 text-white py-4 rounded-xl font-bold text-lg transition-all hover:scale-105 shadow-lg">
+            <i class="fas fa-magic mr-2"></i>Generate AI Podcast
+          </button>
+
+          <!-- Progress -->
+          <div id="podcastProgress" class="hidden">
+            <div class="bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+              <div id="podcastProgressBar"
+                class="bg-gradient-to-r from-pink-600 to-red-600 h-2 rounded-full transition-all duration-300"
+                style="width: 0%"></div>
             </div>
-            <canvas id="functionCanvas" width="400" height="256" class="w-full border rounded-lg bg-white"></canvas>
+            <p id="podcastProgressText" class="text-sm text-gray-600 dark:text-gray-400 mt-2 text-center">Preparing
+              podcast...</p>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- DATA ANALYSIS SECTION -->
-    <section id="data" class="section-content hidden">
-      <div class="mb-8">
-        <h2 class="text-3xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">📊
-          Advanced Data Analysis Studio</h2>
-        <p class="text-gray-600 dark:text-gray-400 mb-6">Analyze datasets, create visualizations, and discover insights
+      <!-- Audio Player & Library -->
+      <div class="space-y-6">
+        <!-- Current Podcast -->
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+          <h4 class="text-xl font-bold mb-4 flex items-center">
+            <i class="fas fa-play-circle text-green-600 mr-2"></i>
+            Now Playing
+          </h4>
+
+          <div id="currentPodcast" class="text-center py-8 text-gray-500">
+            <i class="fas fa-podcast text-4xl mb-3"></i>
+            <p>No podcast generated yet</p>
+            <p class="text-sm">Generate your first AI podcast above!</p>
+          </div>
+
+          <!-- Audio Player (Hidden initially) -->
+          <div id="audioPlayer" class="hidden">
+            <div
+              class="bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 p-4 rounded-2xl mb-4">
+              <h5 id="podcastTitle" class="font-bold text-lg mb-2">Your AI Podcast</h5>
+              <p id="podcastDescription" class="text-sm text-gray-600 dark:text-gray-400">AI-generated discussion
+                based on your sources</p>
+            </div>
+
+            <audio id="audioElement" controls class="w-full mb-4">
+              <source id="audioSource" src="" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+
+            <div class="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400">
+              <span id="currentTime">0:00</span>
+              <div class="flex space-x-2">
+                <button onclick="changePlaybackSpeed(0.75)" class="hover:text-blue-600">0.75x</button>
+                <button onclick="changePlaybackSpeed(1)" class="hover:text-blue-600">1x</button>
+                <button onclick="changePlaybackSpeed(1.25)" class="hover:text-blue-600">1.25x</button>
+                <button onclick="changePlaybackSpeed(1.5)" class="hover:text-blue-600">1.5x</button>
+              </div>
+              <span id="totalTime">0:00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Podcast Library -->
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+          <h4 class="text-xl font-bold mb-4 flex items-center">
+            <i class="fas fa-library text-blue-600 mr-2"></i>
+            Podcast Library
+          </h4>
+
+          <div id="podcastLibrary" class="space-y-3 max-h-64 overflow-y-auto">
+            <div class="text-center py-4 text-gray-500">
+              <i class="fas fa-headphones text-2xl mb-2"></i>
+              <p class="text-sm">Your generated podcasts will appear here</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <!-- CALENDAR SECTION -->
+  <section id="calendar" class="section-content hidden">
+    <div class="mb-8">
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h2 class="text-3xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            📅 Smart Academic Calendar</h2>
+          <p class="text-gray-600 dark:text-gray-400">Google Calendar integration with intelligent reminders.
+          <div id="calendarSection">
+            <iframe
+              src="https://calendar.google.com/calendar/embed?src=4fc31f36c20f654e12fbd6bc4bca5cc2926f1764a8266a136bd71bdf835af5da%40group.calendar.google.com&ctz=Asia%2FHo_Chi_Minh"
+              style="border: 0" width="970" height="600" frameborder="0" scrolling="no">
+            </iframe>
+          </div>
+          <!-- Events and Reminders -->
+          <div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div
+              class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+              <h3 class="text-lg font-semibold mb-4 flex items-center">
+                <span
+                  class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
+                  <i class="fas fa-calendar text-white text-sm"></i>
+                </span>
+                📅 Upcoming Events
+              </h3>
+              <div id="upcomingEvents" class="space-y-3 max-h-70 overflow-y-auto">
+                <div class="text-gray-500 text-sm">WRO 2025 !!! </div>
+              </div>
+            </div>
+
+            <div
+              class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+              <h3 class="text-lg font-semibold mb-4 flex items-center">
+                <span
+                  class="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg flex items-center justify-center mr-3">
+                  <i class="fas fa-clock text-white text-sm"></i>
+                </span>
+                ⏰ Today's Schedule
+              </h3>
+              <div id="todaySchedule" class="space-y-3 max-h-64 overflow-y-auto">
+                <div class="text-gray-500 text-sm">WRO 2025 !!!</div>
+              </div>
+            </div>
+
+            <div
+              class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+              <h3 class="text-lg font-semibold mb-4 flex items-center">
+                <span
+                  class="w-8 h-8 bg-gradient-to-r from-red-500 to-pink-600 rounded-lg flex items-center justify-center mr-3">
+                  <i class="fas fa-bell text-white text-sm"></i>
+                </span>
+                🔔 Active Reminders
+              </h3>
+              <div id="activeReminders" class="space-y-3 max-h-64 overflow-y-auto">
+                <div class="text-gray-500 text-sm">WRO 2025 !!!</div>
+              </div>
+            </div>
+          </div>
+  </section>
+
+  <!-- CALCULATOR SECTION -->
+  <section id="calculator" class="section-content hidden">
+    <div class="mb-8">
+      <h2 class="text-3xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">🔬
+        Advanced Scientific Calculator</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-6">Powerful mathematical tools for complex calculations</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Calculator Interface -->
+      <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+        <div class="mb-4">
+          <input type="text" id="calculatorDisplay"
+            class="w-full px-4 py-4 text-xl border border-gray-300 dark:border-gray-600 rounded-2xl bg-white/50 dark:bg-gray-700/50 font-mono text-right backdrop-blur-sm"
+            readonly placeholder="0">
+        </div>
+
+        <div class="grid grid-cols-5 gap-2">
+          <!-- Scientific Functions Row -->
+          <button onclick="addToCalculator('Math.sin(')"
+            class="calc-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">sin</button>
+          <button onclick="addToCalculator('Math.cos(')"
+            class="calc-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">cos</button>
+          <button onclick="addToCalculator('Math.tan(')"
+            class="calc-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">tan</button>
+          <button onclick="addToCalculator('Math.log10(')"
+            class="calc-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">log</button>
+          <button onclick="addToCalculator('Math.log(')"
+            class="calc-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">ln</button>
+
+          <!-- Advanced Functions Row -->
+          <button onclick="addToCalculator('Math.sqrt(')"
+            class="calc-btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">√</button>
+          <button onclick="addToCalculator('Math.pow(')"
+            class="calc-btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">x^y</button>
+          <button onclick="addToCalculator('Math.PI')"
+            class="calc-btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">π</button>
+          <button onclick="addToCalculator('Math.E')"
+            class="calc-btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">e</button>
+          <button onclick="clearCalculator()"
+            class="calc-btn bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">C</button>
+
+          <!-- Numbers and Operations -->
+          <button onclick="addToCalculator('7')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">7</button>
+          <button onclick="addToCalculator('8')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">8</button>
+          <button onclick="addToCalculator('9')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">9</button>
+          <button onclick="addToCalculator('/')"
+            class="calc-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">÷</button>
+          <button onclick="deleteLast()"
+            class="calc-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">⌫</button>
+
+          <button onclick="addToCalculator('4')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">4</button>
+          <button onclick="addToCalculator('5')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">5</button>
+          <button onclick="addToCalculator('6')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">6</button>
+          <button onclick="addToCalculator('*')"
+            class="calc-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">×</button>
+          <button onclick="addToCalculator('(')"
+            class="calc-btn bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">(</button>
+
+          <button onclick="addToCalculator('1')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">1</button>
+          <button onclick="addToCalculator('2')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">2</button>
+          <button onclick="addToCalculator('3')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">3</button>
+          <button onclick="addToCalculator('-')"
+            class="calc-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">-</button>
+          <button onclick="addToCalculator(')')"
+            class="calc-btn bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">)</button>
+
+          <button onclick="addToCalculator('0')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg col-span-2">0</button>
+          <button onclick="addToCalculator('.')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">.</button>
+          <button onclick="addToCalculator('+')"
+            class="calc-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">+</button>
+          <button onclick="calculate()"
+            class="calc-btn bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">=</button>
+        </div>
+
+        <div class="space-y-2 mt-4">
+          <button onclick="plotFunction()"
+            class="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white py-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">
+            <i class="fas fa-chart-line mr-2"></i>Plot Function
+          </button>
+          <button onclick="solveEquation()"
+            class="w-full bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white py-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">
+            <i class="fas fa-equals mr-2"></i>Solve Equation
+          </button>
+        </div>
+      </div>
+
+      <!-- Results and Visualization -->
+      <div class="space-y-6">
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+          <h3 class="text-lg font-semibold mb-4">📊 Calculation Results</h3>
+          <div id="calculatorResults" class="space-y-2 max-h-48 overflow-y-auto">
+            <p class="text-gray-500 text-sm">Enter calculations to see results here</p>
+          </div>
+        </div>
+
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+          <h3 class="text-lg font-semibold mb-4">📈 Function Visualization</h3>
+          <div class="mb-4">
+            <input type="text" id="functionInput" placeholder="Enter function like x*x or Math.sin(x)"
+              class="w-full px-3 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm">
+          </div>
+          <canvas id="functionCanvas" width="400" height="256" class="w-full border rounded-lg bg-white"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA ANALYSIS SECTION -->
+  <section id="data" class="section-content hidden">
+    <div class="mb-8">
+      <h2 class="text-3xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">📊
+        Advanced Data Analysis Studio</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-6">Analyze datasets, create visualizations, and discover insights
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Data Input -->
+      <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+        <h3 class="text-lg font-semibold mb-4">📥 Data Input</h3>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-2">Dataset Name</label>
+            <input type="text" id="datasetName"
+              class="w-full px-3 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+              placeholder="Enter dataset name">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Data Points (comma separated)</label>
+            <textarea id="dataPoints" rows="6"
+              class="w-full px-3 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+              placeholder="Enter data points: 1,2,3,4,5"></textarea>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="generateSampleData()"
+              class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-2 rounded-lg font-medium transition-all hover:scale-105 transform shadow-lg">
+              🎲 Generate Sample
+            </button>
+            <button onclick="analyzeData()"
+              class="bg-gradient-to-r from-success to-emerald-600 hover:from-emerald-500 hover:to-emerald-700 text-white py-2 rounded-lg font-medium transition-all hover:scale-105 transform shadow-lg">
+              🔍 Analyze Data
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Statistical Analysis -->
+      <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+        <h3 class="text-lg font-semibold mb-4">📈 Statistical Analysis</h3>
+        <div id="statisticalResults" class="space-y-3">
+          <p class="text-gray-500 text-sm">Input data to see statistical analysis</p>
+        </div>
+      </div>
+
+      <!-- Data Visualization -->
+      <div
+        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 lg:col-span-2">
+        <h3 class="text-lg font-semibold mb-4">📊 Data Visualization</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="h-64">
+            <canvas id="dataChart"></canvas>
+          </div>
+          <div class="h-64">
+            <canvas id="distributionChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESOURCES SECTION -->
+  <section id="resources" class="section-content hidden">
+    <div class="mb-8">
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h2 class="text-3xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            📚 Learning Resources Hub</h2>
+          <p class="text-gray-600 dark:text-gray-400">Educational materials and references</p>
+        </div>
+        <div class="flex items-center space-x-3">
+          <input type="text" id="resourceSearch" placeholder="Search resources..."
+            class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 text-base backdrop-blur-sm">
+          <select id="resourceType" onchange="filterResourcesByType(this.value)"
+            class="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white/50 dark:bg-gray-700/50 text-base backdrop-blur-sm">
+            <option value="all">All Types</option>
+            <option value="video">Videos</option>
+            <option value="article">Articles</option>
+            <option value="book">Books</option>
+            <option value="website">Websites</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESOURCE CATEGORIES -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+      <button onclick="filterResources('all')"
+        class="resource-filter p-4 bg-gradient-to-r from-primary to-secondary text-white rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
+        data-category="all">
+        <i class="fas fa-th text-2xl mb-2"></i>
+        <p class="font-semibold">All Resources</p>
+      </button>
+      <button onclick="filterResources('science')"
+        class="resource-filter p-4 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
+        data-category="science">
+        <i class="fas fa-microscope text-2xl mb-2"></i>
+        <p class="font-semibold">Science</p>
+      </button>
+      <button onclick="filterResources('technology')"
+        class="resource-filter p-4 bg-gradient-to-r from-purple-500 to-purple-700 text-white rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
+        data-category="technology">
+        <i class="fas fa-laptop-code text-2xl mb-2"></i>
+        <p class="font-semibold">Technology</p>
+      </button>
+      <button onclick="filterResources('engineering')"
+        class="resource-filter p-4 bg-gradient-to-r from-gray-500 to-gray-700 text-white rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
+        data-category="engineering">
+        <i class="fas fa-cogs text-2xl mb-2"></i>
+        <p class="font-semibold">Engineering</p>
+      </button>
+      <button onclick="filterResources('arts-math')"
+        class="resource-filter p-4 bg-gradient-to-r from-pink-500 to-pink-700 text-white rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
+        data-category="arts-math">
+        <i class="fas fa-palette text-2xl mb-2"></i>
+        <p class="font-semibold">Arts & Math</p>
+      </button>
+    </div>
+
+    <!-- RESOURCES GRID -->
+    <div id="resourcesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- YouTube Educational Videos -->
+
+      <!-- Crash Course Physics -->
+      <div
+        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
+        data-category="science" data-type="video">
+        <div class="flex items-center mb-4">
+          <div
+            class="w-10 h-10 bg-gradient-to-r from-red-500 to-red-600 rounded-lg flex items-center justify-center mr-3">
+            <i class="fab fa-youtube text-white"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg">Crash Course Physics</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Educational Video Series</p>
+          </div>
+        </div>
+        <div class="aspect-w-16 aspect-h-9 mb-4">
+          <iframe src="https://www.youtube.com/embed/ZM8ECpBuQYE" class="w-full h-48 rounded-lg" frameborder="0"
+            allowfullscreen></iframe>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Learn physics concepts with engaging animations and
+          clear explanations.</p>
+        <a href="https://www.youtube.com/playlist?list=PL8dPuuaLjXtN0ge7yDk_UA0ldZJdhwkoV" target="_blank"
+          class="inline-block px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
+          <i class="fab fa-youtube mr-2"></i>Watch Playlist
+        </a>
+      </div>
+
+      <!-- Khan Academy Math -->
+      <div
+        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
+        data-category="arts-math" data-type="video">
+        <div class="flex items-center mb-4">
+          <div
+            class="w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center mr-3">
+            <i class="fab fa-youtube text-white"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg">Khan Academy Calculus</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Mathematics Tutorial</p>
+          </div>
+        </div>
+        <div class="aspect-w-16 aspect-h-9 mb-4">
+          <iframe src="https://www.youtube.com/embed/WUvTyaaNkzM" class="w-full h-48 rounded-lg" frameborder="0"
+            allowfullscreen></iframe>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Master calculus with step-by-step explanations and
+          practice problems.</p>
+        <a href="https://www.youtube.com/playlist?list=PL19E79A0638C8D449" target="_blank"
+          class="inline-block px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
+          <i class="fab fa-youtube mr-2"></i>Watch Playlist
+        </a>
+      </div>
+
+      <!-- TED-Ed Science -->
+      <div
+        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
+        data-category="science" data-type="video">
+        <div class="flex items-center mb-4">
+          <div
+            class="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mr-3">
+            <i class="fab fa-youtube text-white"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg">TED-Ed Chemistry</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Animated Science Lessons</p>
+          </div>
+        </div>
+        <div class="aspect-w-16 aspect-h-9 mb-4">
+          <iframe src="https://www.youtube.com/embed/yQP4UJhNn0I" class="w-full h-48 rounded-lg" frameborder="0"
+            allowfullscreen></iframe>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Explore chemistry concepts through beautiful
+          animations and storytelling.</p>
+        <a href="https://www.youtube.com/c/TED-Ed" target="_blank"
+          class="inline-block px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
+          <i class="fab fa-youtube mr-2"></i>Visit Channel
+        </a>
+      </div>
+
+      <!-- Coding with Python -->
+      <div
+        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
+        data-category="technology" data-type="video">
+        <div class="flex items-center mb-4">
+          <div
+            class="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
+            <i class="fab fa-youtube text-white"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg">Python Programming</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Coding Tutorial</p>
+          </div>
+        </div>
+        <div class="aspect-w-16 aspect-h-9 mb-4">
+          <iframe src="https://www.youtube.com/embed/rfscVS0vtbw" class="w-full h-48 rounded-lg" frameborder="0"
+            allowfullscreen></iframe>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Learn Python programming from basics to advanced
+          concepts.</p>
+        <a href="https://www.youtube.com/watch?v=rfscVS0vtbw" target="_blank"
+          class="inline-block px-4 py-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
+          <i class="fab fa-youtube mr-2"></i>Full Course
+        </a>
+      </div>
+
+      <!-- Engineering Explained -->
+      <div
+        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
+        data-category="engineering" data-type="video">
+        <div class="flex items-center mb-4">
+          <div
+            class="w-10 h-10 bg-gradient-to-r from-gray-500 to-gray-600 rounded-lg flex items-center justify-center mr-3">
+            <i class="fab fa-youtube text-white"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg">Engineering Explained</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Mechanical Engineering</p>
+          </div>
+        </div>
+        <div class="aspect-w-16 aspect-h-9 mb-4">
+          <iframe src="https://www.youtube.com/embed/yYAw79386WI" class="w-full h-48 rounded-lg" frameborder="0"
+            allowfullscreen></iframe>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Understand how cars and engines work with detailed
+          explanations.</p>
+        <a href="https://www.youtube.com/c/EngineeringExplained" target="_blank"
+          class="inline-block px-4 py-2 bg-gradient-to-r from-gray-500 to-gray-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
+          <i class="fab fa-youtube mr-2"></i>Visit Channel
+        </a>
+      </div>
+
+      <!-- Art & Design -->
+      <div
+        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
+        data-category="arts-math" data-type="video">
+        <div class="flex items-center mb-4">
+          <div
+            class="w-10 h-10 bg-gradient-to-r from-pink-500 to-pink-600 rounded-lg flex items-center justify-center mr-3">
+            <i class="fab fa-youtube text-white"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg">Digital Art Tutorial</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Creative Arts</p>
+          </div>
+        </div>
+        <div class="aspect-w-16 aspect-h-9 mb-4">
+          <iframe src="https://www.youtube.com/embed/ewMksAbgdBI" class="w-full h-48 rounded-lg" frameborder="0"
+            allowfullscreen></iframe>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Learn digital art techniques and creative design
+          principles.</p>
+        <a href="https://www.youtube.com/watch?v=ewMksAbgdBI" target="_blank"
+          class="inline-block px-4 py-2 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
+          <i class="fab fa-youtube mr-2"></i>Watch Tutorial
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Inventory Section -->
+  <section id="gradebook" class="section-content hidden">
+    <div class="mb-8">
+      <!-- Header -->
+      <div class="mb-6 text-center">
+        <h2 class="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          📊 Inventory System
+        </h2>
+        <p class="text-gray-600 dark:text-gray-400">
+          See the current inventory status
         </p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Data Input -->
-        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-          <h3 class="text-lg font-semibold mb-4">📥 Data Input</h3>
-          <div class="space-y-4">
-            <div>
-              <label class="block text-sm font-medium mb-2">Dataset Name</label>
-              <input type="text" id="datasetName"
-                class="w-full px-3 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
-                placeholder="Enter dataset name">
-            </div>
-            <div>
-              <label class="block text-sm font-medium mb-2">Data Points (comma separated)</label>
-              <textarea id="dataPoints" rows="6"
-                class="w-full px-3 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
-                placeholder="Enter data points: 1,2,3,4,5"></textarea>
-            </div>
-            <div class="grid grid-cols-2 gap-2">
-              <button onclick="generateSampleData()"
-                class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-2 rounded-lg font-medium transition-all hover:scale-105 transform shadow-lg">
-                🎲 Generate Sample
-              </button>
-              <button onclick="analyzeData()"
-                class="bg-gradient-to-r from-success to-emerald-600 hover:from-emerald-500 hover:to-emerald-700 text-white py-2 rounded-lg font-medium transition-all hover:scale-105 transform shadow-lg">
-                🔍 Analyze Data
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Statistical Analysis -->
-        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-          <h3 class="text-lg font-semibold mb-4">📈 Statistical Analysis</h3>
-          <div id="statisticalResults" class="space-y-3">
-            <p class="text-gray-500 text-sm">Input data to see statistical analysis</p>
-          </div>
-        </div>
-
-        <!-- Data Visualization -->
-        <div
-          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 lg:col-span-2">
-          <h3 class="text-lg font-semibold mb-4">📊 Data Visualization</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="h-64">
-              <canvas id="dataChart"></canvas>
-            </div>
-            <div class="h-64">
-              <canvas id="distributionChart"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- RESOURCES SECTION -->
-    <section id="resources" class="section-content hidden">
-      <div class="mb-8">
-        <div class="flex justify-between items-center mb-6">
-          <div>
-            <h2
-              class="text-3xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              📚 Learning Resources Hub</h2>
-            <p class="text-gray-600 dark:text-gray-400">Educational materials and references</p>
-          </div>
-          <div class="flex items-center space-x-3">
-            <input type="text" id="resourceSearch" placeholder="Search resources..."
-              class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 text-base backdrop-blur-sm">
-            <select id="resourceType" onchange="filterResourcesByType(this.value)"
-              class="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white/50 dark:bg-gray-700/50 text-base backdrop-blur-sm">
-              <option value="all">All Types</option>
-              <option value="video">Videos</option>
-              <option value="article">Articles</option>
-              <option value="book">Books</option>
-              <option value="website">Websites</option>
-            </select>
-          </div>
-        </div>
+      <!-- Sheet -->
+      <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700">
+        <iframe
+          src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRXglfVcHRbcyZkbsxsZ6souKwSdrV6Wi3DXeBgO1bptxZ9sA49iqHOLrm20pGD0ljRh4dDsMCKCTan/pubhtml?widget=true&amp;headers=false"
+          class="w-full h-[600px] border-0">
+        </iframe>
       </div>
 
-      <!-- RESOURCE CATEGORIES -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-        <button onclick="filterResources('all')"
-          class="resource-filter p-4 bg-gradient-to-r from-primary to-secondary text-white rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
-          data-category="all">
-          <i class="fas fa-th text-2xl mb-2"></i>
-          <p class="font-semibold">All Resources</p>
-        </button>
-        <button onclick="filterResources('science')"
-          class="resource-filter p-4 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
-          data-category="science">
-          <i class="fas fa-microscope text-2xl mb-2"></i>
-          <p class="font-semibold">Science</p>
-        </button>
-        <button onclick="filterResources('technology')"
-          class="resource-filter p-4 bg-gradient-to-r from-purple-500 to-purple-700 text-white rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
-          data-category="technology">
-          <i class="fas fa-laptop-code text-2xl mb-2"></i>
-          <p class="font-semibold">Technology</p>
-        </button>
-        <button onclick="filterResources('engineering')"
-          class="resource-filter p-4 bg-gradient-to-r from-gray-500 to-gray-700 text-white rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
-          data-category="engineering">
-          <i class="fas fa-cogs text-2xl mb-2"></i>
-          <p class="font-semibold">Engineering</p>
-        </button>
-        <button onclick="filterResources('arts-math')"
-          class="resource-filter p-4 bg-gradient-to-r from-pink-500 to-pink-700 text-white rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
-          data-category="arts-math">
-          <i class="fas fa-palette text-2xl mb-2"></i>
-          <p class="font-semibold">Arts & Math</p>
-        </button>
+      <!-- Navigation buttons -->
+      <div class="flex justify-center gap-4 mt-6">
+        <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white shadow hover:bg-indigo-700">InPut</button>
+        <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white shadow hover:bg-indigo-700">BorrowReturn</button>
+        <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white shadow hover:bg-indigo-700">Warehouses</button>
+        <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white shadow hover:bg-indigo-700">Check Item</button>
       </div>
+    </div>
+  </section>
 
-      <!-- RESOURCES GRID -->
-      <div id="resourcesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <!-- YouTube Educational Videos -->
-
-        <!-- Crash Course Physics -->
-        <div
-          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
-          data-category="science" data-type="video">
-          <div class="flex items-center mb-4">
-            <div
-              class="w-10 h-10 bg-gradient-to-r from-red-500 to-red-600 rounded-lg flex items-center justify-center mr-3">
-              <i class="fab fa-youtube text-white"></i>
-            </div>
-            <div>
-              <h3 class="font-bold text-lg">Crash Course Physics</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Educational Video Series</p>
-            </div>
-          </div>
-          <div class="aspect-w-16 aspect-h-9 mb-4">
-            <iframe src="https://www.youtube.com/embed/ZM8ECpBuQYE" class="w-full h-48 rounded-lg" frameborder="0"
-              allowfullscreen></iframe>
-          </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Learn physics concepts with engaging animations and
-            clear explanations.</p>
-          <a href="https://www.youtube.com/playlist?list=PL8dPuuaLjXtN0ge7yDk_UA0ldZJdhwkoV" target="_blank"
-            class="inline-block px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
-            <i class="fab fa-youtube mr-2"></i>Watch Playlist
-          </a>
-        </div>
-
-        <!-- Khan Academy Math -->
-        <div
-          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
-          data-category="arts-math" data-type="video">
-          <div class="flex items-center mb-4">
-            <div
-              class="w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center mr-3">
-              <i class="fab fa-youtube text-white"></i>
-            </div>
-            <div>
-              <h3 class="font-bold text-lg">Khan Academy Calculus</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Mathematics Tutorial</p>
-            </div>
-          </div>
-          <div class="aspect-w-16 aspect-h-9 mb-4">
-            <iframe src="https://www.youtube.com/embed/WUvTyaaNkzM" class="w-full h-48 rounded-lg" frameborder="0"
-              allowfullscreen></iframe>
-          </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Master calculus with step-by-step explanations and
-            practice problems.</p>
-          <a href="https://www.youtube.com/playlist?list=PL19E79A0638C8D449" target="_blank"
-            class="inline-block px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
-            <i class="fab fa-youtube mr-2"></i>Watch Playlist
-          </a>
-        </div>
-
-        <!-- TED-Ed Science -->
-        <div
-          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
-          data-category="science" data-type="video">
-          <div class="flex items-center mb-4">
-            <div
-              class="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mr-3">
-              <i class="fab fa-youtube text-white"></i>
-            </div>
-            <div>
-              <h3 class="font-bold text-lg">TED-Ed Chemistry</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Animated Science Lessons</p>
-            </div>
-          </div>
-          <div class="aspect-w-16 aspect-h-9 mb-4">
-            <iframe src="https://www.youtube.com/embed/yQP4UJhNn0I" class="w-full h-48 rounded-lg" frameborder="0"
-              allowfullscreen></iframe>
-          </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Explore chemistry concepts through beautiful
-            animations and storytelling.</p>
-          <a href="https://www.youtube.com/c/TED-Ed" target="_blank"
-            class="inline-block px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
-            <i class="fab fa-youtube mr-2"></i>Visit Channel
-          </a>
-        </div>
-
-        <!-- Coding with Python -->
-        <div
-          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
-          data-category="technology" data-type="video">
-          <div class="flex items-center mb-4">
-            <div
-              class="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
-              <i class="fab fa-youtube text-white"></i>
-            </div>
-            <div>
-              <h3 class="font-bold text-lg">Python Programming</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Coding Tutorial</p>
-            </div>
-          </div>
-          <div class="aspect-w-16 aspect-h-9 mb-4">
-            <iframe src="https://www.youtube.com/embed/rfscVS0vtbw" class="w-full h-48 rounded-lg" frameborder="0"
-              allowfullscreen></iframe>
-          </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Learn Python programming from basics to advanced
-            concepts.</p>
-          <a href="https://www.youtube.com/watch?v=rfscVS0vtbw" target="_blank"
-            class="inline-block px-4 py-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
-            <i class="fab fa-youtube mr-2"></i>Full Course
-          </a>
-        </div>
-
-        <!-- Engineering Explained -->
-        <div
-          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
-          data-category="engineering" data-type="video">
-          <div class="flex items-center mb-4">
-            <div
-              class="w-10 h-10 bg-gradient-to-r from-gray-500 to-gray-600 rounded-lg flex items-center justify-center mr-3">
-              <i class="fab fa-youtube text-white"></i>
-            </div>
-            <div>
-              <h3 class="font-bold text-lg">Engineering Explained</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Mechanical Engineering</p>
-            </div>
-          </div>
-          <div class="aspect-w-16 aspect-h-9 mb-4">
-            <iframe src="https://www.youtube.com/embed/yYAw79386WI" class="w-full h-48 rounded-lg" frameborder="0"
-              allowfullscreen></iframe>
-          </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Understand how cars and engines work with detailed
-            explanations.</p>
-          <a href="https://www.youtube.com/c/EngineeringExplained" target="_blank"
-            class="inline-block px-4 py-2 bg-gradient-to-r from-gray-500 to-gray-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
-            <i class="fab fa-youtube mr-2"></i>Visit Channel
-          </a>
-        </div>
-
-        <!-- Art & Design -->
-        <div
-          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
-          data-category="arts-math" data-type="video">
-          <div class="flex items-center mb-4">
-            <div
-              class="w-10 h-10 bg-gradient-to-r from-pink-500 to-pink-600 rounded-lg flex items-center justify-center mr-3">
-              <i class="fab fa-youtube text-white"></i>
-            </div>
-            <div>
-              <h3 class="font-bold text-lg">Digital Art Tutorial</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Creative Arts</p>
-            </div>
-          </div>
-          <div class="aspect-w-16 aspect-h-9 mb-4">
-            <iframe src="https://www.youtube.com/embed/ewMksAbgdBI" class="w-full h-48 rounded-lg" frameborder="0"
-              allowfullscreen></iframe>
-          </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Learn digital art techniques and creative design
-            principles.</p>
-          <a href="https://www.youtube.com/watch?v=ewMksAbgdBI" target="_blank"
-            class="inline-block px-4 py-2 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
-            <i class="fab fa-youtube mr-2"></i>Watch Tutorial
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Inventory Section -->
-    <section id="gradebook" class="section-content hidden">
-      <div class="mb-8">
-        <!-- Header -->
-        <div class="mb-6 text-center">
-          <h2 class="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            📊 Inventory System
-          </h2>
-          <p class="text-gray-600 dark:text-gray-400">
-            See the current inventory status
-          </p>
-        </div>
-
-        <!-- Sheet -->
-        <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700">
-          <iframe
-            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRXglfVcHRbcyZkbsxsZ6souKwSdrV6Wi3DXeBgO1bptxZ9sA49iqHOLrm20pGD0ljRh4dDsMCKCTan/pubhtml?widget=true&amp;headers=false"
-            class="w-full h-[600px] border-0">
-          </iframe>
-        </div>
-
-        <!-- Navigation buttons -->
-        <div class="flex justify-center gap-4 mt-6">
-          <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white shadow hover:bg-indigo-700">InPut</button>
-          <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white shadow hover:bg-indigo-700">BorrowReturn</button>
-          <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white shadow hover:bg-indigo-700">Warehouses</button>
-          <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white shadow hover:bg-indigo-700">Check Item</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Grades will be populated here -->
-    </tbody>
-    </table>
+  <!-- Grades will be populated here -->
+  </tbody>
+  </table>
   </div>
   </div>
   </section>
@@ -4510,7 +4645,7 @@
     // API Configuration
     const OPENAI_API_KEY = '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';
     const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
-    
+
     // Check if APIs are available
     const hasOpenAI = OPENAI_API_KEY && OPENAI_API_KEY !== 'your-openai-api-key-here';
     const hasSpeechSynthesis = 'speechSynthesis' in window;
@@ -4528,20 +4663,20 @@
         window.OPENAI_API_KEY = OPENAI_API_KEY;
         window.hasOpenAI = hasOpenAI;
       }
-      
+
       // Load saved data
       notebookSources = JSON.parse(localStorage.getItem('notebookSources') || '[]');
       notebookNotes = JSON.parse(localStorage.getItem('notebookNotes') || '[]');
       chatHistory = JSON.parse(localStorage.getItem('notebookChat') || '[]');
       podcastLibrary = JSON.parse(localStorage.getItem('podcastLibrary') || '[]');
-      
+
       // Show default view
       showNotebookView('sources');
       updateSourcesList();
       updateNotesList();
       updatePodcastLibrary();
       updateApiStatus();
-      
+
       // Load chat history
       if (chatHistory.length === 0) {
         // Add welcome message
@@ -4621,17 +4756,17 @@ What would you like to explore today?`);
         status: 'processing',
         file: file
       };
-      
+
       notebookSources.push(source);
       updateSourcesList();
       showToast(`📄 Processing ${file.name}...`, 'info');
-      
+
       try {
         // Read file content
         const content = await readFileContent(file);
         source.content = content;
         source.status = 'ready';
-        
+
         updateSourcesList();
         saveNotebookData();
         showToast(`✅ ${file.name} processed successfully!`, 'success');
@@ -4649,7 +4784,7 @@ What would you like to explore today?`);
       const typeMap = {
         'pdf': 'pdf',
         'doc': 'document',
-        'docx': 'document', 
+        'docx': 'document',
         'txt': 'text',
         'md': 'markdown',
         'rtf': 'document',
@@ -4662,10 +4797,10 @@ What would you like to explore today?`);
     async function readFileContent(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        
-        reader.onload = function(e) {
+
+        reader.onload = function (e) {
           let content = e.target.result;
-          
+
           // Basic text extraction for different file types
           if (file.type === 'application/pdf') {
             // For PDF files, we'll extract what we can as text
@@ -4674,14 +4809,14 @@ What would you like to explore today?`);
             // For Word documents
             content = `Word Document: ${file.name}\n\nContent extracted from Word document. For full document processing, consider using a document parsing library.\n\nFile size: ${(file.size / 1024).toFixed(1)} KB`;
           }
-          
+
           resolve(content);
         };
-        
-        reader.onerror = function() {
+
+        reader.onerror = function () {
           reject(new Error('Failed to read file'));
         };
-        
+
         // Read as text for most file types
         if (file.type.startsWith('text/') || file.name.endsWith('.md') || file.name.endsWith('.txt')) {
           reader.readAsText(file);
@@ -4698,14 +4833,14 @@ What would you like to explore today?`);
         showToast('❌ Please enter a valid URL', 'error');
         return;
       }
-      
+
       try {
         new URL(url); // Validate URL
       } catch {
         showToast('❌ Please enter a valid URL', 'error');
         return;
       }
-      
+
       const source = {
         id: Date.now(),
         name: new URL(url).hostname,
@@ -4715,18 +4850,18 @@ What would you like to explore today?`);
         content: '',
         status: 'processing'
       };
-      
+
       notebookSources.push(source);
       document.getElementById('urlInput').value = '';
       updateSourcesList();
       showToast(`🌐 Fetching content from ${source.name}...`, 'info');
-      
+
       try {
         // Fetch URL content
         const content = await fetchUrlContent(url);
         source.content = content;
         source.status = 'ready';
-        
+
         updateSourcesList();
         saveNotebookData();
         showToast(`✅ Content from ${source.name} added successfully!`, 'success');
@@ -4747,22 +4882,22 @@ What would you like to explore today?`);
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
-        
+
         const html = await response.text();
-        
+
         // Extract text content from HTML
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
-        
+
         // Remove script and style elements
         const scripts = doc.querySelectorAll('script, style');
         scripts.forEach(el => el.remove());
-        
+
         // Get text content
         const textContent = doc.body ? doc.body.innerText : doc.innerText;
-        
+
         return `Web Content from: ${url}\n\n${textContent.substring(0, 5000)}${textContent.length > 5000 ? '...\n\n[Content truncated - full content available for analysis]' : ''}`;
-        
+
       } catch (error) {
         // If direct fetch fails due to CORS, provide alternative
         if (error.name === 'TypeError' && error.message.includes('CORS')) {
@@ -4883,18 +5018,18 @@ ${notebookSources.map(s => `• ${s.name} (${s.type})`).join('\n')}
     async function sendChatMessage() {
       const input = document.getElementById('chatInput');
       const message = input.value.trim();
-      
+
       if (!message) return;
-      
+
       addChatMessage('user', message);
       input.value = '';
-      
+
       // Show typing indicator
       const typingDiv = addTypingIndicator();
-      
+
       try {
         let response;
-        
+
         if (hasOpenAI) {
           // Use real OpenAI API
           response = await getOpenAIResponse(message);
@@ -4902,16 +5037,16 @@ ${notebookSources.map(s => `• ${s.name} (${s.type})`).join('\n')}
           // Use enhanced mock responses based on sources
           response = await getEnhancedMockResponse(message);
         }
-        
+
         // Remove typing indicator
         typingDiv.remove();
-        
+
         addChatMessage('assistant', response);
-        
+
       } catch (error) {
         console.error('Error getting AI response:', error);
         typingDiv.remove();
-        
+
         const errorResponse = `I apologize, but I encountered an error while processing your question. ${hasOpenAI ? 'Please check your API key and try again.' : 'This is a demo version - for full AI functionality, please add your OpenAI API key.'}`;
         addChatMessage('assistant', errorResponse);
       }
@@ -4933,7 +5068,7 @@ ${notebookSources.map(s => `• ${s.name} (${s.type})`).join('\n')}
           </div>
         </div>
       `;
-      
+
       messagesContainer.appendChild(typingDiv);
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
       return typingDiv;
@@ -4945,7 +5080,7 @@ ${notebookSources.map(s => `• ${s.name} (${s.type})`).join('\n')}
         .filter(source => source.status === 'ready' && source.content)
         .map(source => `Source: ${source.name}\nContent: ${source.content.substring(0, 2000)}`)
         .join('\n\n');
-      
+
       const systemPrompt = `You are a helpful AI research assistant. You have access to the following sources:
 
 ${sourceContext}
@@ -4983,19 +5118,19 @@ Please answer the user's question based on these sources. If the sources don't c
         .filter(source => source.status === 'ready' && source.content)
         .map(source => source.content)
         .join(' ');
-      
+
       // Simple keyword matching for more relevant responses
       const keywords = message.toLowerCase().split(' ');
-      const relevantSources = notebookSources.filter(source => 
-        keywords.some(keyword => 
-          source.content.toLowerCase().includes(keyword) || 
+      const relevantSources = notebookSources.filter(source =>
+        keywords.some(keyword =>
+          source.content.toLowerCase().includes(keyword) ||
           source.name.toLowerCase().includes(keyword)
         )
       );
-      
+
       // Simulate processing time
       await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
-      
+
       if (relevantSources.length > 0) {
         return `Based on your uploaded sources, particularly "${relevantSources[0].name}", I can help with that question. 
 
@@ -5021,7 +5156,7 @@ Consider uploading more specific sources related to your question, or try rephra
     function addChatMessage(sender, message, shouldSave = true) {
       const messagesContainer = document.getElementById('chatMessages');
       if (!messagesContainer) return;
-      
+
       const messageDiv = document.createElement('div');
       messageDiv.className = 'flex items-start space-x-3';
 
@@ -5268,21 +5403,21 @@ Consider uploading more specific sources related to your question, or try rephra
         // Step 1: Generate script
         progressBar.style.width = '25%';
         progressText.textContent = 'Generating podcast script...';
-        
+
         const script = await generatePodcastScript(style, duration, focus);
-        
+
         // Step 2: Convert to speech
         progressBar.style.width = '50%';
         progressText.textContent = 'Converting to speech...';
-        
+
         const audioBlob = await generateSpeech(script);
-        
+
         // Step 3: Create podcast object
         progressBar.style.width = '75%';
         progressText.textContent = 'Finalizing podcast...';
-        
+
         const audioUrl = URL.createObjectURL(audioBlob);
-        
+
         const podcast = {
           id: Date.now(),
           title: `AI Podcast - ${style.charAt(0).toUpperCase() + style.slice(1)}`,
@@ -5299,7 +5434,7 @@ Consider uploading more specific sources related to your question, or try rephra
         // Step 4: Complete
         progressBar.style.width = '100%';
         progressText.textContent = 'Podcast ready!';
-        
+
         podcastLibrary.unshift(podcast);
         updatePodcastLibrary();
         loadPodcast(podcast);
@@ -5327,7 +5462,7 @@ Consider uploading more specific sources related to your question, or try rephra
         .join('\n\n');
 
       let prompt = '';
-      
+
       switch (style) {
         case 'overview':
           prompt = `Create a ${duration}-minute podcast script that provides an overview of the following sources. Make it conversational and engaging, as if two hosts are discussing the material.`;
@@ -5386,7 +5521,7 @@ Consider uploading more specific sources related to your question, or try rephra
     function generateMockScript(style, duration, focus) {
       const sources = notebookSources.filter(s => s.status === 'ready');
       const sourceNames = sources.map(s => s.name).join(', ');
-      
+
       return `Host 1: Welcome to today's ${style} discussion! I'm excited to dive into the materials we've gathered: ${sourceNames}.
 
 Host 2: Absolutely! These sources provide fascinating insights. Let me start by highlighting the key themes we've identified.
@@ -5424,19 +5559,19 @@ Host 2: Thanks for joining us today. We hope this discussion has been helpful in
           .trim();
 
         const utterance = new SpeechSynthesisUtterance(speechText);
-        
+
         // Configure speech settings
         utterance.rate = 0.9;
         utterance.pitch = 1.0;
         utterance.volume = 1.0;
-        
+
         // Try to use a good voice
         const voices = speechSynthesis.getVoices();
-        const preferredVoice = voices.find(voice => 
-          voice.lang.startsWith('en') && 
+        const preferredVoice = voices.find(voice =>
+          voice.lang.startsWith('en') &&
           (voice.name.includes('Google') || voice.name.includes('Microsoft'))
         ) || voices.find(voice => voice.lang.startsWith('en'));
-        
+
         if (preferredVoice) {
           utterance.voice = preferredVoice;
         }
@@ -5473,21 +5608,21 @@ Host 2: Thanks for joining us today. We hope this discussion has been helpful in
           if (mediaRecorder.state === 'recording') {
             mediaRecorder.stop();
           }
-          
+
           // Create a simple beep as fallback
           const audioContext = new (window.AudioContext || window.webkitAudioContext)();
           const oscillator = audioContext.createOscillator();
           const gainNode = audioContext.createGain();
-          
+
           oscillator.connect(gainNode);
           gainNode.connect(audioContext.destination);
-          
+
           oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
           gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-          
+
           oscillator.start();
           oscillator.stop(audioContext.currentTime + 1);
-          
+
           // Create a simple audio blob
           const buffer = audioContext.createBuffer(1, audioContext.sampleRate, audioContext.sampleRate);
           const audioBlob = new Blob([buffer], { type: 'audio/wav' });
@@ -5596,34 +5731,34 @@ Host 2: Thanks for joining us today. We hope this discussion has been helpful in
 
     function saveApiConfig() {
       const apiKey = document.getElementById('openaiApiKey').value.trim();
-      
+
       if (apiKey) {
         localStorage.setItem('openaiApiKey', apiKey);
         // Update global variable
         window.OPENAI_API_KEY = apiKey;
         window.hasOpenAI = true;
-        
+
         showToast('✅ API key saved! Full AI functionality enabled.', 'success');
         updateApiStatus();
       } else {
         localStorage.removeItem('openaiApiKey');
         window.OPENAI_API_KEY = '';
         window.hasOpenAI = false;
-        
+
         showToast('ℹ️ API key removed. Using demo mode.', 'info');
         updateApiStatus();
       }
-      
+
       closeCustomModal();
     }
 
     function updateApiStatus() {
       const statusElement = document.getElementById('apiStatus');
       if (!statusElement) return;
-      
+
       const savedKey = localStorage.getItem('openaiApiKey');
       const currentKey = window.OPENAI_API_KEY || OPENAI_API_KEY;
-      
+
       if ((savedKey && savedKey.startsWith('sk-')) || (currentKey && currentKey.startsWith('sk-'))) {
         statusElement.innerHTML = `
           <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">
@@ -5634,7 +5769,7 @@ Host 2: Thanks for joining us today. We hope this discussion has been helpful in
             Manage API
           </button>
         `;
-        
+
         // Update global variables
         window.OPENAI_API_KEY = savedKey || currentKey;
         window.hasOpenAI = true;
@@ -5648,7 +5783,7 @@ Host 2: Thanks for joining us today. We hope this discussion has been helpful in
             Configure API
           </button>
         `;
-        
+
         window.OPENAI_API_KEY = '';
         window.hasOpenAI = false;
       }
