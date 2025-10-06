@@ -823,11 +823,11 @@
       </div>
 
       <!-- Main Note-Taking Interface -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[700px]">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
         <!-- Note Editor -->
         <div
-          class="lg:col-span-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 flex flex-col">
+          class="lg:col-span-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20">
           <!-- Editor Header -->
           <div class="p-6 border-b border-gray-200 dark:border-gray-700">
             <div class="flex justify-between items-center mb-4">
@@ -851,7 +851,7 @@
           </div>
 
           <!-- Editor Content -->
-          <div class="flex-1 p-6">
+          <div class="p-6">
             <textarea id="noteContent" placeholder="Start writing your notes here...
 
 💡 Tips:
@@ -860,7 +860,7 @@
 • Use the web iframe for reference
 
 Start typing to begin!"
-              class="w-full h-full resize-none border-none outline-none bg-transparent text-base leading-relaxed"
+              class="w-full h-96 resize-y border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-white/50 dark:bg-gray-700/50 text-base leading-relaxed"
               oninput="updateWordCount()"></textarea>
           </div>
 
@@ -4629,58 +4629,369 @@ Start typing to begin!"
     }
 
     // ====================================
-    // NOTEBOOKLM FUNCTIONS
+    // SIMPLE NOTES FUNCTIONS
     // ====================================
 
-    // NotebookLM State
-    let notebookSources = [];
-    let notebookNotes = [];
-    let currentNotebookView = 'sources';
-    let chatHistory = [];
-    let podcastLibrary = [];
+    // Simple Notes State
+    let myNotes = [];
     let currentNote = null;
-    let processedDocuments = [];
-    let isAnalyzing = false;
+    let webFrameVisible = false;
 
     // API Configuration
     const OPENAI_API_KEY = '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';
     const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
 
-    // Check if APIs are available
-    const hasOpenAI = OPENAI_API_KEY && OPENAI_API_KEY !== 'your-openai-api-key-here';
-    const hasSpeechSynthesis = 'speechSynthesis' in window;
-    const hasFileReader = 'FileReader' in window;
+    // Initialize Notes App
+    function initializeNotesApp() {
+      // Load saved notes
+      myNotes = JSON.parse(localStorage.getItem('myNotes') || '[]');
+      updateNotesList();
 
-    // Initialize NotebookLM
-    function initializeNotebookLM() {
-      // Set up API configuration - use built-in key or saved key
-      const savedApiKey = localStorage.getItem('openaiApiKey');
-      if (savedApiKey && savedApiKey.startsWith('sk-')) {
-        window.OPENAI_API_KEY = savedApiKey;
-        window.hasOpenAI = true;
-      } else {
-        // Use the built-in API key
-        window.OPENAI_API_KEY = OPENAI_API_KEY;
-        window.hasOpenAI = hasOpenAI;
+      // Initialize word count
+      updateWordCount();
+
+      // Auto-save every 30 seconds
+      setInterval(autoSave, 30000);
+    }
+
+    // Create New Note
+    function createNewNote() {
+      const title = document.getElementById('noteTitle');
+      const content = document.getElementById('noteContent');
+
+      title.value = '';
+      content.value = '';
+      currentNote = null;
+      updateWordCount();
+
+      showToast('📝 New note created', 'info');
+    }
+
+    // Save Note
+    function saveNote() {
+      const title = document.getElementById('noteTitle').value.trim();
+      const content = document.getElementById('noteContent').value.trim();
+
+      if (!title && !content) {
+        showToast('❌ Note is empty', 'error');
+        return;
       }
 
-      // Load saved data
-      notebookSources = JSON.parse(localStorage.getItem('notebookSources') || '[]');
-      notebookNotes = JSON.parse(localStorage.getItem('notebookNotes') || '[]');
-      chatHistory = JSON.parse(localStorage.getItem('notebookChat') || '[]');
-      podcastLibrary = JSON.parse(localStorage.getItem('podcastLibrary') || '[]');
+      const noteTitle = title || 'Untitled Note';
+      const now = new Date().toISOString();
 
-      // Show default view
-      showNotebookView('sources');
-      updateSourcesList();
+      if (currentNote) {
+        // Update existing note
+        currentNote.title = noteTitle;
+        currentNote.content = content;
+        currentNote.lastModified = now;
+      } else {
+        // Create new note
+        currentNote = {
+          id: Date.now(),
+          title: noteTitle,
+          content: content,
+          created: now,
+          lastModified: now,
+          tags: extractTags(content)
+        };
+        myNotes.unshift(currentNote);
+      }
+
+      // Save to localStorage
+      localStorage.setItem('myNotes', JSON.stringify(myNotes));
       updateNotesList();
-      updatePodcastLibrary();
-      updateApiStatus();
 
-      // Load chat history
-      if (chatHistory.length === 0) {
-        // Add welcome message
-        addChatMessage('assistant', `Hello! I'm your AI research assistant powered by GPT-3.5-turbo! 🚀
+      // Update last saved indicator
+      document.getElementById('lastSaved').textContent = 'Saved at ' + new Date().toLocaleTimeString();
+
+      showToast('✅ Note saved successfully!', 'success');
+    }
+
+    // Auto Save
+    function autoSave() {
+      const title = document.getElementById('noteTitle').value.trim();
+      const content = document.getElementById('noteContent').value.trim();
+
+      if (title || content) {
+        saveNote();
+      }
+    }
+
+    // Extract hashtags from content
+    function extractTags(content) {
+      const tagMatches = content.match(/#\w+/g);
+      return tagMatches ? tagMatches.map(tag => tag.substring(1)) : [];
+    }
+
+    // Update Word Count
+    function updateWordCount() {
+      const content = document.getElementById('noteContent').value;
+      const words = content.trim() ? content.trim().split(/\s+/).length : 0;
+      const chars = content.length;
+
+      document.getElementById('wordCount').textContent = `${words} words`;
+      document.getElementById('charCount').textContent = `${chars} characters`;
+    }
+
+    // Update Notes List
+    function updateNotesList() {
+      const notesList = document.getElementById('notesList');
+
+      if (myNotes.length === 0) {
+        notesList.innerHTML = `
+          <div class="text-center py-4 text-gray-500">
+            <i class="fas fa-sticky-note text-2xl mb-2"></i>
+            <p class="text-sm">No notes yet</p>
+          </div>
+        `;
+        return;
+      }
+
+      notesList.innerHTML = myNotes.map(note => `
+        <div class="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600/50 transition-all" onclick="loadNote(${note.id})">
+          <h5 class="font-semibold text-sm truncate mb-1">${note.title}</h5>
+          <p class="text-xs text-gray-500 truncate">${note.content.substring(0, 50)}...</p>
+          <div class="flex justify-between items-center mt-2">
+            <span class="text-xs text-gray-400">${formatDate(note.lastModified)}</span>
+            <button onclick="deleteNote(${note.id}); event.stopPropagation();" class="text-red-500 hover:text-red-700 text-xs">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Load Note
+    function loadNote(id) {
+      const note = myNotes.find(n => n.id === id);
+      if (!note) return;
+
+      currentNote = note;
+      document.getElementById('noteTitle').value = note.title;
+      document.getElementById('noteContent').value = note.content;
+      updateWordCount();
+
+      showToast(`📖 Loaded: ${note.title}`, 'info');
+    }
+
+    // Delete Note
+    function deleteNote(id) {
+      if (confirm('Are you sure you want to delete this note?')) {
+        myNotes = myNotes.filter(note => note.id !== id);
+        localStorage.setItem('myNotes', JSON.stringify(myNotes));
+        updateNotesList();
+
+        // Clear editor if this note was loaded
+        if (currentNote && currentNote.id === id) {
+          createNewNote();
+        }
+
+        showToast('🗑️ Note deleted', 'info');
+      }
+    }
+
+    // Export Note
+    function exportNote() {
+      const title = document.getElementById('noteTitle').value || 'Untitled Note';
+      const content = document.getElementById('noteContent').value;
+
+      if (!content.trim()) {
+        showToast('❌ No content to export', 'error');
+        return;
+      }
+
+      const blob = new Blob([`# ${title}\n\n${content}`], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.md`;
+      a.click();
+      URL.revokeObjectURL(url);
+
+      showToast('📥 Note exported!', 'success');
+    }
+
+    // Insert Template
+    function insertTemplate(type) {
+      const templates = {
+        outline: `# Outline
+
+## I. Introduction
+- 
+
+## II. Main Points
+- 
+- 
+- 
+
+## III. Conclusion
+- `,
+        summary: `# Summary
+
+## Key Points
+- 
+
+## Important Details
+- 
+
+## Takeaways
+- `,
+        research: `# Research Notes
+
+## Source: 
+**URL:** 
+**Date:** ${new Date().toLocaleDateString()}
+
+## Main Ideas
+- 
+
+## Quotes & Evidence
+- 
+
+## My Thoughts
+- `
+      };
+
+      const template = templates[type];
+      if (template) {
+        const textarea = document.getElementById('noteContent');
+        const currentContent = textarea.value;
+        textarea.value = currentContent + (currentContent ? '\n\n' : '') + template;
+        updateWordCount();
+        showToast(`📋 ${type.charAt(0).toUpperCase() + type.slice(1)} template inserted`, 'info');
+      }
+    }
+
+    // AI Functions
+    async function askAI() {
+      const question = document.getElementById('aiQuestion').value.trim();
+      if (!question) {
+        showToast('❌ Please enter a question', 'error');
+        return;
+      }
+
+      const responseDiv = document.getElementById('aiResponse');
+      responseDiv.classList.remove('hidden');
+      responseDiv.innerHTML = `
+        <div class="flex items-center space-x-2">
+          <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+          <span class="text-blue-800 dark:text-blue-200">AI is thinking...</span>
+        </div>
+      `;
+
+      try {
+        const response = await fetch(OPENAI_API_URL, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${OPENAI_API_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: 'gpt-3.5-turbo',
+            messages: [
+              { role: 'system', content: 'You are a helpful assistant for note-taking and research. Provide concise, helpful responses.' },
+              { role: 'user', content: question }
+            ],
+            max_tokens: 300,
+            temperature: 0.7
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error(`API error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const aiResponse = data.choices[0].message.content;
+
+        responseDiv.innerHTML = `<p class="text-blue-800 dark:text-blue-200">${aiResponse}</p>`;
+        document.getElementById('aiQuestion').value = '';
+
+        showToast('🤖 AI responded!', 'success');
+
+      } catch (error) {
+        console.error('AI Error:', error);
+        responseDiv.innerHTML = `<p class="text-red-800 dark:text-red-200">❌ Error: ${error.message}</p>`;
+        showToast('❌ AI request failed', 'error');
+      }
+    }
+
+    // Handle AI input keypress
+    function handleAIKeyPress(event) {
+      if (event.key === 'Enter') {
+        askAI();
+      }
+    }
+
+    // Quick Actions
+    async function summarizeNote() {
+      const content = document.getElementById('noteContent').value.trim();
+      if (!content) {
+        showToast('❌ No content to summarize', 'error');
+        return;
+      }
+
+      document.getElementById('aiQuestion').value = `Please summarize this text: ${content.substring(0, 500)}...`;
+      await askAI();
+    }
+
+    async function improveWriting() {
+      const content = document.getElementById('noteContent').value.trim();
+      if (!content) {
+        showToast('❌ No content to improve', 'error');
+        return;
+      }
+
+      document.getElementById('aiQuestion').value = `Please suggest improvements for this writing: ${content.substring(0, 500)}...`;
+      await askAI();
+    }
+
+    async function generateIdeas() {
+      const title = document.getElementById('noteTitle').value.trim();
+      const topic = title || 'general topic';
+
+      document.getElementById('aiQuestion').value = `Generate 5 creative ideas related to: ${topic}`;
+      await askAI();
+    }
+
+    // Web Research Functions
+    function loadWebsite() {
+      const url = document.getElementById('webUrl').value.trim();
+      if (!url) {
+        showToast('❌ Please enter a URL', 'error');
+        return;
+      }
+
+      try {
+        new URL(url); // Validate URL
+        document.getElementById('researchFrame').src = url;
+        document.getElementById('webFrame').classList.remove('hidden');
+        webFrameVisible = true;
+        showToast('🌐 Website loaded', 'success');
+      } catch {
+        showToast('❌ Invalid URL', 'error');
+      }
+    }
+
+    function toggleWebView() {
+      const webFrame = document.getElementById('webFrame');
+      webFrameVisible = !webFrameVisible;
+
+      if (webFrameVisible) {
+        webFrame.classList.remove('hidden');
+      } else {
+        webFrame.classList.add('hidden');
+      }
+    }
+
+    // Initialize when notes section is shown
+    function initializeNotebookLM() {
+      initializeNotesApp();
+    }
+    if (chatHistory.length === 0) {
+      // Add welcome message
+      addChatMessage('assistant', `Hello! I'm your AI research assistant powered by GPT-3.5-turbo! 🚀
 
 🎉 **Full AI functionality is active!** I can:
 • Analyze your documents with real AI intelligence
@@ -4695,16 +5006,16 @@ To get started:
 3. 💬 Come back here to ask me anything about your content!
 
 What would you like to explore today?`);
-      } else {
-        // Restore chat history
-        const messagesContainer = document.getElementById('chatMessages');
-        if (messagesContainer) {
-          messagesContainer.innerHTML = '';
-          chatHistory.forEach(msg => {
-            addChatMessage(msg.sender, msg.message, false); // false = don't save again
-          });
-        }
+    } else {
+      // Restore chat history
+      const messagesContainer = document.getElementById('chatMessages');
+      if (messagesContainer) {
+        messagesContainer.innerHTML = '';
+        chatHistory.forEach(msg => {
+          addChatMessage(msg.sender, msg.message, false); // false = don't save again
+        });
       }
+    }
     }
 
     // Navigation between views
