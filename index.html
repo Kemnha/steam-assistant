@@ -8358,288 +8358,282 @@ Host 2: Thanks for joining us today. We hope this discussion has been helpful in
     window.addEventListener('load', logPerformance);
   </script>
 
+</body>
 
-  // Simple working functions that override any duplicates
-  window.createNewNote = function () {
-  console.log('createNewNote called');
-  const title = document.getElementById('noteTitle');
-  const content = document.getElementById('noteContent');
+</html>
 
-  if (title) title.value = '';
-  if (content) content.value = '';
+alert('✅ New note created!');
+};
 
-  alert('✅ New note created!');
-  };
+window.saveNote = function () {
+console.log('saveNote called');
+const title = document.getElementById('noteTitle');
+const content = document.getElementById('noteContent');
 
-  window.saveNote = function () {
-  console.log('saveNote called');
-  const title = document.getElementById('noteTitle');
-  const content = document.getElementById('noteContent');
+if (!title || !content) {
+alert('❌ Note elements not found');
+return;
+}
 
-  if (!title || !content) {
-  alert('❌ Note elements not found');
-  return;
-  }
+const titleText = title.value.trim();
+const contentText = content.value.trim();
 
-  const titleText = title.value.trim();
-  const contentText = content.value.trim();
+if (!titleText && !contentText) {
+alert('❌ Note is empty');
+return;
+}
 
-  if (!titleText && !contentText) {
-  alert('❌ Note is empty');
-  return;
-  }
+// Save to localStorage
+const note = {
+id: Date.now(),
+title: titleText || 'Untitled Note',
+content: contentText,
+created: new Date().toISOString()
+};
 
-  // Save to localStorage
-  const note = {
-  id: Date.now(),
-  title: titleText || 'Untitled Note',
-  content: contentText,
-  created: new Date().toISOString()
-  };
+const notes = JSON.parse(localStorage.getItem('myNotes') || '[]');
+notes.unshift(note);
+localStorage.setItem('myNotes', JSON.stringify(notes));
 
-  const notes = JSON.parse(localStorage.getItem('myNotes') || '[]');
-  notes.unshift(note);
-  localStorage.setItem('myNotes', JSON.stringify(notes));
+alert('✅ Note saved successfully!');
+};
 
-  alert('✅ Note saved successfully!');
-  };
+window.askAI = function () {
+console.log('askAI called');
+const question = document.getElementById('aiQuestion');
 
-  window.askAI = function () {
-  console.log('askAI called');
-  const question = document.getElementById('aiQuestion');
+if (!question) {
+alert('❌ AI question input not found');
+return;
+}
 
-  if (!question) {
-  alert('❌ AI question input not found');
-  return;
-  }
+const questionText = question.value.trim();
+if (!questionText) {
+alert('❌ Please enter a question');
+return;
+}
 
-  const questionText = question.value.trim();
-  if (!questionText) {
-  alert('❌ Please enter a question');
-  return;
-  }
+alert('🤖 AI feature would work here with: ' + questionText);
+question.value = '';
+};
 
-  alert('🤖 AI feature would work here with: ' + questionText);
-  question.value = '';
-  };
+window.toggleWebView = function () {
+console.log('toggleWebView called');
+const webFrame = document.getElementById('webFrame');
 
-  window.toggleWebView = function () {
-  console.log('toggleWebView called');
-  const webFrame = document.getElementById('webFrame');
+if (!webFrame) {
+alert('❌ Web frame not found');
+return;
+}
 
-  if (!webFrame) {
-  alert('❌ Web frame not found');
-  return;
-  }
+if (webFrame.classList.contains('hidden')) {
+webFrame.classList.remove('hidden');
+alert('🌐 Web view opened');
+} else {
+webFrame.classList.add('hidden');
+alert('🌐 Web view closed');
+}
+};
 
-  if (webFrame.classList.contains('hidden')) {
-  webFrame.classList.remove('hidden');
-  alert('🌐 Web view opened');
-  } else {
-  webFrame.classList.add('hidden');
-  alert('🌐 Web view closed');
-  }
-  };
+window.loadWebsite = function () {
+console.log('loadWebsite called');
+const urlInput = document.getElementById('webUrl');
+const iframe = document.getElementById('researchFrame');
 
-  window.loadWebsite = function () {
-  console.log('loadWebsite called');
-  const urlInput = document.getElementById('webUrl');
-  const iframe = document.getElementById('researchFrame');
+if (!urlInput || !iframe) {
+alert('❌ Web elements not found');
+return;
+}
 
-  if (!urlInput || !iframe) {
-  alert('❌ Web elements not found');
-  return;
-  }
+const url = urlInput.value.trim();
+if (!url) {
+alert('❌ Please enter a URL');
+return;
+}
 
-  const url = urlInput.value.trim();
-  if (!url) {
-  alert('❌ Please enter a URL');
-  return;
-  }
+iframe.src = url;
+document.getElementById('webFrame').classList.remove('hidden');
+alert('🌐 Loading website: ' + url);
+};
 
-  iframe.src = url;
-  document.getElementById('webFrame').classList.remove('hidden');
-  alert('🌐 Loading website: ' + url);
-  };
+window.exportNote = function () {
+console.log('exportNote called');
+const title = document.getElementById('noteTitle');
+const content = document.getElementById('noteContent');
 
-  window.exportNote = function () {
-  console.log('exportNote called');
-  const title = document.getElementById('noteTitle');
-  const content = document.getElementById('noteContent');
+if (!title || !content) {
+alert('❌ Note elements not found');
+return;
+}
 
-  if (!title || !content) {
-  alert('❌ Note elements not found');
-  return;
-  }
+const noteTitle = title.value || 'Untitled Note';
+const noteContent = content.value || '';
 
-  const noteTitle = title.value || 'Untitled Note';
-  const noteContent = content.value || '';
+const blob = new Blob([`# ${noteTitle}\n\n${noteContent}`], { type: 'text/markdown' });
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+a.href = url;
+a.download = `${noteTitle}.md`;
+a.click();
+URL.revokeObjectURL(url);
 
-  const blob = new Blob([`# ${noteTitle}\n\n${noteContent}`], { type: 'text/markdown' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `${noteTitle}.md`;
-  a.click();
-  URL.revokeObjectURL(url);
+alert('📄 Note exported as Markdown!');
+};
 
-  alert('📄 Note exported as Markdown!');
-  };
+window.insertTemplate = function (type) {
+console.log('insertTemplate called with type:', type);
+const content = document.getElementById('noteContent');
 
-  window.insertTemplate = function (type) {
-  console.log('insertTemplate called with type:', type);
-  const content = document.getElementById('noteContent');
+if (!content) {
+alert('❌ Note content not found');
+return;
+}
 
-  if (!content) {
-  alert('❌ Note content not found');
-  return;
-  }
+const templates = {
+outline: '# Outline\n\n## Main Points\n- Point 1\n- Point 2\n- Point 3\n\n## Details\n\n## Conclusion\n',
+summary: '# Summary\n\n## Key Points\n\n## Important Details\n\n## Takeaways\n',
+research: '# Research Notes\n\n## Topic: \n\n## Sources\n- Source 1: \n- Source 2: \n\n## Findings\n\n## Questions\n'
+};
 
-  const templates = {
-  outline: '# Outline\n\n## Main Points\n- Point 1\n- Point 2\n- Point 3\n\n## Details\n\n## Conclusion\n',
-  summary: '# Summary\n\n## Key Points\n\n## Important Details\n\n## Takeaways\n',
-  research: '# Research Notes\n\n## Topic: \n\n## Sources\n- Source 1: \n- Source 2: \n\n## Findings\n\n## Questions\n'
-  };
+content.value += templates[type] || '';
+alert('📋 Template inserted!');
+};
 
-  content.value += templates[type] || '';
-  alert('📋 Template inserted!');
-  };
+// Enhanced Quick actions
+window.summarizeNote = function () {
+console.log('📄 summarizeNote called');
+const content = document.getElementById('noteContent');
 
-  // Enhanced Quick actions
-  window.summarizeNote = function () {
-  console.log('📄 summarizeNote called');
-  const content = document.getElementById('noteContent');
+if (!content || !content.value.trim()) {
+alert('❌ Please write some content in your note first!');
+return;
+}
 
-  if (!content || !content.value.trim()) {
-  alert('❌ Please write some content in your note first!');
-  return;
-  }
+const noteText = content.value.trim();
+const wordCount = noteText.split(/\s+/).length;
 
-  const noteText = content.value.trim();
-  const wordCount = noteText.split(/\s+/).length;
+alert(`📄 Summarize Note\n\nYour note has ${wordCount} words. In the full version, I would:\n• Extract key points\n•
+Create bullet summaries\n• Highlight important concepts\n• Generate concise overview\n\nDemo: Your note appears to be
+about "${noteText.substring(0, 50)}..."`);
+};
 
-  alert(`📄 Summarize Note\n\nYour note has ${wordCount} words. In the full version, I would:\n• Extract key points\n•
-  Create bullet summaries\n• Highlight important concepts\n• Generate concise overview\n\nDemo: Your note appears to be
-  about "${noteText.substring(0, 50)}..."`);
-  };
+window.improveWriting = function () {
+console.log('✏️ improveWriting called');
+const content = document.getElementById('noteContent');
 
-  window.improveWriting = function () {
-  console.log('✏️ improveWriting called');
-  const content = document.getElementById('noteContent');
+if (!content || !content.value.trim()) {
+alert('❌ Please write some content in your note first!');
+return;
+}
 
-  if (!content || !content.value.trim()) {
-  alert('❌ Please write some content in your note first!');
-  return;
-  }
+const noteText = content.value.trim();
 
-  const noteText = content.value.trim();
+alert(`✏️ Improve Writing\n\nIn the full version, I would:\n• Fix grammar and spelling\n• Improve sentence
+structure\n• Enhance clarity and flow\n• Suggest better word choices\n• Make it more engaging\n\nYour current note has
+${noteText.length} characters and looks great!`);
+};
 
-  alert(`✏️ Improve Writing\n\nIn the full version, I would:\n• Fix grammar and spelling\n• Improve sentence
-  structure\n• Enhance clarity and flow\n• Suggest better word choices\n• Make it more engaging\n\nYour current note has
-  ${noteText.length} characters and looks great!`);
-  };
+window.generateIdeas = function () {
+console.log('💡 generateIdeas called');
+const title = document.getElementById('noteTitle');
+const content = document.getElementById('noteContent');
 
-  window.generateIdeas = function () {
-  console.log('💡 generateIdeas called');
-  const title = document.getElementById('noteTitle');
-  const content = document.getElementById('noteContent');
+const noteTitle = title ? title.value.trim() : '';
+const noteContent = content ? content.value.trim() : '';
 
-  const noteTitle = title ? title.value.trim() : '';
-  const noteContent = content ? content.value.trim() : '';
+const topic = noteTitle || (noteContent ? noteContent.substring(0, 30) + '...' : 'your topic');
 
-  const topic = noteTitle || (noteContent ? noteContent.substring(0, 30) + '...' : 'your topic');
+alert(`💡 Generate Ideas\n\nBased on "${topic}", here are some ideas:\n\n• Related concepts to explore\n• Questions to
+investigate\n• Different perspectives to consider\n• Practical applications\n• Further research directions\n\nIn the
+full version, I'd generate specific, relevant ideas based on your content!`);
+};
 
-  alert(`💡 Generate Ideas\n\nBased on "${topic}", here are some ideas:\n\n• Related concepts to explore\n• Questions to
-  investigate\n• Different perspectives to consider\n• Practical applications\n• Further research directions\n\nIn the
-  full version, I'd generate specific, relevant ideas based on your content!`);
-  };
+// Fix date/time display
+window.updateDateTime = function () {
+const now = new Date();
+const dateElement = document.getElementById('currentDateTime');
 
-  // Fix date/time display
-  window.updateDateTime = function () {
-  const now = new Date();
-  const dateElement = document.getElementById('currentDateTime');
+if (!dateElement) return;
 
-  if (!dateElement) return;
+const options = {
+weekday: 'short',
+month: 'short',
+day: 'numeric',
+hour: '2-digit',
+minute: '2-digit'
+};
 
-  const options = {
-  weekday: 'short',
-  month: 'short',
-  day: 'numeric',
-  hour: '2-digit',
-  minute: '2-digit'
-  };
+const dateString = now.toLocaleDateString('en-US', options);
+dateElement.textContent = dateString;
+};
 
-  const dateString = now.toLocaleDateString('en-US', options);
-  dateElement.textContent = dateString;
-  };
+// Better AI function with response display
+window.askAI = function () {
+console.log('🤖 askAI called successfully!');
+const question = document.getElementById('aiQuestion');
+const responseDiv = document.getElementById('aiResponse');
 
-  // Better AI function with response display
-  window.askAI = function () {
-  console.log('🤖 askAI called successfully!');
-  const question = document.getElementById('aiQuestion');
-  const responseDiv = document.getElementById('aiResponse');
+if (!question) {
+alert('❌ AI question input not found');
+console.error('aiQuestion element not found');
+return;
+}
 
-  if (!question) {
-  alert('❌ AI question input not found');
-  console.error('aiQuestion element not found');
-  return;
-  }
+const questionText = question.value.trim();
+if (!questionText) {
+alert('❌ Please enter a question first!');
+return;
+}
 
-  const questionText = question.value.trim();
-  if (!questionText) {
-  alert('❌ Please enter a question first!');
-  return;
-  }
+console.log('Question asked:', questionText);
 
-  console.log('Question asked:', questionText);
-
-  // Show response area with enhanced styling
-  if (responseDiv) {
-  responseDiv.classList.remove('hidden');
-  responseDiv.innerHTML = `
-  <div
-    class="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/30 dark:to-green-900/30 p-4 rounded-lg border border-blue-200 dark:border-blue-700">
-    <div class="flex items-start space-x-3">
-      <div
-        class="w-8 h-8 bg-gradient-to-r from-blue-500 to-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-        <i class="fas fa-robot text-white text-sm"></i>
-      </div>
-      <div class="flex-1">
-        <p class="text-blue-800 dark:text-blue-200 text-sm">
-          <strong>Your Question:</strong> "${questionText}"
+// Show response area with enhanced styling
+if (responseDiv) {
+responseDiv.classList.remove('hidden');
+responseDiv.innerHTML = `
+<div
+  class="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/30 dark:to-green-900/30 p-4 rounded-lg border border-blue-200 dark:border-blue-700">
+  <div class="flex items-start space-x-3">
+    <div
+      class="w-8 h-8 bg-gradient-to-r from-blue-500 to-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+      <i class="fas fa-robot text-white text-sm"></i>
+    </div>
+    <div class="flex-1">
+      <p class="text-blue-800 dark:text-blue-200 text-sm">
+        <strong>Your Question:</strong> "${questionText}"
+      </p>
+      <div class="mt-3 p-3 bg-white/50 dark:bg-gray-800/50 rounded-lg">
+        <p class="text-gray-800 dark:text-gray-200 text-sm">
+          <strong>🤖 AI Assistant:</strong> Hello! I received your question about "${questionText}".
+          <br><br>
+          This is a demo response showing that the AI system is working perfectly! In the full version, I would:
+          <br>• Analyze your question intelligently
+          <br>• Provide detailed, contextual answers
+          <br>• Reference your notes and documents
+          <br>• Offer helpful suggestions and insights
+          <br><br>
+          <em>The AI button is working great! 🎉</em>
         </p>
-        <div class="mt-3 p-3 bg-white/50 dark:bg-gray-800/50 rounded-lg">
-          <p class="text-gray-800 dark:text-gray-200 text-sm">
-            <strong>🤖 AI Assistant:</strong> Hello! I received your question about "${questionText}".
-            <br><br>
-            This is a demo response showing that the AI system is working perfectly! In the full version, I would:
-            <br>• Analyze your question intelligently
-            <br>• Provide detailed, contextual answers
-            <br>• Reference your notes and documents
-            <br>• Offer helpful suggestions and insights
-            <br><br>
-            <em>The AI button is working great! 🎉</em>
-          </p>
-        </div>
       </div>
     </div>
   </div>
-  `;
-  console.log('✅ AI response displayed successfully');
-  } else {
-  console.error('aiResponse element not found');
-  }
+</div>
+`;
+console.log('✅ AI response displayed successfully');
+} else {
+console.error('aiResponse element not found');
+}
 
-  question.value = '';
-  alert('🤖 AI Assistant responded! Check the blue response box below the input field.');
-  };
+question.value = '';
+alert('🤖 AI Assistant responded! Check the blue response box below the input field.');
+};
 
-  // Initialize date/time immediately and update every minute
-  updateDateTime();
-  setInterval(updateDateTime, 60000);
+// Initialize date/time immediately and update every minute
+updateDateTime();
+setInterval(updateDateTime, 60000);
 
-  console.log('✅ All button functions are now working! Date/time updated!');
-  </script>
+console.log('✅ All button functions are now working! Date/time updated!');
+</script>
 
 </body>
 
