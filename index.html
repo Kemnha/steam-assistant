@@ -4652,6 +4652,20 @@ Start typing to begin!"
 
       // Auto-save every 30 seconds
       setInterval(autoSave, 30000);
+
+      // Make functions globally available
+      window.createNewNote = createNewNote;
+      window.saveNote = saveNote;
+      window.askAI = askAI;
+      window.toggleWebView = toggleWebView;
+      window.exportNote = exportNote;
+      window.loadWebsite = loadWebsite;
+      window.insertTemplate = insertTemplate;
+      window.summarizeNote = summarizeNote;
+      window.improveWriting = improveWriting;
+      window.generateIdeas = generateIdeas;
+
+      console.log('Notes app initialized, functions available globally');
     }
 
     // Handle AI question keypress
@@ -4663,11 +4677,12 @@ Start typing to begin!"
 
     // Create New Note
     function createNewNote() {
+      console.log('createNewNote called');
       const title = document.getElementById('noteTitle');
       const content = document.getElementById('noteContent');
 
-      title.value = '';
-      content.value = '';
+      if (title) title.value = '';
+      if (content) content.value = '';
       currentNote = null;
       updateWordCount();
 
@@ -4676,8 +4691,17 @@ Start typing to begin!"
 
     // Save Note
     function saveNote() {
-      const title = document.getElementById('noteTitle').value.trim();
-      const content = document.getElementById('noteContent').value.trim();
+      console.log('saveNote called');
+      const titleEl = document.getElementById('noteTitle');
+      const contentEl = document.getElementById('noteContent');
+
+      if (!titleEl || !contentEl) {
+        console.error('Note elements not found');
+        return;
+      }
+
+      const title = titleEl.value.trim();
+      const content = contentEl.value.trim();
 
       if (!title && !content) {
         showToast('❌ Note is empty', 'error');
@@ -4872,7 +4896,14 @@ Start typing to begin!"
 
     // AI Functions
     async function askAI() {
-      const question = document.getElementById('aiQuestion').value.trim();
+      console.log('askAI called');
+      const questionEl = document.getElementById('aiQuestion');
+      if (!questionEl) {
+        console.error('AI question element not found');
+        return;
+      }
+
+      const question = questionEl.value.trim();
       if (!question) {
         showToast('❌ Please enter a question', 'error');
         return;
@@ -4982,7 +5013,12 @@ Start typing to begin!"
     }
 
     function toggleWebView() {
+      console.log('toggleWebView called');
       const webFrame = document.getElementById('webFrame');
+      if (!webFrame) {
+        console.error('Web frame element not found');
+        return;
+      }
       webFrameVisible = !webFrameVisible;
 
       if (webFrameVisible) {
