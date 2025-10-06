@@ -1226,7 +1226,7 @@ Start typing to begin!"
 💡 Pro tip: Reference your sources by typing @source-name
 🔗 Create connections with [[topic-name]]
 📝 Use #tags for organization"
-              class="w-full h-full resize-none border-none outline-none bg-transparent text-base leading-relaxed"></textarea>
+              class="w-full h-96 resize-y border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-white/50 dark:bg-gray-700/50 text-base leading-relaxed"></textarea>
           </div>
 
           <!-- Editor Footer -->
@@ -8501,17 +8501,47 @@ Host 2: Thanks for joining us today. We hope this discussion has been helpful in
       alert('📋 Template inserted!');
     };
 
-    // Quick actions
+    // Enhanced Quick actions
     window.summarizeNote = function () {
-      alert('📄 Summarize feature would work here');
+      console.log('📄 summarizeNote called');
+      const content = document.getElementById('noteContent');
+
+      if (!content || !content.value.trim()) {
+        alert('❌ Please write some content in your note first!');
+        return;
+      }
+
+      const noteText = content.value.trim();
+      const wordCount = noteText.split(/\s+/).length;
+
+      alert(`📄 Summarize Note\n\nYour note has ${wordCount} words. In the full version, I would:\n• Extract key points\n• Create bullet summaries\n• Highlight important concepts\n• Generate concise overview\n\nDemo: Your note appears to be about "${noteText.substring(0, 50)}..."`);
     };
 
     window.improveWriting = function () {
-      alert('✏️ Writing improvement feature would work here');
+      console.log('✏️ improveWriting called');
+      const content = document.getElementById('noteContent');
+
+      if (!content || !content.value.trim()) {
+        alert('❌ Please write some content in your note first!');
+        return;
+      }
+
+      const noteText = content.value.trim();
+
+      alert(`✏️ Improve Writing\n\nIn the full version, I would:\n• Fix grammar and spelling\n• Improve sentence structure\n• Enhance clarity and flow\n• Suggest better word choices\n• Make it more engaging\n\nYour current note has ${noteText.length} characters and looks great!`);
     };
 
     window.generateIdeas = function () {
-      alert('💡 Idea generation feature would work here');
+      console.log('💡 generateIdeas called');
+      const title = document.getElementById('noteTitle');
+      const content = document.getElementById('noteContent');
+
+      const noteTitle = title ? title.value.trim() : '';
+      const noteContent = content ? content.value.trim() : '';
+
+      const topic = noteTitle || (noteContent ? noteContent.substring(0, 30) + '...' : 'your topic');
+
+      alert(`💡 Generate Ideas\n\nBased on "${topic}", here are some ideas:\n\n• Related concepts to explore\n• Questions to investigate\n• Different perspectives to consider\n• Practical applications\n• Further research directions\n\nIn the full version, I'd generate specific, relevant ideas based on your content!`);
     };
 
     // Fix date/time display
