@@ -1738,7 +1738,7 @@ Start typing to begin!"
             <p class="text-sm text-gray-500 dark:text-gray-400">Educational Video Series</p>
           </div>
         </div>
-        <div class="aspect-w-16 aspect-h-9 mb-4">
+        <div class="mb-4">
           <iframe src="https://www.youtube.com/embed/ZM8ECpBuQYE" class="w-full h-48 rounded-lg" frameborder="0"
             allowfullscreen></iframe>
         </div>
@@ -1764,7 +1764,7 @@ Start typing to begin!"
             <p class="text-sm text-gray-500 dark:text-gray-400">Mathematics Tutorial</p>
           </div>
         </div>
-        <div class="aspect-w-16 aspect-h-9 mb-4">
+        <div class="mb-4">
           <iframe src="https://www.youtube.com/embed/WUvTyaaNkzM" class="w-full h-48 rounded-lg" frameborder="0"
             allowfullscreen></iframe>
         </div>
@@ -1790,7 +1790,7 @@ Start typing to begin!"
             <p class="text-sm text-gray-500 dark:text-gray-400">Animated Science Lessons</p>
           </div>
         </div>
-        <div class="aspect-w-16 aspect-h-9 mb-4">
+        <div class="mb-4">
           <iframe src="https://www.youtube.com/embed/yQP4UJhNn0I" class="w-full h-48 rounded-lg" frameborder="0"
             allowfullscreen></iframe>
         </div>
@@ -1816,7 +1816,7 @@ Start typing to begin!"
             <p class="text-sm text-gray-500 dark:text-gray-400">Coding Tutorial</p>
           </div>
         </div>
-        <div class="aspect-w-16 aspect-h-9 mb-4">
+        <div class="mb-4">
           <iframe src="https://www.youtube.com/embed/rfscVS0vtbw" class="w-full h-48 rounded-lg" frameborder="0"
             allowfullscreen></iframe>
         </div>
@@ -1842,7 +1842,7 @@ Start typing to begin!"
             <p class="text-sm text-gray-500 dark:text-gray-400">Mechanical Engineering</p>
           </div>
         </div>
-        <div class="aspect-w-16 aspect-h-9 mb-4">
+        <div class="mb-4">
           <iframe src="https://www.youtube.com/embed/yYAw79386WI" class="w-full h-48 rounded-lg" frameborder="0"
             allowfullscreen></iframe>
         </div>
@@ -1868,7 +1868,7 @@ Start typing to begin!"
             <p class="text-sm text-gray-500 dark:text-gray-400">Creative Arts</p>
           </div>
         </div>
-        <div class="aspect-w-16 aspect-h-9 mb-4">
+        <div class="mb-4">
           <iframe src="https://www.youtube.com/embed/ewMksAbgdBI" class="w-full h-48 rounded-lg" frameborder="0"
             allowfullscreen></iframe>
         </div>
@@ -4652,6 +4652,13 @@ Start typing to begin!"
 
       // Auto-save every 30 seconds
       setInterval(autoSave, 30000);
+    }
+
+    // Handle AI question keypress
+    function handleAIKeyPress(event) {
+      if (event.key === 'Enter') {
+        askAI();
+      }
     }
 
     // Create New Note
@@ -8245,6 +8252,9 @@ Host 2: Thanks for joining us today. We hope this discussion has been helpful in
       if (noteContent) {
         noteContent.addEventListener('input', updateWordCount);
       }
+
+      // Initialize notes functionality
+      initializeNotesApp();
 
       // Initialize with dashboard section
       setTimeout(() => {
