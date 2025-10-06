@@ -793,7 +793,6 @@
       </div>
       <div id="assignmentsList" class="space-y-4">
         <div class="text-gray-500 text-cexnter py-8 bg-white/50 dark:bg-gray-800/50 rounded-2xl backdrop-blur-sm">
-          nsos
         </div>
       </div>
     </section>
@@ -829,36 +828,36 @@
       </div>
 
       <!-- Main Note-Taking Interface -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6"></div>
 
-        <!-- Note Editor -->
-        <div
-          class="lg:col-span-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20">
-          <!-- Editor Header -->
-          <div class="p-6 border-b border-gray-200 dark:border-gray-700">
-            <div class="flex justify-between items-center mb-4">
-              <h3 class="text-xl font-bold flex items-center">
-                <i class="fas fa-edit text-blue-600 mr-2"></i>
-                Note Editor
-              </h3>
-              <div class="flex space-x-2">
-                <button onclick="saveNote()"
-                  class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-all">
-                  <i class="fas fa-save mr-1"></i>Save
-                </button>
-                <button onclick="exportNote()"
-                  class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-all">
-                  <i class="fas fa-download mr-1"></i>Export
-                </button>
-              </div>
+      <!-- Note Editor -->
+      <div
+        class="lg:col-span-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20">
+        <!-- Editor Header -->
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-bold flex items-center">
+              <i class="fas fa-edit text-blue-600 mr-2"></i>
+              Note Editor
+            </h3>
+            <div class="flex space-x-2">
+              <button onclick="saveNote()"
+                class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-all">
+                <i class="fas fa-save mr-1"></i>Save
+              </button>
+              <button onclick="exportNote()"
+                class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-all">
+                <i class="fas fa-download mr-1"></i>Export
+              </button>
             </div>
-            <input type="text" id="noteTitle" placeholder="Enter note title..."
-              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white/50 dark:bg-gray-700/50 text-lg font-semibold">
           </div>
+          <input type="text" id="noteTitle" placeholder="Enter note title..."
+            class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white/50 dark:bg-gray-700/50 text-lg font-semibold">
+        </div>
 
-          <!-- Editor Content -->
-          <div class="p-6">
-            <textarea id="noteContent" placeholder="Start writing your notes here...
+        <!-- Editor Content -->
+        <div class="p-6">
+          <textarea id="noteContent" placeholder="Start writing your notes here...
 
 💡 Tips:
 • Use #hashtags for organization
@@ -866,220 +865,215 @@
 • Use the web iframe for reference
 
 Start typing to begin!"
-              class="w-full h-96 resize-y border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-white/50 dark:bg-gray-700/50 text-base leading-relaxed"
-              oninput="updateWordCount()"></textarea>
-          </div>
-
-          <!-- Editor Footer -->
-          <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
-            <div class="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400">
-              <div class="flex space-x-4">
-                <span id="wordCount">0 words</span>
-                <span id="charCount">0 characters</span>
-                <span id="lastSaved" class="text-green-600"></span>
-              </div>
-              <div class="flex space-x-2">
-                <button onclick="insertTemplate('outline')" class="hover:text-blue-600 transition-colors">📋
-                  Outline</button>
-                <button onclick="insertTemplate('summary')" class="hover:text-green-600 transition-colors">📄
-                  Summary</button>
-                <button onclick="insertTemplate('research')" class="hover:text-purple-600 transition-colors">🔍
-                  Research</button>
-              </div>
-            </div>
-          </div>
+            class="w-full h-96 resize-y border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-white/50 dark:bg-gray-700/50 text-base leading-relaxed"
+            oninput="updateWordCount()"></textarea>
         </div>
 
-        <!-- Sidebar -->
-        <div class="lg:col-span-1 space-y-4">
-
-          <!-- AI Assistant -->
-          <div
-            class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
-            <h4 class="font-bold mb-3 flex items-center">
-              <i class="fas fa-robot text-green-600 mr-2"></i>
-              AI Assistant
-            </h4>
-            <div class="space-y-3">
-              <input type="text" id="aiQuestion" placeholder="Ask AI anything..."
-                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 text-sm"
-                onkeypress="handleAIKeyPress(event)">
-              <button onclick="askAI()"
-                class="w-full bg-gradient-to-r from-green-600 to-blue-600 text-white py-2 rounded-lg text-sm font-medium hover:scale-105 transition-all">
-                <i class="fas fa-paper-plane mr-1"></i>Ask AI
-              </button>
-              <div id="aiResponse" class="bg-blue-50 dark:bg-blue-900/30 p-3 rounded-lg text-sm hidden">
-                <p class="text-blue-800 dark:text-blue-200">AI response will appear here...</p>
-              </div>
+        <!-- Editor Footer -->
+        <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+          <div class="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400">
+            <div class="flex space-x-4">
+              <span id="wordCount">0 words</span>
+              <span id="charCount">0 characters</span>
+              <span id="lastSaved" class="text-green-600"></span>
             </div>
-          </div>
-
-          <!-- Web Research -->
-          <div
-            class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
-            <h4 class="font-bold mb-3 flex items-center">
-              <i class="fas fa-globe text-purple-600 mr-2"></i>
-              Web Research
-            </h4>
-            <div class="space-y-3">
-              <input type="url" id="webUrl" placeholder="Enter URL for research..."
-                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 text-sm">
-              <div class="flex space-x-2">
-                <button onclick="loadWebsite()"
-                  class="flex-1 bg-purple-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-purple-700 transition-all">
-                  <i class="fas fa-external-link-alt mr-1"></i>Load
-                </button>
-                <button onclick="toggleWebView()"
-                  class="flex-1 bg-gray-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-gray-700 transition-all">
-                  <i class="fas fa-eye mr-1"></i>Toggle
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- My Notes List -->
-          <div
-            class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
-            <h4 class="font-bold mb-3 flex items-center">
-              <i class="fas fa-folder text-blue-600 mr-2"></i>
-              My Notes
-            </h4>
-            <div id="notesList" class="space-y-2 max-h-48 overflow-y-auto">
-              <div class="text-center py-4 text-gray-500">
-                <i class="fas fa-sticky-note text-2xl mb-2"></i>
-                <p class="text-sm">No notes yet</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Quick Actions -->
-          <div
-            class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
-            <h4 class="font-bold mb-3 flex items-center">
-              <i class="fas fa-magic text-orange-600 mr-2"></i>
-              Quick Actions
-            </h4>
-            <div class="space-y-2">
-              <button onclick="summarizeNote()"
-                class="w-full text-left p-2 text-sm bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-all">
-                📄 Summarize Note
-              </button>
-              <button onclick="improveWriting()"
-                class="w-full text-left p-2 text-sm bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/50 transition-all">
-                ✏️ Improve Writing
-              </button>
-              <button onclick="generateIdeas()"
-                class="w-full text-left p-2 text-sm bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/50 transition-all">
-                💡 Generate Ideas
-              </button>
+            <div class="flex space-x-2">
+              <button onclick="insertTemplate('outline')" class="hover:text-blue-600 transition-colors">📋
+                Outline</button>
+              <button onclick="insertTemplate('summary')" class="hover:text-green-600 transition-colors">📄
+                Summary</button>
+              <button onclick="insertTemplate('research')" class="hover:text-purple-600 transition-colors">🔍
+                Research</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Web Research Iframe (Hidden by default) -->
-      <div id="webFrame"
-        class="mt-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 hidden">
-        <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
-          <h4 class="font-bold flex items-center">
+      <!-- Sidebar -->
+      <div class="lg:col-span-1 space-y-4">
+
+        <!-- AI Assistant -->
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+          <h4 class="font-bold mb-3 flex items-center">
+            <i class="fas fa-robot text-green-600 mr-2"></i>
+            AI Assistant
+          </h4>
+          <div class="space-y-3">
+            <input type="text" id="aiQuestion" placeholder="Ask AI anything..."
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 text-sm"
+              onkeypress="handleAIKeyPress(event)">
+            <button onclick="askAI()"
+              class="w-full bg-gradient-to-r from-green-600 to-blue-600 text-white py-2 rounded-lg text-sm font-medium hover:scale-105 transition-all">
+              <i class="fas fa-paper-plane mr-1"></i>Ask AI
+            </button>
+            <div id="aiResponse" class="bg-blue-50 dark:bg-blue-900/30 p-3 rounded-lg text-sm hidden">
+              <p class="text-blue-800 dark:text-blue-200">AI response will appear here...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Web Research -->
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+          <h4 class="font-bold mb-3 flex items-center">
             <i class="fas fa-globe text-purple-600 mr-2"></i>
             Web Research
           </h4>
-          <button onclick="toggleWebView()" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-        <div class="p-4">
-          <iframe id="researchFrame" src=""
-            class="w-full h-96 rounded-lg border border-gray-300 dark:border-gray-600"></iframe>
-        </div>
-      </div>
-
-      <div class="lg:col-span-2">
-        <div
-          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl border border-white/20 mb-6">
-          <h3 class="text-2xl font-bold mb-6 flex items-center">
-            <span
-              class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mr-3">
-              <i class="fas fa-cloud-upload-alt text-white"></i>
-            </span>
-            📚 Upload Your Sources
-          </h3>
-
-          <div
-            class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-2xl p-8 text-center hover:border-blue-500 transition-all cursor-pointer"
-            onclick="document.getElementById('fileUpload').click()" ondrop="handleFileDrop(event)"
-            ondragover="handleDragOver(event)">
-            <div class="mb-4">
-              <i class="fas fa-file-upload text-4xl text-gray-400 mb-4"></i>
-              <p class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">Drop files here or click to
-                upload</p>
-              <p class="text-sm text-gray-500">Supports PDF, DOC, TXT, MD, and more</p>
-            </div>
-            <input type="file" id="fileUpload" multiple accept=".pdf,.doc,.docx,.txt,.md,.rtf" class="hidden"
-              onchange="handleFileUpload(event)">
-          </div>
-
-          <!-- URL Input -->
-          <div class="mt-6">
-            <div class="flex space-x-3">
-              <input type="url" id="urlInput" placeholder="Paste a URL to add web content..."
-                class="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white/50 dark:bg-gray-700/50 text-base backdrop-blur-sm">
-              <button onclick="addUrlSource()"
-                class="bg-gradient-to-r from-green-500 to-blue-600 text-white px-6 py-3 rounded-xl font-medium transition-all hover:scale-105 shadow-lg">
-                <i class="fas fa-plus mr-2"></i>Add URL
+          <div class="space-y-3">
+            <input type="url" id="webUrl" placeholder="Enter URL for research..."
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 text-sm">
+            <div class="flex space-x-2">
+              <button onclick="loadWebsite()"
+                class="flex-1 bg-purple-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-purple-700 transition-all">
+                <i class="fas fa-external-link-alt mr-1"></i>Load
+              </button>
+              <button onclick="toggleWebView()"
+                class="flex-1 bg-gray-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-gray-700 transition-all">
+                <i class="fas fa-eye mr-1"></i>Toggle
               </button>
             </div>
           </div>
+        </div>
 
-          <!-- Quick Add Buttons -->
-          <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
-            <button onclick="addSampleSource('textbook')"
-              class="p-4 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-xl hover:from-blue-500 hover:to-blue-700 transition-all hover:scale-105 shadow-lg">
-              <i class="fas fa-book text-xl mb-2"></i>
-              <p class="text-sm font-bold">Sample Textbook</p>
+        <!-- My Notes List -->
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+          <h4 class="font-bold mb-3 flex items-center">
+            <i class="fas fa-folder text-blue-600 mr-2"></i>
+            My Notes
+          </h4>
+          <div id="notesList" class="space-y-2 max-h-48 overflow-y-auto">
+            <div class="text-center py-4 text-gray-500">
+              <i class="fas fa-sticky-note text-2xl mb-2"></i>
+              <p class="text-sm">No notes yet</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+          <h4 class="font-bold mb-3 flex items-center">
+            <i class="fas fa-magic text-orange-600 mr-2"></i>
+            Quick Actions
+          </h4>
+          <div class="space-y-2">
+            <button onclick="summarizeNote()"
+              class="w-full text-left p-2 text-sm bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-all">
+              📄 Summarize Note
             </button>
-            <button onclick="addSampleSource('research')"
-              class="p-4 bg-gradient-to-r from-purple-400 to-purple-600 text-white rounded-xl hover:from-purple-500 hover:to-purple-700 transition-all hover:scale-105 shadow-lg">
-              <i class="fas fa-microscope text-xl mb-2"></i>
-              <p class="text-sm font-bold">Research Paper</p>
+            <button onclick="improveWriting()"
+              class="w-full text-left p-2 text-sm bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/50 transition-all">
+              ✏️ Improve Writing
             </button>
-            <button onclick="addSampleSource('lecture')"
-              class="p-4 bg-gradient-to-r from-green-400 to-green-600 text-white rounded-xl hover:from-green-500 hover:to-green-700 transition-all hover:scale-105 shadow-lg">
-              <i class="fas fa-chalkboard-teacher text-xl mb-2"></i>
-              <p class="text-sm font-bold">Lecture Notes</p>
-            </button>
-            <button onclick="addSampleSource('wikipedia')"
-              class="p-4 bg-gradient-to-r from-orange-400 to-orange-600 text-white rounded-xl hover:from-orange-500 hover:to-orange-700 transition-all hover:scale-105 shadow-lg">
-              <i class="fab fa-wikipedia-w text-xl mb-2"></i>
-              <p class="text-sm font-bold">Wikipedia</p>
+            <button onclick="generateIdeas()"
+              class="w-full text-left p-2 text-sm bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/50 transition-all">
+              💡 Generate Ideas
             </button>
           </div>
         </div>
       </div>
+  </div>
 
-      <!-- Sources List -->
-      <div class="lg:col-span-1">
-        <div
-          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 sticky top-24">
-          <h4 class="text-xl font-bold mb-4 flex items-center">
-            <i class="fas fa-layer-group text-blue-600 mr-2"></i>
-            Your Sources
-          </h4>
-          <div id="sourcesList" class="space-y-3 max-h-96 overflow-y-auto">
-            <div class="text-center py-8 text-gray-500">
-              <i class="fas fa-inbox text-3xl mb-3"></i>
-              <p>No sources added yet</p>
-              <p class="text-sm">Upload files to get started</p>
-            </div>
-          </div>
-          <button onclick="analyzeAllSources()" id="analyzeBtn"
-            class="w-full mt-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-xl font-bold transition-all hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled>
-            <i class="fas fa-brain mr-2"></i>Analyze Sources
+  <!-- Web Research Iframe (Hidden by default) -->
+  <div id="webFrame"
+    class="mt-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 hidden">
+    <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+      <h4 class="font-bold flex items-center">
+        <i class="fas fa-globe text-purple-600 mr-2"></i>
+        Web Research
+      </h4>
+      <button onclick="toggleWebView()" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="p-4">
+      <iframe id="researchFrame" src=""
+        class="w-full h-96 rounded-lg border border-gray-300 dark:border-gray-600"></iframe>
+    </div>
+  </div>
+
+  <div class="lg:col-span-2">
+    <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl border border-white/20 mb-6">
+      <h3 class="text-2xl font-bold mb-6 flex items-center">
+        <span
+          class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mr-3">
+          <i class="fas fa-cloud-upload-alt text-white"></i>
+        </span>
+        📚 Upload Your Sources
+      </h3>
+
+      <div
+        class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-2xl p-8 text-center hover:border-blue-500 transition-all cursor-pointer"
+        onclick="document.getElementById('fileUpload').click()" ondrop="handleFileDrop(event)"
+        ondragover="handleDragOver(event)">
+        <div class="mb-4">
+          <i class="fas fa-file-upload text-4xl text-gray-400 mb-4"></i>
+          <p class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">Drop files here or click to
+            upload</p>
+          <p class="text-sm text-gray-500">Supports PDF, DOC, TXT, MD, and more</p>
+        </div>
+        <input type="file" id="fileUpload" multiple accept=".pdf,.doc,.docx,.txt,.md,.rtf" class="hidden"
+          onchange="handleFileUpload(event)">
+      </div>
+
+      <!-- URL Input -->
+      <div class="mt-6">
+        <div class="flex space-x-3">
+          <input type="url" id="urlInput" placeholder="Paste a URL to add web content..."
+            class="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white/50 dark:bg-gray-700/50 text-base backdrop-blur-sm">
+          <button onclick="addUrlSource()"
+            class="bg-gradient-to-r from-green-500 to-blue-600 text-white px-6 py-3 rounded-xl font-medium transition-all hover:scale-105 shadow-lg">
+            <i class="fas fa-plus mr-2"></i>Add URL
           </button>
         </div>
       </div>
+
+      <!-- Quick Add Buttons -->
+      <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
+        <button onclick="addSampleSource('textbook')"
+          class="p-4 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-xl hover:from-blue-500 hover:to-blue-700 transition-all hover:scale-105 shadow-lg">
+          <i class="fas fa-book text-xl mb-2"></i>
+          <p class="text-sm font-bold">Sample Textbook</p>
+        </button>
+        <button onclick="addSampleSource('research')"
+          class="p-4 bg-gradient-to-r from-purple-400 to-purple-600 text-white rounded-xl hover:from-purple-500 hover:to-purple-700 transition-all hover:scale-105 shadow-lg">
+          <i class="fas fa-microscope text-xl mb-2"></i>
+          <p class="text-sm font-bold">Research Paper</p>
+        </button>
+        <button onclick="addSampleSource('lecture')"
+          class="p-4 bg-gradient-to-r from-green-400 to-green-600 text-white rounded-xl hover:from-green-500 hover:to-green-700 transition-all hover:scale-105 shadow-lg">
+          <i class="fas fa-chalkboard-teacher text-xl mb-2"></i>
+          <p class="text-sm font-bold">Lecture Notes</p>
+        </button>
+        <button onclick="addSampleSource('wikipedia')"
+          class="p-4 bg-gradient-to-r from-orange-400 to-orange-600 text-white rounded-xl hover:from-orange-500 hover:to-orange-700 transition-all hover:scale-105 shadow-lg">
+          <i class="fab fa-wikipedia-w text-xl mb-2"></i>
+          <p class="text-sm font-bold">Wikipedia</p>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sources List -->
+  <div class="lg:col-span-1">
+    <div
+      class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 sticky top-24">
+      <h4 class="text-xl font-bold mb-4 flex items-center">
+        <i class="fas fa-layer-group text-blue-600 mr-2"></i>
+        Your Sources
+      </h4>
+      <div id="sourcesList" class="space-y-3 max-h-96 overflow-y-auto">
+        <div class="text-center py-8 text-gray-500">
+          <i class="fas fa-inbox text-3xl mb-3"></i>
+          <p>No sources added yet</p>
+          <p class="text-sm">Upload files to get started</p>
+        </div>
+      </div>
+      <button onclick="analyzeAllSources()" id="analyzeBtn"
+        class="w-full mt-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-xl font-bold transition-all hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+        disabled>
+        <i class="fas fa-brain mr-2"></i>Analyze Sources
+      </button>
+    </div>
+  </div>
   </div>
   </div>
 
@@ -4963,8 +4957,19 @@ Start typing to begin!"
 
       } catch (error) {
         console.error('AI Error:', error);
-        responseDiv.innerHTML = `<p class="text-red-800 dark:text-red-200">❌ Error: ${error.message}</p>`;
-        showToast('❌ AI request failed', 'error');
+        // Show demo response instead of error
+        responseDiv.innerHTML = `
+          <div class="bg-blue-50 dark:bg-blue-900/30 p-3 rounded-lg text-sm">
+            <p class="text-blue-800 dark:text-blue-200">
+              <strong>🤖 AI Demo Response:</strong> I received your question: "${question}"
+              <br><br>
+              This is a demo response since no API key is configured. In the full version, I would provide intelligent, contextual answers based on your notes and research.
+              <br><br>
+              <em>To enable real AI responses, add your OpenAI API key in the settings.</em>
+            </p>
+          </div>
+        `;
+        showToast('🤖 AI demo response shown', 'info');
       }
     }
 
@@ -8353,280 +8358,287 @@ Host 2: Thanks for joining us today. We hope this discussion has been helpful in
     window.addEventListener('load', logPerformance);
   </script>
 
-  <!-- BUTTON FIX SCRIPT - OVERRIDE ALL FUNCTIONS -->
-  <script>
-    // Simple working functions that override any duplicates
-    window.createNewNote = function () {
-      console.log('createNewNote called');
-      const title = document.getElementById('noteTitle');
-      const content = document.getElementById('noteContent');
 
-      if (title) title.value = '';
-      if (content) content.value = '';
+  // Simple working functions that override any duplicates
+  window.createNewNote = function () {
+  console.log('createNewNote called');
+  const title = document.getElementById('noteTitle');
+  const content = document.getElementById('noteContent');
 
-      alert('✅ New note created!');
-    };
+  if (title) title.value = '';
+  if (content) content.value = '';
 
-    window.saveNote = function () {
-      console.log('saveNote called');
-      const title = document.getElementById('noteTitle');
-      const content = document.getElementById('noteContent');
+  alert('✅ New note created!');
+  };
 
-      if (!title || !content) {
-        alert('❌ Note elements not found');
-        return;
-      }
+  window.saveNote = function () {
+  console.log('saveNote called');
+  const title = document.getElementById('noteTitle');
+  const content = document.getElementById('noteContent');
 
-      const titleText = title.value.trim();
-      const contentText = content.value.trim();
+  if (!title || !content) {
+  alert('❌ Note elements not found');
+  return;
+  }
 
-      if (!titleText && !contentText) {
-        alert('❌ Note is empty');
-        return;
-      }
+  const titleText = title.value.trim();
+  const contentText = content.value.trim();
 
-      // Save to localStorage
-      const note = {
-        id: Date.now(),
-        title: titleText || 'Untitled Note',
-        content: contentText,
-        created: new Date().toISOString()
-      };
+  if (!titleText && !contentText) {
+  alert('❌ Note is empty');
+  return;
+  }
 
-      const notes = JSON.parse(localStorage.getItem('myNotes') || '[]');
-      notes.unshift(note);
-      localStorage.setItem('myNotes', JSON.stringify(notes));
+  // Save to localStorage
+  const note = {
+  id: Date.now(),
+  title: titleText || 'Untitled Note',
+  content: contentText,
+  created: new Date().toISOString()
+  };
 
-      alert('✅ Note saved successfully!');
-    };
+  const notes = JSON.parse(localStorage.getItem('myNotes') || '[]');
+  notes.unshift(note);
+  localStorage.setItem('myNotes', JSON.stringify(notes));
 
-    window.askAI = function () {
-      console.log('askAI called');
-      const question = document.getElementById('aiQuestion');
+  alert('✅ Note saved successfully!');
+  };
 
-      if (!question) {
-        alert('❌ AI question input not found');
-        return;
-      }
+  window.askAI = function () {
+  console.log('askAI called');
+  const question = document.getElementById('aiQuestion');
 
-      const questionText = question.value.trim();
-      if (!questionText) {
-        alert('❌ Please enter a question');
-        return;
-      }
+  if (!question) {
+  alert('❌ AI question input not found');
+  return;
+  }
 
-      alert('🤖 AI feature would work here with: ' + questionText);
-      question.value = '';
-    };
+  const questionText = question.value.trim();
+  if (!questionText) {
+  alert('❌ Please enter a question');
+  return;
+  }
 
-    window.toggleWebView = function () {
-      console.log('toggleWebView called');
-      const webFrame = document.getElementById('webFrame');
+  alert('🤖 AI feature would work here with: ' + questionText);
+  question.value = '';
+  };
 
-      if (!webFrame) {
-        alert('❌ Web frame not found');
-        return;
-      }
+  window.toggleWebView = function () {
+  console.log('toggleWebView called');
+  const webFrame = document.getElementById('webFrame');
 
-      if (webFrame.classList.contains('hidden')) {
-        webFrame.classList.remove('hidden');
-        alert('🌐 Web view opened');
-      } else {
-        webFrame.classList.add('hidden');
-        alert('🌐 Web view closed');
-      }
-    };
+  if (!webFrame) {
+  alert('❌ Web frame not found');
+  return;
+  }
 
-    window.loadWebsite = function () {
-      console.log('loadWebsite called');
-      const urlInput = document.getElementById('webUrl');
-      const iframe = document.getElementById('researchFrame');
+  if (webFrame.classList.contains('hidden')) {
+  webFrame.classList.remove('hidden');
+  alert('🌐 Web view opened');
+  } else {
+  webFrame.classList.add('hidden');
+  alert('🌐 Web view closed');
+  }
+  };
 
-      if (!urlInput || !iframe) {
-        alert('❌ Web elements not found');
-        return;
-      }
+  window.loadWebsite = function () {
+  console.log('loadWebsite called');
+  const urlInput = document.getElementById('webUrl');
+  const iframe = document.getElementById('researchFrame');
 
-      const url = urlInput.value.trim();
-      if (!url) {
-        alert('❌ Please enter a URL');
-        return;
-      }
+  if (!urlInput || !iframe) {
+  alert('❌ Web elements not found');
+  return;
+  }
 
-      iframe.src = url;
-      document.getElementById('webFrame').classList.remove('hidden');
-      alert('🌐 Loading website: ' + url);
-    };
+  const url = urlInput.value.trim();
+  if (!url) {
+  alert('❌ Please enter a URL');
+  return;
+  }
 
-    window.exportNote = function () {
-      console.log('exportNote called');
-      const title = document.getElementById('noteTitle');
-      const content = document.getElementById('noteContent');
+  iframe.src = url;
+  document.getElementById('webFrame').classList.remove('hidden');
+  alert('🌐 Loading website: ' + url);
+  };
 
-      if (!title || !content) {
-        alert('❌ Note elements not found');
-        return;
-      }
+  window.exportNote = function () {
+  console.log('exportNote called');
+  const title = document.getElementById('noteTitle');
+  const content = document.getElementById('noteContent');
 
-      const noteTitle = title.value || 'Untitled Note';
-      const noteContent = content.value || '';
+  if (!title || !content) {
+  alert('❌ Note elements not found');
+  return;
+  }
 
-      const blob = new Blob([`# ${noteTitle}\n\n${noteContent}`], { type: 'text/markdown' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${noteTitle}.md`;
-      a.click();
-      URL.revokeObjectURL(url);
+  const noteTitle = title.value || 'Untitled Note';
+  const noteContent = content.value || '';
 
-      alert('📄 Note exported as Markdown!');
-    };
+  const blob = new Blob([`# ${noteTitle}\n\n${noteContent}`], { type: 'text/markdown' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${noteTitle}.md`;
+  a.click();
+  URL.revokeObjectURL(url);
 
-    window.insertTemplate = function (type) {
-      console.log('insertTemplate called with type:', type);
-      const content = document.getElementById('noteContent');
+  alert('📄 Note exported as Markdown!');
+  };
 
-      if (!content) {
-        alert('❌ Note content not found');
-        return;
-      }
+  window.insertTemplate = function (type) {
+  console.log('insertTemplate called with type:', type);
+  const content = document.getElementById('noteContent');
 
-      const templates = {
-        outline: '# Outline\n\n## Main Points\n- Point 1\n- Point 2\n- Point 3\n\n## Details\n\n## Conclusion\n',
-        summary: '# Summary\n\n## Key Points\n\n## Important Details\n\n## Takeaways\n',
-        research: '# Research Notes\n\n## Topic: \n\n## Sources\n- Source 1: \n- Source 2: \n\n## Findings\n\n## Questions\n'
-      };
+  if (!content) {
+  alert('❌ Note content not found');
+  return;
+  }
 
-      content.value += templates[type] || '';
-      alert('📋 Template inserted!');
-    };
+  const templates = {
+  outline: '# Outline\n\n## Main Points\n- Point 1\n- Point 2\n- Point 3\n\n## Details\n\n## Conclusion\n',
+  summary: '# Summary\n\n## Key Points\n\n## Important Details\n\n## Takeaways\n',
+  research: '# Research Notes\n\n## Topic: \n\n## Sources\n- Source 1: \n- Source 2: \n\n## Findings\n\n## Questions\n'
+  };
 
-    // Enhanced Quick actions
-    window.summarizeNote = function () {
-      console.log('📄 summarizeNote called');
-      const content = document.getElementById('noteContent');
+  content.value += templates[type] || '';
+  alert('📋 Template inserted!');
+  };
 
-      if (!content || !content.value.trim()) {
-        alert('❌ Please write some content in your note first!');
-        return;
-      }
+  // Enhanced Quick actions
+  window.summarizeNote = function () {
+  console.log('📄 summarizeNote called');
+  const content = document.getElementById('noteContent');
 
-      const noteText = content.value.trim();
-      const wordCount = noteText.split(/\s+/).length;
+  if (!content || !content.value.trim()) {
+  alert('❌ Please write some content in your note first!');
+  return;
+  }
 
-      alert(`📄 Summarize Note\n\nYour note has ${wordCount} words. In the full version, I would:\n• Extract key points\n• Create bullet summaries\n• Highlight important concepts\n• Generate concise overview\n\nDemo: Your note appears to be about "${noteText.substring(0, 50)}..."`);
-    };
+  const noteText = content.value.trim();
+  const wordCount = noteText.split(/\s+/).length;
 
-    window.improveWriting = function () {
-      console.log('✏️ improveWriting called');
-      const content = document.getElementById('noteContent');
+  alert(`📄 Summarize Note\n\nYour note has ${wordCount} words. In the full version, I would:\n• Extract key points\n•
+  Create bullet summaries\n• Highlight important concepts\n• Generate concise overview\n\nDemo: Your note appears to be
+  about "${noteText.substring(0, 50)}..."`);
+  };
 
-      if (!content || !content.value.trim()) {
-        alert('❌ Please write some content in your note first!');
-        return;
-      }
+  window.improveWriting = function () {
+  console.log('✏️ improveWriting called');
+  const content = document.getElementById('noteContent');
 
-      const noteText = content.value.trim();
+  if (!content || !content.value.trim()) {
+  alert('❌ Please write some content in your note first!');
+  return;
+  }
 
-      alert(`✏️ Improve Writing\n\nIn the full version, I would:\n• Fix grammar and spelling\n• Improve sentence structure\n• Enhance clarity and flow\n• Suggest better word choices\n• Make it more engaging\n\nYour current note has ${noteText.length} characters and looks great!`);
-    };
+  const noteText = content.value.trim();
 
-    window.generateIdeas = function () {
-      console.log('💡 generateIdeas called');
-      const title = document.getElementById('noteTitle');
-      const content = document.getElementById('noteContent');
+  alert(`✏️ Improve Writing\n\nIn the full version, I would:\n• Fix grammar and spelling\n• Improve sentence
+  structure\n• Enhance clarity and flow\n• Suggest better word choices\n• Make it more engaging\n\nYour current note has
+  ${noteText.length} characters and looks great!`);
+  };
 
-      const noteTitle = title ? title.value.trim() : '';
-      const noteContent = content ? content.value.trim() : '';
+  window.generateIdeas = function () {
+  console.log('💡 generateIdeas called');
+  const title = document.getElementById('noteTitle');
+  const content = document.getElementById('noteContent');
 
-      const topic = noteTitle || (noteContent ? noteContent.substring(0, 30) + '...' : 'your topic');
+  const noteTitle = title ? title.value.trim() : '';
+  const noteContent = content ? content.value.trim() : '';
 
-      alert(`💡 Generate Ideas\n\nBased on "${topic}", here are some ideas:\n\n• Related concepts to explore\n• Questions to investigate\n• Different perspectives to consider\n• Practical applications\n• Further research directions\n\nIn the full version, I'd generate specific, relevant ideas based on your content!`);
-    };
+  const topic = noteTitle || (noteContent ? noteContent.substring(0, 30) + '...' : 'your topic');
 
-    // Fix date/time display
-    window.updateDateTime = function () {
-      const now = new Date();
-      const dateElement = document.getElementById('currentDateTime');
+  alert(`💡 Generate Ideas\n\nBased on "${topic}", here are some ideas:\n\n• Related concepts to explore\n• Questions to
+  investigate\n• Different perspectives to consider\n• Practical applications\n• Further research directions\n\nIn the
+  full version, I'd generate specific, relevant ideas based on your content!`);
+  };
 
-      if (!dateElement) return;
+  // Fix date/time display
+  window.updateDateTime = function () {
+  const now = new Date();
+  const dateElement = document.getElementById('currentDateTime');
 
-      const options = {
-        weekday: 'short',
-        month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      };
+  if (!dateElement) return;
 
-      const dateString = now.toLocaleDateString('en-US', options);
-      dateElement.textContent = dateString;
-    };
+  const options = {
+  weekday: 'short',
+  month: 'short',
+  day: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit'
+  };
 
-    // Better AI function with response display
-    window.askAI = function () {
-      console.log('🤖 askAI called successfully!');
-      const question = document.getElementById('aiQuestion');
-      const responseDiv = document.getElementById('aiResponse');
+  const dateString = now.toLocaleDateString('en-US', options);
+  dateElement.textContent = dateString;
+  };
 
-      if (!question) {
-        alert('❌ AI question input not found');
-        console.error('aiQuestion element not found');
-        return;
-      }
+  // Better AI function with response display
+  window.askAI = function () {
+  console.log('🤖 askAI called successfully!');
+  const question = document.getElementById('aiQuestion');
+  const responseDiv = document.getElementById('aiResponse');
 
-      const questionText = question.value.trim();
-      if (!questionText) {
-        alert('❌ Please enter a question first!');
-        return;
-      }
+  if (!question) {
+  alert('❌ AI question input not found');
+  console.error('aiQuestion element not found');
+  return;
+  }
 
-      console.log('Question asked:', questionText);
+  const questionText = question.value.trim();
+  if (!questionText) {
+  alert('❌ Please enter a question first!');
+  return;
+  }
 
-      // Show response area with enhanced styling
-      if (responseDiv) {
-        responseDiv.classList.remove('hidden');
-        responseDiv.innerHTML = `
-          <div class="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/30 dark:to-green-900/30 p-4 rounded-lg border border-blue-200 dark:border-blue-700">
-            <div class="flex items-start space-x-3">
-              <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                <i class="fas fa-robot text-white text-sm"></i>
-              </div>
-              <div class="flex-1">
-                <p class="text-blue-800 dark:text-blue-200 text-sm">
-                  <strong>Your Question:</strong> "${questionText}"
-                </p>
-                <div class="mt-3 p-3 bg-white/50 dark:bg-gray-800/50 rounded-lg">
-                  <p class="text-gray-800 dark:text-gray-200 text-sm">
-                    <strong>🤖 AI Assistant:</strong> Hello! I received your question about "${questionText}". 
-                    <br><br>
-                    This is a demo response showing that the AI system is working perfectly! In the full version, I would:
-                    <br>• Analyze your question intelligently
-                    <br>• Provide detailed, contextual answers
-                    <br>• Reference your notes and documents
-                    <br>• Offer helpful suggestions and insights
-                    <br><br>
-                    <em>The AI button is working great! 🎉</em>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-        console.log('✅ AI response displayed successfully');
-      } else {
-        console.error('aiResponse element not found');
-      }
+  console.log('Question asked:', questionText);
 
-      question.value = '';
-      alert('🤖 AI Assistant responded! Check the blue response box below the input field.');
-    };
+  // Show response area with enhanced styling
+  if (responseDiv) {
+  responseDiv.classList.remove('hidden');
+  responseDiv.innerHTML = `
+  <div
+    class="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/30 dark:to-green-900/30 p-4 rounded-lg border border-blue-200 dark:border-blue-700">
+    <div class="flex items-start space-x-3">
+      <div
+        class="w-8 h-8 bg-gradient-to-r from-blue-500 to-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+        <i class="fas fa-robot text-white text-sm"></i>
+      </div>
+      <div class="flex-1">
+        <p class="text-blue-800 dark:text-blue-200 text-sm">
+          <strong>Your Question:</strong> "${questionText}"
+        </p>
+        <div class="mt-3 p-3 bg-white/50 dark:bg-gray-800/50 rounded-lg">
+          <p class="text-gray-800 dark:text-gray-200 text-sm">
+            <strong>🤖 AI Assistant:</strong> Hello! I received your question about "${questionText}".
+            <br><br>
+            This is a demo response showing that the AI system is working perfectly! In the full version, I would:
+            <br>• Analyze your question intelligently
+            <br>• Provide detailed, contextual answers
+            <br>• Reference your notes and documents
+            <br>• Offer helpful suggestions and insights
+            <br><br>
+            <em>The AI button is working great! 🎉</em>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  `;
+  console.log('✅ AI response displayed successfully');
+  } else {
+  console.error('aiResponse element not found');
+  }
 
-    // Initialize date/time immediately and update every minute
-    updateDateTime();
-    setInterval(updateDateTime, 60000);
+  question.value = '';
+  alert('🤖 AI Assistant responded! Check the blue response box below the input field.');
+  };
 
-    console.log('✅ All button functions are now working! Date/time updated!');
+  // Initialize date/time immediately and update every minute
+  updateDateTime();
+  setInterval(updateDateTime, 60000);
+
+  console.log('✅ All button functions are now working! Date/time updated!');
   </script>
 
 </body>
