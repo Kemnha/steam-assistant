@@ -6938,10 +6938,11 @@ Host 2: Thanks for joining us today. We hope this discussion has been helpful in
     }
 
     function filterResources(category) {
-      console.log('Filtering resources by category:', category);
+      console.log('🎯 FILTER RESOURCES CALLED:', category);
 
       // Store the selected category
       currentResourceCategory = category;
+      console.log('📝 Set currentResourceCategory to:', currentResourceCategory);
 
       // Update button states
       document.querySelectorAll('.resource-filter').forEach(btn => {
@@ -6951,9 +6952,13 @@ Host 2: Thanks for joining us today. We hope this discussion has been helpful in
       const selectedButton = document.querySelector(`.resource-filter[data-category="${category}"]`);
       if (selectedButton) {
         selectedButton.classList.add('ring-4', 'ring-white/30', 'scale-105');
+        console.log('✅ Button state updated for:', category);
+      } else {
+        console.log('❌ Button not found for category:', category);
       }
 
       // Apply combined filters
+      console.log('🔄 Calling applyResourceFilters...');
       applyResourceFilters();
     }
 
@@ -6988,9 +6993,10 @@ Host 2: Thanks for joining us today. We hope this discussion has been helpful in
       const resourceCards = document.querySelectorAll('.resource-item');
       let visibleCount = 0;
 
-      console.log(`Applying filters - Category: ${selectedCategory}, Type: ${selectedType}, Search: "${actualSearchTerm}"`);
+      console.log(`🔍 FILTERING: Category="${selectedCategory}", Type="${selectedType}", Search="${actualSearchTerm}"`);
+      console.log(`📦 Found ${resourceCards.length} resource cards`);
 
-      resourceCards.forEach(card => {
+      resourceCards.forEach((card, index) => {
         const cardCategory = card.dataset.category;
         const cardType = card.dataset.type;
         const cardText = card.textContent.toLowerCase();
@@ -7019,6 +7025,8 @@ Host 2: Thanks for joining us today. We hope this discussion has been helpful in
         const matchesSearch = actualSearchTerm === '' || cardText.includes(actualSearchTerm);
 
         const shouldShow = matchesCategory && matchesType && matchesSearch;
+
+        console.log(`📋 Card ${index + 1}: category="${cardCategory}", type="${cardType}" → Category Match: ${matchesCategory}, Type Match: ${matchesType}, Show: ${shouldShow}`);
 
         card.style.display = shouldShow ? 'block' : 'none';
         if (shouldShow) visibleCount++;
