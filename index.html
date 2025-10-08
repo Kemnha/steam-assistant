@@ -7007,38 +7007,22 @@ Host 2: Thanks for joining us today. We hope this discussion has been helpful in
     }
 
     function filterResources(category) {
-      // Simple filtering - just show/hide based on category
-      const resourceCards = document.querySelectorAll('.resource-item');
+      const cards = document.querySelectorAll('.resource-item');
 
-      resourceCards.forEach(card => {
-        const cardCategory = card.dataset.category;
-
-        if (category === 'all' || cardCategory === category) {
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
           card.style.display = 'block';
         } else {
           card.style.display = 'none';
         }
       });
-
-      // Update button states
-      document.querySelectorAll('.resource-filter').forEach(btn => {
-        btn.classList.remove('ring-4', 'ring-white/30', 'scale-105');
-      });
-
-      const selectedButton = document.querySelector(`.resource-filter[data-category="${category}"]`);
-      if (selectedButton) {
-        selectedButton.classList.add('ring-4', 'ring-white/30', 'scale-105');
-      }
     }
 
     function filterResourcesByType(type) {
-      // Simple type filtering
-      const resourceCards = document.querySelectorAll('.resource-item');
+      const cards = document.querySelectorAll('.resource-item');
 
-      resourceCards.forEach(card => {
-        const cardType = card.dataset.type;
-
-        if (type === 'all' || cardType === type || (type === 'video' && cardType === 'video')) {
+      cards.forEach(card => {
+        if (type === 'all' || card.dataset.type === type) {
           card.style.display = 'block';
         } else {
           card.style.display = 'none';
