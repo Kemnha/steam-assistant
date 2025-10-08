@@ -1735,53 +1735,99 @@ Start typing to begin!"
 
       <!-- Crash Course Physics -->
       <div
-        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
+        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
         data-category="science" data-type="video">
+        <!-- Category Badge -->
+        <div
+          class="absolute top-4 right-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+          🔬 SCIENCE
+        </div>
+
         <div class="flex items-center mb-4">
           <div
-            class="w-10 h-10 bg-gradient-to-r from-red-500 to-red-600 rounded-lg flex items-center justify-center mr-3">
-            <i class="fab fa-youtube text-white"></i>
+            class="w-12 h-12 bg-gradient-to-r from-red-500 to-red-600 rounded-xl flex items-center justify-center mr-3 shadow-lg">
+            <i class="fab fa-youtube text-white text-lg"></i>
           </div>
           <div>
-            <h3 class="font-bold text-lg">Crash Course Physics</h3>
+            <h3 class="font-bold text-xl text-gray-800 dark:text-white">Crash Course Physics</h3>
             <p class="text-sm text-gray-500 dark:text-gray-400">Educational Video Series</p>
           </div>
         </div>
-        <div class="aspect-w-16 aspect-h-9 mb-4">
-          <iframe src="https://www.youtube.com/embed/ZM8ECpBuQYE" class="w-full h-48 rounded-lg" frameborder="0"
-            allowfullscreen></iframe>
+
+        <div
+          class="relative mb-4 rounded-xl overflow-hidden shadow-lg group-hover:shadow-xl transition-all cursor-pointer"
+          onclick="window.open('https://www.youtube.com/watch?v=ZM8ECpBuQYE', '_blank')">
+          <img src="https://img.youtube.com/vi/ZM8ECpBuQYE/maxresdefault.jpg" alt="Crash Course Physics Thumbnail"
+            class="w-full h-48 object-cover">
+          <div
+            class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-all flex items-center justify-center">
+            <div
+              class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-all">
+              <i class="fas fa-play text-white text-xl ml-1"></i>
+            </div>
+          </div>
+          <div class="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 rounded text-xs font-bold">
+            HD
+          </div>
+          <div class="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 rounded text-xs">
+            Physics
+          </div>
         </div>
-        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Learn physics concepts with engaging animations and
+
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Learn physics concepts with engaging animations and
           clear explanations.</p>
         <a href="https://www.youtube.com/playlist?list=PL8dPuuaLjXtN0ge7yDk_UA0ldZJdhwkoV" target="_blank"
-          class="inline-block px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
-          <i class="fab fa-youtube mr-2"></i>Watch Playlist
+          class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl font-bold hover:from-red-600 hover:to-red-700 transition-all transform hover:scale-105 shadow-lg">
+          <i class="fab fa-youtube mr-2 text-lg"></i>Watch Playlist
         </a>
       </div>
 
       <!-- Khan Academy Math -->
       <div
-        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
+        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item hover:shadow-2xl hover:scale-105 transition-all duration-300 group relative"
         data-category="arts-math" data-type="video">
+        <!-- Category Badge -->
+        <div
+          class="absolute top-4 right-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+          📐 MATH
+        </div>
+
         <div class="flex items-center mb-4">
           <div
-            class="w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center mr-3">
-            <i class="fab fa-youtube text-white"></i>
+            class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center mr-3 shadow-lg">
+            <i class="fab fa-youtube text-white text-lg"></i>
           </div>
           <div>
-            <h3 class="font-bold text-lg">Khan Academy Calculus</h3>
+            <h3 class="font-bold text-xl text-gray-800 dark:text-white">Khan Academy Calculus</h3>
             <p class="text-sm text-gray-500 dark:text-gray-400">Mathematics Tutorial</p>
           </div>
         </div>
-        <div class="aspect-w-16 aspect-h-9 mb-4">
-          <iframe src="https://www.youtube.com/embed/WUvTyaaNkzM" class="w-full h-48 rounded-lg" frameborder="0"
-            allowfullscreen></iframe>
+
+        <div
+          class="relative mb-4 rounded-xl overflow-hidden shadow-lg group-hover:shadow-xl transition-all cursor-pointer"
+          onclick="window.open('https://www.youtube.com/watch?v=WUvTyaaNkzM', '_blank')">
+          <img src="https://img.youtube.com/vi/WUvTyaaNkzM/maxresdefault.jpg" alt="Khan Academy Calculus Thumbnail"
+            class="w-full h-48 object-cover">
+          <div
+            class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-all flex items-center justify-center">
+            <div
+              class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-all">
+              <i class="fas fa-play text-white text-xl ml-1"></i>
+            </div>
+          </div>
+          <div class="absolute top-2 left-2 bg-green-600 text-white px-2 py-1 rounded text-xs font-bold">
+            HD
+          </div>
+          <div class="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 rounded text-xs">
+            Calculus
+          </div>
         </div>
-        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Master calculus with step-by-step explanations and
+
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Master calculus with step-by-step explanations and
           practice problems.</p>
         <a href="https://www.youtube.com/playlist?list=PL19E79A0638C8D449" target="_blank"
-          class="inline-block px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
-          <i class="fab fa-youtube mr-2"></i>Watch Playlist
+          class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl font-bold hover:from-green-600 hover:to-green-700 transition-all transform hover:scale-105 shadow-lg">
+          <i class="fab fa-youtube mr-2 text-lg"></i>Watch Playlist
         </a>
       </div>
 
@@ -1813,27 +1859,50 @@ Start typing to begin!"
 
       <!-- Coding with Python -->
       <div
-        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
+        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item hover:shadow-2xl hover:scale-105 transition-all duration-300 group relative"
         data-category="technology" data-type="video">
+        <!-- Category Badge -->
+        <div
+          class="absolute top-4 right-4 bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+          💻 TECH
+        </div>
+
         <div class="flex items-center mb-4">
           <div
-            class="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
-            <i class="fab fa-youtube text-white"></i>
+            class="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mr-3 shadow-lg">
+            <i class="fab fa-youtube text-white text-lg"></i>
           </div>
           <div>
-            <h3 class="font-bold text-lg">Python Programming</h3>
+            <h3 class="font-bold text-xl text-gray-800 dark:text-white">Python Programming</h3>
             <p class="text-sm text-gray-500 dark:text-gray-400">Coding Tutorial</p>
           </div>
         </div>
-        <div class="aspect-w-16 aspect-h-9 mb-4">
-          <iframe src="https://www.youtube.com/embed/rfscVS0vtbw" class="w-full h-48 rounded-lg" frameborder="0"
-            allowfullscreen></iframe>
+
+        <div
+          class="relative mb-4 rounded-xl overflow-hidden shadow-lg group-hover:shadow-xl transition-all cursor-pointer"
+          onclick="window.open('https://www.youtube.com/watch?v=rfscVS0vtbw', '_blank')">
+          <img src="https://img.youtube.com/vi/rfscVS0vtbw/maxresdefault.jpg" alt="Python Programming Thumbnail"
+            class="w-full h-48 object-cover">
+          <div
+            class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-all flex items-center justify-center">
+            <div
+              class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-all">
+              <i class="fas fa-play text-white text-xl ml-1"></i>
+            </div>
+          </div>
+          <div class="absolute top-2 left-2 bg-purple-600 text-white px-2 py-1 rounded text-xs font-bold">
+            HD
+          </div>
+          <div class="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 rounded text-xs">
+            Python
+          </div>
         </div>
-        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Learn Python programming from basics to advanced
+
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Learn Python programming from basics to advanced
           concepts.</p>
         <a href="https://www.youtube.com/watch?v=rfscVS0vtbw" target="_blank"
-          class="inline-block px-4 py-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
-          <i class="fab fa-youtube mr-2"></i>Full Course
+          class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-xl font-bold hover:from-purple-600 hover:to-purple-700 transition-all transform hover:scale-105 shadow-lg">
+          <i class="fab fa-youtube mr-2 text-lg"></i>Full Course
         </a>
       </div>
 
