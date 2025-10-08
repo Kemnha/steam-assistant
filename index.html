@@ -213,80 +213,79 @@
         <div class="flex items-center space-x-4">
           <!-- Desktop Navigation -->
           <div
-            class="hidden lg:flex items-center space-x-2 bg-white/50 dark:bg-gray-700/50 rounded-xl p-2 backdrop-blur-sm shadow-sm">
-          </div>
-          <button onclick="showSection('dashboard')"
-            class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 bg-primary text-white hover-lift"
-            data-section="dashboard">
-            <i class="fas fa-home mr-2"></i>Dashboard
-          </button>
-          <button onclick="showSection('labs')"
-            class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
-            data-section="labs">
-            <i class="fas fa-flask mr-2"></i>Experiments
-          </button>
-          <button onclick="showSection('assignments')"
-            class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
-            data-section="assignments">
-            <i class="fas fa-tasks mr-2"></i>Tasks
-          </button>
-          <button onclick="showSection('notes')"
-            class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
-            data-section="notes">
-            <i class="fas fa-sticky-note mr-2"></i>Notes
-          </button>
-          <button onclick="showSection('calendar')"
-            class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
-            data-section="calendar">
-            <i class="fas fa-calendar mr-2"></i>Calendar
-          </button>
-          <button onclick="showSection('calculator')"
-            class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
-            data-section="calculator">
-            <i class="fas fa-calculator mr-2"></i>Calculator
-          </button>
-          <button onclick="showSection('data')"
-            class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
-            data-section="data">
-            <i class="fas fa-chart-bar mr-2"></i>Data
-          </button>
-          <button onclick="showSection('resources')"
-            class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
-            data-section="resources">
-            <i class="fas fa-book mr-2"></i>Resources
-          </button>
-          <button onclick="showSection('gradebook')"
-            class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
-            data-section="gradebook">
-            <i class="fas fa-chart-line mr-2"></i>Inventory
-          </button>
-        </div>
-
-        <div class="flex items-center space-x-3">
-          <div id="currentDateTime"
-            class="hidden sm:block text-sm font-medium text-gray-600 dark:text-gray-400 bg-white/50 dark:bg-gray-700/50 px-3 py-2 rounded-lg backdrop-blur-sm whitespace-nowrap">
+            class="hidden lg:flex items-center space-x-1 bg-white/50 dark:bg-gray-700/50 rounded-xl p-1 backdrop-blur-sm">
+            <button onclick="showSection('dashboard')"
+              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 bg-primary text-white hover-lift"
+              data-section="dashboard">
+              <i class="fas fa-home mr-2"></i>Dashboard
+            </button>
+            <button onclick="showSection('labs')"
+              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
+              data-section="labs">
+              <i class="fas fa-flask mr-2"></i>Experiments
+            </button>
+            <button onclick="showSection('assignments')"
+              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
+              data-section="assignments">
+              <i class="fas fa-tasks mr-2"></i>Tasks
+            </button>
+            <button onclick="showSection('notes')"
+              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
+              data-section="notes">
+              <i class="fas fa-sticky-note mr-2"></i>Notes
+            </button>
+            <button onclick="showSection('calendar')"
+              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
+              data-section="calendar">
+              <i class="fas fa-calendar mr-2"></i>Calendar
+            </button>
+            <button onclick="showSection('calculator')"
+              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
+              data-section="calculator">
+              <i class="fas fa-calculator mr-2"></i>Calculator
+            </button>
+            <button onclick="showSection('data')"
+              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
+              data-section="data">
+              <i class="fas fa-chart-bar mr-2"></i>Data
+            </button>
+            <button onclick="showSection('resources')"
+              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
+              data-section="resources">
+              <i class="fas fa-book mr-2"></i>Resources
+            </button>
+            <button onclick="showSection('gradebook')"
+              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
+              data-section="gradebook">
+              <i class="fas fa-chart-line mr-2"></i>Inventory
+            </button>
           </div>
 
-          <div
-            class="flex items-center space-x-2 text-sm bg-white/50 dark:bg-gray-700/50 px-3 py-2 rounded-lg backdrop-blur-sm">
-            <span>🏆</span>
-            <span id="userScore" class="font-bold text-primary">0</span>
+          <div class="flex items-center space-x-3">
+            <div id="currentDateTime"
+              class="hidden sm:block text-sm font-medium text-gray-600 dark:text-gray-400 bg-white/50 dark:bg-gray-700/50 px-3 py-2 rounded-lg backdrop-blur-sm whitespace-nowrap">
+            </div>
+
+            <div
+              class="flex items-center space-x-2 text-sm bg-white/50 dark:bg-gray-700/50 px-3 py-2 rounded-lg backdrop-blur-sm">
+              <span>🏆</span>
+              <span id="userScore" class="font-bold text-primary">0</span>
+            </div>
+
+            <button onclick="saveProgress()"
+              class="bg-success hover:bg-success/90 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 transform">
+              <i class="fas fa-save mr-1"></i>Save
+            </button>
+
+            <button onclick="toggleTheme()"
+              class="p-2 rounded-lg bg-white/50 dark:bg-gray-700/50 hover:bg-white dark:hover:bg-gray-600 transition-all hover:scale-110 transform backdrop-blur-sm"
+              title="Toggle theme (Ctrl+T)" id="themeToggle">
+              <i class="fas fa-moon text-gray-600 dark:text-gray-400 transition-colors"></i>
+              <i class="fas fa-sun text-yellow-500 hidden transition-colors"></i>
+            </button>
           </div>
-
-          <button onclick="saveProgress()"
-            class="bg-success hover:bg-success/90 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 transform">
-            <i class="fas fa-save mr-1"></i>Save
-          </button>
-
-          <button onclick="toggleTheme()"
-            class="p-2 rounded-lg bg-white/50 dark:bg-gray-700/50 hover:bg-white dark:hover:bg-gray-600 transition-all hover:scale-110 transform backdrop-blur-sm"
-            title="Toggle theme (Ctrl+T)" id="themeToggle">
-            <i class="fas fa-moon text-gray-600 dark:text-gray-400 transition-colors"></i>
-            <i class="fas fa-sun text-yellow-500 hidden transition-colors"></i>
-          </button>
         </div>
       </div>
-    </div>
   </nav>
 
   <!-- Mobile Navigation Menu -->
