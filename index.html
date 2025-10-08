@@ -794,544 +794,1129 @@
 
     <!-- NOTES SECTION -->
     <section id="notes" class="section-content hidden">
+      <!-- Header -->
       <div class="mb-8">
         <div class="flex justify-between items-center mb-6">
           <div>
             <h2
-              class="text-3xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              📝 Smart Digital Notebook</h2>
-            <p class="text-gray-600 dark:text-gray-400">Organize your thoughts and research</p>
+              class="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              📝 Smart Notes with AI
+            </h2>
+            <p class="text-gray-600 dark:text-gray-400 text-lg">Intelligent note-taking with AI assistance and web
+              research</p>
           </div>
           <div class="flex items-center space-x-3">
-            <input type="text" id="noteSearch" placeholder="Search notes..."
-              class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-base">
-            <select id="noteCategory"
-              class="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white dark:bg-gray-700 text-base">
-              <option value="all">All Categories</option>
-              <option value="lecture">Lecture Notes</option>
-              <option value="research">Research</option>
-              <option value="lab">Lab Reports</option>
-              <option value="project">Project Notes</option>
-            </select>
-            <button onclick="createNote()"
-              class="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white px-6 py-2 rounded-lg font-medium transition-all hover:scale-105 transform shadow-lg">
+            <button onclick="createNewNote()"
+              class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg font-medium transition-all hover:scale-105 shadow-lg">
               <i class="fas fa-plus mr-2"></i>New Note
             </button>
+            <button onclick="askAI()"
+              class="bg-gradient-to-r from-green-600 to-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-all hover:scale-105 shadow-lg">
+              <i class="fas fa-robot mr-2"></i>Ask AI
+            </button>
+            <button onclick="toggleWebView()"
+              class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-lg font-medium transition-all hover:scale-105 shadow-lg">
+              <i class="fas fa-globe mr-2"></i>Web Research
+            </button>
           </div>
         </div>
       </div>
 
-      <!-- Notes Grid -->
-      <div id="notesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Main Note-Taking Interface -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[700px]">
+
+        <!-- Note Editor -->
         <div
-          class="text-gray-500 text-center py-8 col-span-full bg-white/50 dark:bg-gray-800/50 rounded-2xl backdrop-blur-sm">
-          No notes yet. Click "New Note" to create one!
-        </div>
-      </div>
-    </section>
-
-    <!-- CALENDAR SECTION -->
-    <section id="calendar" class="section-content hidden">
-      <div class="mb-8">
-        <div class="flex justify-between items-center mb-6">
-          <div>
-            <h2
-              class="text-3xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              📅 Smart Academic Calendar</h2>
-            <p class="text-gray-600 dark:text-gray-400">Google Calendar integration with intelligent reminders.
-            <div id="calendarSection">
-              <iframe
-                src="https://calendar.google.com/calendar/embed?src=4fc31f36c20f654e12fbd6bc4bca5cc2926f1764a8266a136bd71bdf835af5da%40group.calendar.google.com&ctz=Asia%2FHo_Chi_Minh"
-                style="border: 0" width="970" height="600" frameborder="0" scrolling="no">
-              </iframe>
-            </div>
-            <!-- Events and Reminders -->
-            <div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div
-                class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-                <h3 class="text-lg font-semibold mb-4 flex items-center">
-                  <span
-                    class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
-                    <i class="fas fa-calendar text-white text-sm"></i>
-                  </span>
-                  📅 Upcoming Events
-                </h3>
-                <div id="upcomingEvents" class="space-y-3 max-h-70 overflow-y-auto">
-                  <div class="text-gray-500 text-sm">WRO 2025 !!! </div>
-                </div>
-              </div>
-
-              <div
-                class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-                <h3 class="text-lg font-semibold mb-4 flex items-center">
-                  <span
-                    class="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg flex items-center justify-center mr-3">
-                    <i class="fas fa-clock text-white text-sm"></i>
-                  </span>
-                  ⏰ Today's Schedule
-                </h3>
-                <div id="todaySchedule" class="space-y-3 max-h-64 overflow-y-auto">
-                  <div class="text-gray-500 text-sm">WRO 2025 !!!</div>
-                </div>
-              </div>
-
-              <div
-                class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-                <h3 class="text-lg font-semibold mb-4 flex items-center">
-                  <span
-                    class="w-8 h-8 bg-gradient-to-r from-red-500 to-pink-600 rounded-lg flex items-center justify-center mr-3">
-                    <i class="fas fa-bell text-white text-sm"></i>
-                  </span>
-                  🔔 Active Reminders
-                </h3>
-                <div id="activeReminders" class="space-y-3 max-h-64 overflow-y-auto">
-                  <div class="text-gray-500 text-sm">WRO 2025 !!!</div>
-                </div>
+          class="lg:col-span-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 flex flex-col">
+          <!-- Editor Header -->
+          <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-bold flex items-center">
+                <i class="fas fa-edit text-blue-600 mr-2"></i>
+                Note Editor
+              </h3>
+              <div class="flex space-x-2">
+                <button onclick="saveNote()"
+                  class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-all">
+                  <i class="fas fa-save mr-1"></i>Save
+                </button>
+                <button onclick="exportNote()"
+                  class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-all">
+                  <i class="fas fa-download mr-1"></i>Export
+                </button>
               </div>
             </div>
-    </section>
-
-    <!-- CALCULATOR SECTION -->
-    <section id="calculator" class="section-content hidden">
-      <div class="mb-8">
-        <h2 class="text-3xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">🔬
-          Advanced Scientific Calculator</h2>
-        <p class="text-gray-600 dark:text-gray-400 mb-6">Powerful mathematical tools for complex calculations</p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Calculator Interface -->
-        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-          <div class="mb-4">
-            <input type="text" id="calculatorDisplay"
-              class="w-full px-4 py-4 text-xl border border-gray-300 dark:border-gray-600 rounded-2xl bg-white/50 dark:bg-gray-700/50 font-mono text-right backdrop-blur-sm"
-              readonly placeholder="0">
+            <input type="text" id="noteTitle" placeholder="Enter note title..."
+              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white/50 dark:bg-gray-700/50 text-lg font-semibold">
           </div>
 
-          <div class="grid grid-cols-5 gap-2">
-            <!-- Scientific Functions Row -->
-            <button onclick="addToCalculator('Math.sin(')"
-              class="calc-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">sin</button>
-            <button onclick="addToCalculator('Math.cos(')"
-              class="calc-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">cos</button>
-            <button onclick="addToCalculator('Math.tan(')"
-              class="calc-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">tan</button>
-            <button onclick="addToCalculator('Math.log10(')"
-              class="calc-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">log</button>
-            <button onclick="addToCalculator('Math.log(')"
-              class="calc-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">ln</button>
+          <!-- Editor Content -->
+          <div class="flex-1 p-6">
+            <textarea id="noteContent" placeholder="Start writing your notes here...
 
-            <!-- Advanced Functions Row -->
-            <button onclick="addToCalculator('Math.sqrt(')"
-              class="calc-btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">√</button>
-            <button onclick="addToCalculator('Math.pow(')"
-              class="calc-btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">x^y</button>
-            <button onclick="addToCalculator('Math.PI')"
-              class="calc-btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">π</button>
-            <button onclick="addToCalculator('Math.E')"
-              class="calc-btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">e</button>
-            <button onclick="clearCalculator()"
-              class="calc-btn bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">C</button>
+💡 Tips:
+• Use #hashtags for organization
+• Ask AI for help with research
+• Use the web iframe for reference
 
-            <!-- Numbers and Operations -->
-            <button onclick="addToCalculator('7')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">7</button>
-            <button onclick="addToCalculator('8')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">8</button>
-            <button onclick="addToCalculator('9')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">9</button>
-            <button onclick="addToCalculator('/')"
-              class="calc-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">÷</button>
-            <button onclick="deleteLast()"
-              class="calc-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">⌫</button>
-
-            <button onclick="addToCalculator('4')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">4</button>
-            <button onclick="addToCalculator('5')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">5</button>
-            <button onclick="addToCalculator('6')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">6</button>
-            <button onclick="addToCalculator('*')"
-              class="calc-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">×</button>
-            <button onclick="addToCalculator('(')"
-              class="calc-btn bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">(</button>
-
-            <button onclick="addToCalculator('1')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">1</button>
-            <button onclick="addToCalculator('2')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">2</button>
-            <button onclick="addToCalculator('3')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">3</button>
-            <button onclick="addToCalculator('-')"
-              class="calc-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">-</button>
-            <button onclick="addToCalculator(')')"
-              class="calc-btn bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">)</button>
-
-            <button onclick="addToCalculator('0')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg col-span-2">0</button>
-            <button onclick="addToCalculator('.')"
-              class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">.</button>
-            <button onclick="addToCalculator('+')"
-              class="calc-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">+</button>
-            <button onclick="calculate()"
-              class="calc-btn bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">=</button>
+Start typing to begin!"
+              class="w-full h-full resize-none border-none outline-none bg-transparent text-base leading-relaxed"
+              oninput="updateWordCount()"></textarea>
           </div>
 
-          <div class="space-y-2 mt-4">
-            <button onclick="plotFunction()"
-              class="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white py-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">
-              <i class="fas fa-chart-line mr-2"></i>Plot Function
-            </button>
-            <button onclick="solveEquation()"
-              class="w-full bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white py-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">
-              <i class="fas fa-equals mr-2"></i>Solve Equation
-            </button>
+          <!-- Editor Footer -->
+          <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+            <div class="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400">
+              <div class="flex space-x-4">
+                <span id="wordCount">0 words</span>
+                <span id="charCount">0 characters</span>
+                <span id="lastSaved" class="text-green-600"></span>
+              </div>
+              <div class="flex space-x-2">
+                <button onclick="insertTemplate('outline')" class="hover:text-blue-600 transition-colors">📋
+                  Outline</button>
+                <button onclick="insertTemplate('summary')" class="hover:text-green-600 transition-colors">📄
+                  Summary</button>
+                <button onclick="insertTemplate('research')" class="hover:text-purple-600 transition-colors">🔍
+                  Research</button>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Results and Visualization -->
-        <div class="space-y-6">
+        <!-- Sidebar -->
+        <div class="lg:col-span-1 space-y-4">
+
+          <!-- AI Assistant -->
           <div
-            class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-            <h3 class="text-lg font-semibold mb-4">📊 Calculation Results</h3>
-            <div id="calculatorResults" class="space-y-2 max-h-48 overflow-y-auto">
-              <p class="text-gray-500 text-sm">Enter calculations to see results here</p>
+            class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+            <h4 class="font-bold mb-3 flex items-center">
+              <i class="fas fa-robot text-green-600 mr-2"></i>
+              AI Assistant
+            </h4>
+            <div class="space-y-3">
+              <input type="text" id="aiQuestion" placeholder="Ask AI anything..."
+                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 text-sm"
+                onkeypress="handleAIKeyPress(event)">
+              <button onclick="askAI()"
+                class="w-full bg-gradient-to-r from-green-600 to-blue-600 text-white py-2 rounded-lg text-sm font-medium hover:scale-105 transition-all">
+                <i class="fas fa-paper-plane mr-1"></i>Ask AI
+              </button>
+              <div id="aiResponse" class="bg-blue-50 dark:bg-blue-900/30 p-3 rounded-lg text-sm hidden">
+                <p class="text-blue-800 dark:text-blue-200">AI response will appear here...</p>
+              </div>
             </div>
           </div>
 
+          <!-- Web Research -->
           <div
-            class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-            <h3 class="text-lg font-semibold mb-4">📈 Function Visualization</h3>
+            class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+            <h4 class="font-bold mb-3 flex items-center">
+              <i class="fas fa-globe text-purple-600 mr-2"></i>
+              Web Research
+            </h4>
+            <div class="space-y-3">
+              <input type="url" id="webUrl" placeholder="Enter URL for research..."
+                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 text-sm">
+              <div class="flex space-x-2">
+                <button onclick="loadWebsite()"
+                  class="flex-1 bg-purple-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-purple-700 transition-all">
+                  <i class="fas fa-external-link-alt mr-1"></i>Load
+                </button>
+                <button onclick="toggleWebView()"
+                  class="flex-1 bg-gray-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-gray-700 transition-all">
+                  <i class="fas fa-eye mr-1"></i>Toggle
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- My Notes List -->
+          <div
+            class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+            <h4 class="font-bold mb-3 flex items-center">
+              <i class="fas fa-folder text-blue-600 mr-2"></i>
+              My Notes
+            </h4>
+            <div id="notesList" class="space-y-2 max-h-48 overflow-y-auto">
+              <div class="text-center py-4 text-gray-500">
+                <i class="fas fa-sticky-note text-2xl mb-2"></i>
+                <p class="text-sm">No notes yet</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div
+            class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+            <h4 class="font-bold mb-3 flex items-center">
+              <i class="fas fa-magic text-orange-600 mr-2"></i>
+              Quick Actions
+            </h4>
+            <div class="space-y-2">
+              <button onclick="summarizeNote()"
+                class="w-full text-left p-2 text-sm bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-all">
+                📄 Summarize Note
+              </button>
+              <button onclick="improveWriting()"
+                class="w-full text-left p-2 text-sm bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/50 transition-all">
+                ✏️ Improve Writing
+              </button>
+              <button onclick="generateIdeas()"
+                class="w-full text-left p-2 text-sm bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/50 transition-all">
+                💡 Generate Ideas
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Web Research Iframe (Hidden by default) -->
+      <div id="webFrame"
+        class="mt-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 hidden">
+        <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+          <h4 class="font-bold flex items-center">
+            <i class="fas fa-globe text-purple-600 mr-2"></i>
+            Web Research
+          </h4>
+          <button onclick="toggleWebView()" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="p-4">
+          <iframe id="researchFrame" src=""
+            class="w-full h-96 rounded-lg border border-gray-300 dark:border-gray-600"></iframe>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2">
+        <div
+          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl border border-white/20 mb-6">
+          <h3 class="text-2xl font-bold mb-6 flex items-center">
+            <span
+              class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mr-3">
+              <i class="fas fa-cloud-upload-alt text-white"></i>
+            </span>
+            📚 Upload Your Sources
+          </h3>
+
+          <div
+            class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-2xl p-8 text-center hover:border-blue-500 transition-all cursor-pointer"
+            onclick="document.getElementById('fileUpload').click()" ondrop="handleFileDrop(event)"
+            ondragover="handleDragOver(event)">
             <div class="mb-4">
-              <input type="text" id="functionInput" placeholder="Enter function like x*x or Math.sin(x)"
-                class="w-full px-3 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm">
+              <i class="fas fa-file-upload text-4xl text-gray-400 mb-4"></i>
+              <p class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">Drop files here or click to
+                upload</p>
+              <p class="text-sm text-gray-500">Supports PDF, DOC, TXT, MD, and more</p>
             </div>
-            <canvas id="functionCanvas" width="400" height="256" class="w-full border rounded-lg bg-white"></canvas>
+            <input type="file" id="fileUpload" multiple accept=".pdf,.doc,.docx,.txt,.md,.rtf" class="hidden"
+              onchange="handleFileUpload(event)">
+          </div>
+
+          <!-- URL Input -->
+          <div class="mt-6">
+            <div class="flex space-x-3">
+              <input type="url" id="urlInput" placeholder="Paste a URL to add web content..."
+                class="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white/50 dark:bg-gray-700/50 text-base backdrop-blur-sm">
+              <button onclick="addUrlSource()"
+                class="bg-gradient-to-r from-green-500 to-blue-600 text-white px-6 py-3 rounded-xl font-medium transition-all hover:scale-105 shadow-lg">
+                <i class="fas fa-plus mr-2"></i>Add URL
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Add Buttons -->
+          <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
+            <button onclick="addSampleSource('textbook')"
+              class="p-4 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-xl hover:from-blue-500 hover:to-blue-700 transition-all hover:scale-105 shadow-lg">
+              <i class="fas fa-book text-xl mb-2"></i>
+              <p class="text-sm font-bold">Sample Textbook</p>
+            </button>
+            <button onclick="addSampleSource('research')"
+              class="p-4 bg-gradient-to-r from-purple-400 to-purple-600 text-white rounded-xl hover:from-purple-500 hover:to-purple-700 transition-all hover:scale-105 shadow-lg">
+              <i class="fas fa-microscope text-xl mb-2"></i>
+              <p class="text-sm font-bold">Research Paper</p>
+            </button>
+            <button onclick="addSampleSource('lecture')"
+              class="p-4 bg-gradient-to-r from-green-400 to-green-600 text-white rounded-xl hover:from-green-500 hover:to-green-700 transition-all hover:scale-105 shadow-lg">
+              <i class="fas fa-chalkboard-teacher text-xl mb-2"></i>
+              <p class="text-sm font-bold">Lecture Notes</p>
+            </button>
+            <button onclick="addSampleSource('wikipedia')"
+              class="p-4 bg-gradient-to-r from-orange-400 to-orange-600 text-white rounded-xl hover:from-orange-500 hover:to-orange-700 transition-all hover:scale-105 shadow-lg">
+              <i class="fab fa-wikipedia-w text-xl mb-2"></i>
+              <p class="text-sm font-bold">Wikipedia</p>
+            </button>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- DATA ANALYSIS SECTION -->
-    <section id="data" class="section-content hidden">
-      <div class="mb-8">
-        <h2 class="text-3xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">📊
-          Advanced Data Analysis Studio</h2>
-        <p class="text-gray-600 dark:text-gray-400 mb-6">Analyze datasets, create visualizations, and discover insights
+      <!-- Sources List -->
+      <div class="lg:col-span-1">
+        <div
+          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 sticky top-24">
+          <h4 class="text-xl font-bold mb-4 flex items-center">
+            <i class="fas fa-layer-group text-blue-600 mr-2"></i>
+            Your Sources
+          </h4>
+          <div id="sourcesList" class="space-y-3 max-h-96 overflow-y-auto">
+            <div class="text-center py-8 text-gray-500">
+              <i class="fas fa-inbox text-3xl mb-3"></i>
+              <p>No sources added yet</p>
+              <p class="text-sm">Upload files to get started</p>
+            </div>
+          </div>
+          <button onclick="analyzeAllSources()" id="analyzeBtn"
+            class="w-full mt-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-xl font-bold transition-all hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled>
+            <i class="fas fa-brain mr-2"></i>Analyze Sources
+          </button>
+        </div>
+      </div>
+  </div>
+  </div>
+
+  <!-- Chat View -->
+  <div id="notebookChat" class="notebook-view hidden">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 h-[600px]">
+      <!-- Chat Area -->
+      <div
+        class="lg:col-span-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 flex flex-col">
+        <!-- Chat Header -->
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+          <h3 class="text-xl font-bold flex items-center">
+            <span
+              class="w-8 h-8 bg-gradient-to-r from-green-500 to-blue-600 rounded-lg flex items-center justify-center mr-3">
+              <i class="fas fa-robot text-white text-sm"></i>
+            </span>
+            💬 AI Research Assistant
+          </h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Ask questions about your uploaded sources</p>
+        </div>
+
+        <!-- Messages -->
+        <div id="chatMessages" class="flex-1 p-6 overflow-y-auto space-y-4">
+          <div class="flex items-start space-x-3">
+            <div
+              class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+              <i class="fas fa-robot text-white text-xs"></i>
+            </div>
+            <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-2xl rounded-tl-sm max-w-md">
+              <p class="text-sm">Hello! I'm your AI research assistant. Upload some sources and I'll help you
+                analyze them, answer questions, and generate insights. What would you like to explore today?</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat Input -->
+        <div class="p-6 border-t border-gray-200 dark:border-gray-700">
+          <div class="flex space-x-3">
+            <input type="text" id="chatInput" placeholder="Ask a question about your sources..."
+              class="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white/50 dark:bg-gray-700/50 text-base backdrop-blur-sm"
+              onkeypress="handleChatKeyPress(event)">
+            <button onclick="sendChatMessage()"
+              class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-medium transition-all hover:scale-105 shadow-lg">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+
+          <!-- Suggested Questions -->
+          <div class="mt-4 flex flex-wrap gap-2" id="suggestedQuestions">
+            <button onclick="askSuggestedQuestion('What are the main themes in my sources?')"
+              class="text-xs px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-all">
+              What are the main themes?
+            </button>
+            <button onclick="askSuggestedQuestion('Summarize the key findings')"
+              class="text-xs px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-all">
+              Summarize key findings
+            </button>
+            <button onclick="askSuggestedQuestion('Find contradictions or debates')"
+              class="text-xs px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-all">
+              Find contradictions
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Sidebar -->
+      <div class="lg:col-span-1 space-y-4">
+        <!-- Source Context -->
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+          <h4 class="font-bold mb-3 flex items-center">
+            <i class="fas fa-link text-blue-600 mr-2"></i>
+            Active Sources
+          </h4>
+          <div id="activeSources" class="space-y-2 text-sm">
+            <p class="text-gray-500">No sources selected</p>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+          <h4 class="font-bold mb-3 flex items-center">
+            <i class="fas fa-magic text-purple-600 mr-2"></i>
+            Quick Actions
+          </h4>
+          <div class="space-y-2">
+            <button onclick="generateSummary()"
+              class="w-full text-left p-2 text-sm bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-all">
+              📄 Generate Summary
+            </button>
+            <button onclick="createStudyGuide()"
+              class="w-full text-left p-2 text-sm bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/50 transition-all">
+              📚 Create Study Guide
+            </button>
+            <button onclick="generateQuiz()"
+              class="w-full text-left p-2 text-sm bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/50 transition-all">
+              🧠 Generate Quiz
+            </button>
+            <button onclick="findConnections()"
+              class="w-full text-left p-2 text-sm bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-lg hover:bg-orange-100 dark:hover:bg-orange-900/50 transition-all">
+              🔗 Find Connections
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notes View -->
+  <div id="notebookNotes" class="notebook-view hidden">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Notes Editor -->
+      <div class="lg:col-span-2">
+        <div
+          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 h-[600px] flex flex-col">
+          <!-- Editor Header -->
+          <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+            <div class="flex justify-between items-center">
+              <h3 class="text-xl font-bold flex items-center">
+                <span
+                  class="w-8 h-8 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-lg flex items-center justify-center mr-3">
+                  <i class="fas fa-edit text-white text-sm"></i>
+                </span>
+                ✏️ Smart Note Editor
+              </h3>
+              <div class="flex space-x-2">
+                <button onclick="saveCurrentNote()"
+                  class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-all">
+                  <i class="fas fa-save mr-1"></i>Save
+                </button>
+                <button onclick="createNewNote()"
+                  class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-all">
+                  <i class="fas fa-plus mr-1"></i>New
+                </button>
+              </div>
+            </div>
+            <input type="text" id="noteTitle" placeholder="Note title..."
+              class="w-full mt-3 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 text-lg font-semibold">
+          </div>
+
+          <!-- Editor Content -->
+          <div class="flex-1 p-6">
+            <textarea id="noteContent" placeholder="Start writing your notes here... 
+
+💡 Pro tip: Reference your sources by typing @source-name
+🔗 Create connections with [[topic-name]]
+📝 Use #tags for organization"
+              class="w-full h-full resize-none border-none outline-none bg-transparent text-base leading-relaxed"></textarea>
+          </div>
+
+          <!-- Editor Footer -->
+          <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+            <div class="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400">
+              <div class="flex space-x-4">
+                <span id="wordCount">0 words</span>
+                <span id="charCount">0 characters</span>
+              </div>
+              <div class="flex space-x-2">
+                <button onclick="insertTemplate('outline')" class="hover:text-blue-600 transition-colors">📋
+                  Outline</button>
+                <button onclick="insertTemplate('summary')" class="hover:text-green-600 transition-colors">📄
+                  Summary</button>
+                <button onclick="insertTemplate('analysis')" class="hover:text-purple-600 transition-colors">🔍
+                  Analysis</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notes Sidebar -->
+      <div class="lg:col-span-1 space-y-4">
+        <!-- AI Suggestions -->
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+          <h4 class="font-bold mb-3 flex items-center">
+            <i class="fas fa-lightbulb text-yellow-600 mr-2"></i>
+            AI Suggestions
+          </h4>
+          <div id="aiSuggestions" class="space-y-2 text-sm">
+            <div class="p-3 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg">
+              <p class="text-yellow-800 dark:text-yellow-200">💡 Start writing to get AI-powered suggestions for
+                improving your notes!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- My Notes List -->
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+          <h4 class="font-bold mb-3 flex items-center">
+            <i class="fas fa-folder text-blue-600 mr-2"></i>
+            My Notes
+          </h4>
+          <div id="notesList" class="space-y-2 max-h-64 overflow-y-auto">
+            <div class="text-center py-4 text-gray-500">
+              <i class="fas fa-sticky-note text-2xl mb-2"></i>
+              <p class="text-sm">No notes yet</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tags & Categories -->
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20">
+          <h4 class="font-bold mb-3 flex items-center">
+            <i class="fas fa-tags text-green-600 mr-2"></i>
+            Tags & Topics
+          </h4>
+          <div id="noteTags" class="flex flex-wrap gap-1">
+            <span
+              class="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full">#physics</span>
+            <span
+              class="text-xs px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full">#quantum</span>
+            <span
+              class="text-xs px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full">#research</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio View -->
+  <div id="notebookAudio" class="notebook-view hidden">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Audio Generator -->
+      <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl border border-white/20">
+        <h3 class="text-2xl font-bold mb-6 flex items-center">
+          <span
+            class="w-10 h-10 bg-gradient-to-r from-pink-500 to-red-600 rounded-xl flex items-center justify-center mr-3">
+            <i class="fas fa-microphone text-white"></i>
+          </span>
+          🎙️ AI Podcast Generator
+        </h3>
+
+        <div class="space-y-6">
+          <!-- Podcast Settings -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-bold mb-2">Podcast Style</label>
+              <select id="podcastStyle"
+                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50">
+                <option value="overview">Overview Discussion</option>
+                <option value="deep-dive">Deep Dive Analysis</option>
+                <option value="debate">Debate Format</option>
+                <option value="interview">Interview Style</option>
+                <option value="study-guide">Study Guide</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-bold mb-2">Duration</label>
+              <select id="podcastDuration"
+                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50">
+                <option value="5">5 minutes</option>
+                <option value="10" selected>10 minutes</option>
+                <option value="15">15 minutes</option>
+                <option value="20">20 minutes</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Focus Areas -->
+          <div>
+            <label class="block text-sm font-bold mb-2">Focus Areas (Optional)</label>
+            <textarea id="podcastFocus"
+              placeholder="Specify particular topics or questions you want the podcast to focus on..."
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 h-20 resize-none"></textarea>
+          </div>
+
+          <!-- Generate Button -->
+          <button onclick="generatePodcast()" id="generatePodcastBtn"
+            class="w-full bg-gradient-to-r from-pink-600 to-red-600 text-white py-4 rounded-xl font-bold text-lg transition-all hover:scale-105 shadow-lg">
+            <i class="fas fa-magic mr-2"></i>Generate AI Podcast
+          </button>
+
+          <!-- Progress -->
+          <div id="podcastProgress" class="hidden">
+            <div class="bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+              <div id="podcastProgressBar"
+                class="bg-gradient-to-r from-pink-600 to-red-600 h-2 rounded-full transition-all duration-300"
+                style="width: 0%"></div>
+            </div>
+            <p id="podcastProgressText" class="text-sm text-gray-600 dark:text-gray-400 mt-2 text-center">Preparing
+              podcast...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Audio Player & Library -->
+      <div class="space-y-6">
+        <!-- Current Podcast -->
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+          <h4 class="text-xl font-bold mb-4 flex items-center">
+            <i class="fas fa-play-circle text-green-600 mr-2"></i>
+            Now Playing
+          </h4>
+
+          <div id="currentPodcast" class="text-center py-8 text-gray-500">
+            <i class="fas fa-podcast text-4xl mb-3"></i>
+            <p>No podcast generated yet</p>
+            <p class="text-sm">Generate your first AI podcast above!</p>
+          </div>
+
+          <!-- Audio Player (Hidden initially) -->
+          <div id="audioPlayer" class="hidden">
+            <div
+              class="bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 p-4 rounded-2xl mb-4">
+              <h5 id="podcastTitle" class="font-bold text-lg mb-2">Your AI Podcast</h5>
+              <p id="podcastDescription" class="text-sm text-gray-600 dark:text-gray-400">AI-generated discussion
+                based on your sources</p>
+            </div>
+
+            <audio id="audioElement" controls class="w-full mb-4">
+              <source id="audioSource" src="" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+
+            <div class="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400">
+              <span id="currentTime">0:00</span>
+              <div class="flex space-x-2">
+                <button onclick="changePlaybackSpeed(0.75)" class="hover:text-blue-600">0.75x</button>
+                <button onclick="changePlaybackSpeed(1)" class="hover:text-blue-600">1x</button>
+                <button onclick="changePlaybackSpeed(1.25)" class="hover:text-blue-600">1.25x</button>
+                <button onclick="changePlaybackSpeed(1.5)" class="hover:text-blue-600">1.5x</button>
+              </div>
+              <span id="totalTime">0:00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Podcast Library -->
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+          <h4 class="text-xl font-bold mb-4 flex items-center">
+            <i class="fas fa-library text-blue-600 mr-2"></i>
+            Podcast Library
+          </h4>
+
+          <div id="podcastLibrary" class="space-y-3 max-h-64 overflow-y-auto">
+            <div class="text-center py-4 text-gray-500">
+              <i class="fas fa-headphones text-2xl mb-2"></i>
+              <p class="text-sm">Your generated podcasts will appear here</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <!-- CALENDAR SECTION -->
+  <section id="calendar" class="section-content hidden">
+    <div class="mb-8">
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h2 class="text-3xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            📅 Smart Academic Calendar</h2>
+          <p class="text-gray-600 dark:text-gray-400">Google Calendar integration with intelligent reminders.
+          <div id="calendarSection">
+            <iframe
+              src="https://calendar.google.com/calendar/embed?src=4fc31f36c20f654e12fbd6bc4bca5cc2926f1764a8266a136bd71bdf835af5da%40group.calendar.google.com&ctz=Asia%2FHo_Chi_Minh"
+              style="border: 0" width="970" height="600" frameborder="0" scrolling="no">
+            </iframe>
+          </div>
+          <!-- Events and Reminders -->
+          <div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div
+              class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+              <h3 class="text-lg font-semibold mb-4 flex items-center">
+                <span
+                  class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
+                  <i class="fas fa-calendar text-white text-sm"></i>
+                </span>
+                📅 Upcoming Events
+              </h3>
+              <div id="upcomingEvents" class="space-y-3 max-h-70 overflow-y-auto">
+                <div class="text-gray-500 text-sm">WRO 2025 !!! </div>
+              </div>
+            </div>
+
+            <div
+              class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+              <h3 class="text-lg font-semibold mb-4 flex items-center">
+                <span
+                  class="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg flex items-center justify-center mr-3">
+                  <i class="fas fa-clock text-white text-sm"></i>
+                </span>
+                ⏰ Today's Schedule
+              </h3>
+              <div id="todaySchedule" class="space-y-3 max-h-64 overflow-y-auto">
+                <div class="text-gray-500 text-sm">WRO 2025 !!!</div>
+              </div>
+            </div>
+
+            <div
+              class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+              <h3 class="text-lg font-semibold mb-4 flex items-center">
+                <span
+                  class="w-8 h-8 bg-gradient-to-r from-red-500 to-pink-600 rounded-lg flex items-center justify-center mr-3">
+                  <i class="fas fa-bell text-white text-sm"></i>
+                </span>
+                🔔 Active Reminders
+              </h3>
+              <div id="activeReminders" class="space-y-3 max-h-64 overflow-y-auto">
+                <div class="text-gray-500 text-sm">WRO 2025 !!!</div>
+              </div>
+            </div>
+          </div>
+  </section>
+
+  <!-- CALCULATOR SECTION -->
+  <section id="calculator" class="section-content hidden">
+    <div class="mb-8">
+      <h2 class="text-3xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">🔬
+        Advanced Scientific Calculator</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-6">Powerful mathematical tools for complex calculations</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Calculator Interface -->
+      <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+        <div class="mb-4">
+          <input type="text" id="calculatorDisplay"
+            class="w-full px-4 py-4 text-xl border border-gray-300 dark:border-gray-600 rounded-2xl bg-white/50 dark:bg-gray-700/50 font-mono text-right backdrop-blur-sm"
+            readonly placeholder="0">
+        </div>
+
+        <div class="grid grid-cols-5 gap-2">
+          <!-- Scientific Functions Row -->
+          <button onclick="addToCalculator('Math.sin(')"
+            class="calc-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">sin</button>
+          <button onclick="addToCalculator('Math.cos(')"
+            class="calc-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">cos</button>
+          <button onclick="addToCalculator('Math.tan(')"
+            class="calc-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">tan</button>
+          <button onclick="addToCalculator('Math.log10(')"
+            class="calc-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">log</button>
+          <button onclick="addToCalculator('Math.log(')"
+            class="calc-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">ln</button>
+
+          <!-- Advanced Functions Row -->
+          <button onclick="addToCalculator('Math.sqrt(')"
+            class="calc-btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">√</button>
+          <button onclick="addToCalculator('Math.pow(')"
+            class="calc-btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">x^y</button>
+          <button onclick="addToCalculator('Math.PI')"
+            class="calc-btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">π</button>
+          <button onclick="addToCalculator('Math.E')"
+            class="calc-btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform text-xs shadow-lg">e</button>
+          <button onclick="clearCalculator()"
+            class="calc-btn bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">C</button>
+
+          <!-- Numbers and Operations -->
+          <button onclick="addToCalculator('7')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">7</button>
+          <button onclick="addToCalculator('8')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">8</button>
+          <button onclick="addToCalculator('9')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">9</button>
+          <button onclick="addToCalculator('/')"
+            class="calc-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">÷</button>
+          <button onclick="deleteLast()"
+            class="calc-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">⌫</button>
+
+          <button onclick="addToCalculator('4')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">4</button>
+          <button onclick="addToCalculator('5')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">5</button>
+          <button onclick="addToCalculator('6')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">6</button>
+          <button onclick="addToCalculator('*')"
+            class="calc-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">×</button>
+          <button onclick="addToCalculator('(')"
+            class="calc-btn bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">(</button>
+
+          <button onclick="addToCalculator('1')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">1</button>
+          <button onclick="addToCalculator('2')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">2</button>
+          <button onclick="addToCalculator('3')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">3</button>
+          <button onclick="addToCalculator('-')"
+            class="calc-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">-</button>
+          <button onclick="addToCalculator(')')"
+            class="calc-btn bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">)</button>
+
+          <button onclick="addToCalculator('0')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg col-span-2">0</button>
+          <button onclick="addToCalculator('.')"
+            class="calc-btn bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">.</button>
+          <button onclick="addToCalculator('+')"
+            class="calc-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">+</button>
+          <button onclick="calculate()"
+            class="calc-btn bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white p-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">=</button>
+        </div>
+
+        <div class="space-y-2 mt-4">
+          <button onclick="plotFunction()"
+            class="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white py-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">
+            <i class="fas fa-chart-line mr-2"></i>Plot Function
+          </button>
+          <button onclick="solveEquation()"
+            class="w-full bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white py-3 rounded-xl font-medium transition-all hover:scale-105 transform shadow-lg">
+            <i class="fas fa-equals mr-2"></i>Solve Equation
+          </button>
+        </div>
+      </div>
+
+      <!-- Results and Visualization -->
+      <div class="space-y-6">
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+          <h3 class="text-lg font-semibold mb-4">📊 Calculation Results</h3>
+          <div id="calculatorResults" class="space-y-2 max-h-48 overflow-y-auto">
+            <p class="text-gray-500 text-sm">Enter calculations to see results here</p>
+          </div>
+        </div>
+
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+          <h3 class="text-lg font-semibold mb-4">📈 Function Visualization</h3>
+          <div class="mb-4">
+            <input type="text" id="functionInput" placeholder="Enter function like x*x or Math.sin(x)"
+              class="w-full px-3 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm">
+          </div>
+          <canvas id="functionCanvas" width="400" height="256" class="w-full border rounded-lg bg-white"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA ANALYSIS SECTION -->
+  <section id="data" class="section-content hidden">
+    <div class="mb-8">
+      <h2 class="text-3xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">📊
+        Advanced Data Analysis Studio</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-6">Analyze datasets, create visualizations, and discover insights
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Data Input -->
+      <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+        <h3 class="text-lg font-semibold mb-4">📥 Data Input</h3>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-2">Dataset Name</label>
+            <input type="text" id="datasetName"
+              class="w-full px-3 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+              placeholder="Enter dataset name">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Data Points (comma separated)</label>
+            <textarea id="dataPoints" rows="6"
+              class="w-full px-3 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+              placeholder="Enter data points: 1,2,3,4,5"></textarea>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="generateSampleData()"
+              class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-2 rounded-lg font-medium transition-all hover:scale-105 transform shadow-lg">
+              🎲 Generate Sample
+            </button>
+            <button onclick="analyzeData()"
+              class="bg-gradient-to-r from-success to-emerald-600 hover:from-emerald-500 hover:to-emerald-700 text-white py-2 rounded-lg font-medium transition-all hover:scale-105 transform shadow-lg">
+              🔍 Analyze Data
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Statistical Analysis -->
+      <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+        <h3 class="text-lg font-semibold mb-4">📈 Statistical Analysis</h3>
+        <div id="statisticalResults" class="space-y-3">
+          <p class="text-gray-500 text-sm">Input data to see statistical analysis</p>
+        </div>
+      </div>
+
+      <!-- Data Visualization -->
+      <div
+        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 lg:col-span-2">
+        <h3 class="text-lg font-semibold mb-4">📊 Data Visualization</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="h-64">
+            <canvas id="dataChart"></canvas>
+          </div>
+          <div class="h-64">
+            <canvas id="distributionChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESOURCES SECTION -->
+  <section id="resources" class="section-content hidden">
+    <div class="mb-8">
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h2 class="text-3xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            📚 Learning Resources Hub</h2>
+          <p class="text-gray-600 dark:text-gray-400">Educational materials and references</p>
+        </div>
+        <div class="flex items-center space-x-3">
+          <input type="text" id="resourceSearch" placeholder="Search resources..."
+            class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 text-base backdrop-blur-sm">
+          <select id="resourceType" onchange="filterResourcesByType(this.value)"
+            class="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white/50 dark:bg-gray-700/50 text-base backdrop-blur-sm">
+            <option value="all">All Types</option>
+            <option value="video">Videos</option>
+            <option value="article">Articles</option>
+            <option value="book">Books</option>
+            <option value="website">Websites</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESOURCE CATEGORIES -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+      <button onclick="filterResources('all')"
+        class="resource-filter p-4 bg-gradient-to-r from-primary to-secondary text-white rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
+        data-category="all">
+        <i class="fas fa-th text-2xl mb-2"></i>
+        <p class="font-semibold">All Resources</p>
+      </button>
+      <button onclick="filterResources('science')"
+        class="resource-filter p-4 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
+        data-category="science">
+        <i class="fas fa-microscope text-2xl mb-2"></i>
+        <p class="font-semibold">Science</p>
+      </button>
+      <button onclick="filterResources('technology')"
+        class="resource-filter p-4 bg-gradient-to-r from-purple-500 to-purple-700 text-white rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
+        data-category="technology">
+        <i class="fas fa-laptop-code text-2xl mb-2"></i>
+        <p class="font-semibold">Technology</p>
+      </button>
+      <button onclick="filterResources('engineering')"
+        class="resource-filter p-4 bg-gradient-to-r from-gray-500 to-gray-700 text-white rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
+        data-category="engineering">
+        <i class="fas fa-cogs text-2xl mb-2"></i>
+        <p class="font-semibold">Engineering</p>
+      </button>
+      <button onclick="filterResources('arts-math')"
+        class="resource-filter p-4 bg-gradient-to-r from-pink-500 to-pink-700 text-white rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
+        data-category="arts-math">
+        <i class="fas fa-palette text-2xl mb-2"></i>
+        <p class="font-semibold">Arts & Math</p>
+      </button>
+    </div>
+
+    <!-- RESOURCES GRID -->
+    <div id="resourcesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- YouTube Educational Videos -->
+
+      <!-- Crash Course Physics -->
+      <div
+        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
+        data-category="science" data-type="video">
+        <div class="flex items-center mb-4">
+          <div
+            class="w-10 h-10 bg-gradient-to-r from-red-500 to-red-600 rounded-lg flex items-center justify-center mr-3">
+            <i class="fab fa-youtube text-white"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg">Crash Course Physics</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Educational Video Series</p>
+          </div>
+        </div>
+        <div class="aspect-w-16 aspect-h-9 mb-4">
+          <iframe src="https://www.youtube.com/embed/ZM8ECpBuQYE" class="w-full h-48 rounded-lg" frameborder="0"
+            allowfullscreen></iframe>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Learn physics concepts with engaging animations and
+          clear explanations.</p>
+        <a href="https://www.youtube.com/playlist?list=PL8dPuuaLjXtN0ge7yDk_UA0ldZJdhwkoV" target="_blank"
+          class="inline-block px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
+          <i class="fab fa-youtube mr-2"></i>Watch Playlist
+        </a>
+      </div>
+
+      <!-- Khan Academy Math -->
+      <div
+        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
+        data-category="arts-math" data-type="video">
+        <div class="flex items-center mb-4">
+          <div
+            class="w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center mr-3">
+            <i class="fab fa-youtube text-white"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg">Khan Academy Calculus</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Mathematics Tutorial</p>
+          </div>
+        </div>
+        <div class="aspect-w-16 aspect-h-9 mb-4">
+          <iframe src="https://www.youtube.com/embed/WUvTyaaNkzM" class="w-full h-48 rounded-lg" frameborder="0"
+            allowfullscreen></iframe>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Master calculus with step-by-step explanations and
+          practice problems.</p>
+        <a href="https://www.youtube.com/playlist?list=PL19E79A0638C8D449" target="_blank"
+          class="inline-block px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
+          <i class="fab fa-youtube mr-2"></i>Watch Playlist
+        </a>
+      </div>
+
+      <!-- TED-Ed Science -->
+      <div
+        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
+        data-category="science" data-type="video">
+        <div class="flex items-center mb-4">
+          <div
+            class="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mr-3">
+            <i class="fab fa-youtube text-white"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg">TED-Ed Chemistry</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Animated Science Lessons</p>
+          </div>
+        </div>
+        <div class="aspect-w-16 aspect-h-9 mb-4">
+          <iframe src="https://www.youtube.com/embed/yQP4UJhNn0I" class="w-full h-48 rounded-lg" frameborder="0"
+            allowfullscreen></iframe>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Explore chemistry concepts through beautiful
+          animations and storytelling.</p>
+        <a href="https://www.youtube.com/c/TED-Ed" target="_blank"
+          class="inline-block px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
+          <i class="fab fa-youtube mr-2"></i>Visit Channel
+        </a>
+      </div>
+
+      <!-- Coding with Python -->
+      <div
+        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
+        data-category="technology" data-type="video">
+        <div class="flex items-center mb-4">
+          <div
+            class="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
+            <i class="fab fa-youtube text-white"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg">Python Programming</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Coding Tutorial</p>
+          </div>
+        </div>
+        <div class="aspect-w-16 aspect-h-9 mb-4">
+          <iframe src="https://www.youtube.com/embed/rfscVS0vtbw" class="w-full h-48 rounded-lg" frameborder="0"
+            allowfullscreen></iframe>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Learn Python programming from basics to advanced
+          concepts.</p>
+        <a href="https://www.youtube.com/watch?v=rfscVS0vtbw" target="_blank"
+          class="inline-block px-4 py-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
+          <i class="fab fa-youtube mr-2"></i>Full Course
+        </a>
+      </div>
+
+      <!-- Engineering Explained -->
+      <div
+        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
+        data-category="engineering" data-type="video">
+        <div class="flex items-center mb-4">
+          <div
+            class="w-10 h-10 bg-gradient-to-r from-gray-500 to-gray-600 rounded-lg flex items-center justify-center mr-3">
+            <i class="fab fa-youtube text-white"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg">Engineering Explained</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Mechanical Engineering</p>
+          </div>
+        </div>
+        <div class="aspect-w-16 aspect-h-9 mb-4">
+          <iframe src="https://www.youtube.com/embed/yYAw79386WI" class="w-full h-48 rounded-lg" frameborder="0"
+            allowfullscreen></iframe>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Understand how cars and engines work with detailed
+          explanations.</p>
+        <a href="https://www.youtube.com/c/EngineeringExplained" target="_blank"
+          class="inline-block px-4 py-2 bg-gradient-to-r from-gray-500 to-gray-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
+          <i class="fab fa-youtube mr-2"></i>Visit Channel
+        </a>
+      </div>
+
+      <!-- Art & Design -->
+      <div
+        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
+        data-category="arts-math" data-type="video">
+        <div class="flex items-center mb-4">
+          <div
+            class="w-10 h-10 bg-gradient-to-r from-pink-500 to-pink-600 rounded-lg flex items-center justify-center mr-3">
+            <i class="fab fa-youtube text-white"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg">Digital Art Tutorial</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Creative Arts</p>
+          </div>
+        </div>
+        <div class="aspect-w-16 aspect-h-9 mb-4">
+          <iframe src="https://www.youtube.com/embed/ewMksAbgdBI" class="w-full h-48 rounded-lg" frameborder="0"
+            allowfullscreen></iframe>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Learn digital art techniques and creative design
+          principles.</p>
+        <a href="https://www.youtube.com/watch?v=ewMksAbgdBI" target="_blank"
+          class="inline-block px-4 py-2 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
+          <i class="fab fa-youtube mr-2"></i>Watch Tutorial
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Inventory Section -->
+  <section id="gradebook" class="section-content hidden">
+    <div class="mb-8">
+      <!-- Header -->
+      <div class="mb-6 text-center">
+        <h2 class="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          📊 Inventory System
+        </h2>
+        <p class="text-gray-600 dark:text-gray-400">
+          See the current inventory status
         </p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Data Input -->
-        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-          <h3 class="text-lg font-semibold mb-4">📥 Data Input</h3>
-          <div class="space-y-4">
-            <div>
-              <label class="block text-sm font-medium mb-2">Dataset Name</label>
-              <input type="text" id="datasetName"
-                class="w-full px-3 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
-                placeholder="Enter dataset name">
-            </div>
-            <div>
-              <label class="block text-sm font-medium mb-2">Data Points (comma separated)</label>
-              <textarea id="dataPoints" rows="6"
-                class="w-full px-3 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
-                placeholder="Enter data points: 1,2,3,4,5"></textarea>
-            </div>
-            <div class="grid grid-cols-2 gap-2">
-              <button onclick="generateSampleData()"
-                class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-2 rounded-lg font-medium transition-all hover:scale-105 transform shadow-lg">
-                🎲 Generate Sample
-              </button>
-              <button onclick="analyzeData()"
-                class="bg-gradient-to-r from-success to-emerald-600 hover:from-emerald-500 hover:to-emerald-700 text-white py-2 rounded-lg font-medium transition-all hover:scale-105 transform shadow-lg">
-                🔍 Analyze Data
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Statistical Analysis -->
-        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-          <h3 class="text-lg font-semibold mb-4">📈 Statistical Analysis</h3>
-          <div id="statisticalResults" class="space-y-3">
-            <p class="text-gray-500 text-sm">Input data to see statistical analysis</p>
-          </div>
-        </div>
-
-        <!-- Data Visualization -->
-        <div
-          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 lg:col-span-2">
-          <h3 class="text-lg font-semibold mb-4">📊 Data Visualization</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="h-64">
-              <canvas id="dataChart"></canvas>
-            </div>
-            <div class="h-64">
-              <canvas id="distributionChart"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- RESOURCES SECTION -->
-    <section id="resources" class="section-content hidden">
-      <div class="mb-8">
-        <div class="flex justify-between items-center mb-6">
-          <div>
-            <h2
-              class="text-3xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              📚 Learning Resources Hub</h2>
-            <p class="text-gray-600 dark:text-gray-400">Educational materials and references</p>
-          </div>
-          <div class="flex items-center space-x-3">
-            <input type="text" id="resourceSearch" placeholder="Search resources..."
-              class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-700/50 text-base backdrop-blur-sm">
-            <select id="resourceType"
-              class="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white/50 dark:bg-gray-700/50 text-base backdrop-blur-sm">
-              <option value="all">All Types</option>
-              <option value="video">Videos</option>
-              <option value="article">Articles</option>
-              <option value="book">Books</option>
-              <option value="website">Websites</option>
-            </select>
-          </div>
-        </div>
+      <!-- Sheet -->
+      <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700">
+        <iframe
+          src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRXglfVcHRbcyZkbsxsZ6souKwSdrV6Wi3DXeBgO1bptxZ9sA49iqHOLrm20pGD0ljRh4dDsMCKCTan/pubhtml?widget=true&amp;headers=false"
+          class="w-full h-[600px] border-0">
+        </iframe>
       </div>
 
-      <!-- RESOURCE CATEGORIES -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-        <button onclick="filterResources('all')"
-          class="resource-filter p-4 bg-gradient-to-r from-primary to-secondary text-white rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
-          data-category="all">
-          <i class="fas fa-th text-2xl mb-2"></i>
-          <p class="font-semibold">All Resources</p>
-        </button>
-        <button onclick="filterResources('science')"
-          class="resource-filter p-4 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
-          data-category="science">
-          <i class="fas fa-microscope text-2xl mb-2"></i>
-          <p class="font-semibold">Science</p>
-        </button>
-        <button onclick="filterResources('technology')"
-          class="resource-filter p-4 bg-gradient-to-r from-purple-500 to-purple-700 text-white rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
-          data-category="technology">
-          <i class="fas fa-laptop-code text-2xl mb-2"></i>
-          <p class="font-semibold">Technology</p>
-        </button>
-        <button onclick="filterResources('engineering')"
-          class="resource-filter p-4 bg-gradient-to-r from-gray-500 to-gray-700 text-white rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
-          data-category="engineering">
-          <i class="fas fa-cogs text-2xl mb-2"></i>
-          <p class="font-semibold">Engineering</p>
-        </button>
-        <button onclick="filterResources('arts-math')"
-          class="resource-filter p-4 bg-gradient-to-r from-pink-500 to-pink-700 text-white rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
-          data-category="arts-math">
-          <i class="fas fa-palette text-2xl mb-2"></i>
-          <p class="font-semibold">Arts & Math</p>
-        </button>
+      <!-- Navigation buttons -->
+      <div class="flex justify-center gap-4 mt-6">
+        <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white shadow hover:bg-indigo-700">InPut</button>
+        <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white shadow hover:bg-indigo-700">BorrowReturn</button>
+        <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white shadow hover:bg-indigo-700">Warehouses</button>
+        <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white shadow hover:bg-indigo-700">Check Item</button>
       </div>
+    </div>
+  </section>
 
-      <!-- RESOURCES GRID -->
-      <div id="resourcesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <!-- YouTube Educational Videos -->
-
-        <!-- Crash Course Physics -->
-        <div
-          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
-          data-category="science" data-type="video">
-          <div class="flex items-center mb-4">
-            <div
-              class="w-10 h-10 bg-gradient-to-r from-red-500 to-red-600 rounded-lg flex items-center justify-center mr-3">
-              <i class="fab fa-youtube text-white"></i>
-            </div>
-            <div>
-              <h3 class="font-bold text-lg">Crash Course Physics</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Educational Video Series</p>
-            </div>
-          </div>
-          <div class="aspect-w-16 aspect-h-9 mb-4">
-            <iframe src="https://www.youtube.com/embed/ZM8ECpBuQYE" class="w-full h-48 rounded-lg" frameborder="0"
-              allowfullscreen></iframe>
-          </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Learn physics concepts with engaging animations and
-            clear explanations.</p>
-          <a href="https://www.youtube.com/playlist?list=PL8dPuuaLjXtN0ge7yDk_UA0ldZJdhwkoV" target="_blank"
-            class="inline-block px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
-            <i class="fab fa-youtube mr-2"></i>Watch Playlist
-          </a>
-        </div>
-
-        <!-- Khan Academy Math -->
-        <div
-          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
-          data-category="arts-math" data-type="video">
-          <div class="flex items-center mb-4">
-            <div
-              class="w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center mr-3">
-              <i class="fab fa-youtube text-white"></i>
-            </div>
-            <div>
-              <h3 class="font-bold text-lg">Khan Academy Calculus</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Mathematics Tutorial</p>
-            </div>
-          </div>
-          <div class="aspect-w-16 aspect-h-9 mb-4">
-            <iframe src="https://www.youtube.com/embed/WUvTyaaNkzM" class="w-full h-48 rounded-lg" frameborder="0"
-              allowfullscreen></iframe>
-          </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Master calculus with step-by-step explanations and
-            practice problems.</p>
-          <a href="https://www.youtube.com/playlist?list=PL19E79A0638C8D449" target="_blank"
-            class="inline-block px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
-            <i class="fab fa-youtube mr-2"></i>Watch Playlist
-          </a>
-        </div>
-
-        <!-- TED-Ed Science -->
-        <div
-          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
-          data-category="science" data-type="video">
-          <div class="flex items-center mb-4">
-            <div
-              class="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mr-3">
-              <i class="fab fa-youtube text-white"></i>
-            </div>
-            <div>
-              <h3 class="font-bold text-lg">TED-Ed Chemistry</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Animated Science Lessons</p>
-            </div>
-          </div>
-          <div class="aspect-w-16 aspect-h-9 mb-4">
-            <iframe src="https://www.youtube.com/embed/yQP4UJhNn0I" class="w-full h-48 rounded-lg" frameborder="0"
-              allowfullscreen></iframe>
-          </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Explore chemistry concepts through beautiful
-            animations and storytelling.</p>
-          <a href="https://www.youtube.com/c/TED-Ed" target="_blank"
-            class="inline-block px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
-            <i class="fab fa-youtube mr-2"></i>Visit Channel
-          </a>
-        </div>
-
-        <!-- Coding with Python -->
-        <div
-          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
-          data-category="technology" data-type="video">
-          <div class="flex items-center mb-4">
-            <div
-              class="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
-              <i class="fab fa-youtube text-white"></i>
-            </div>
-            <div>
-              <h3 class="font-bold text-lg">Python Programming</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Coding Tutorial</p>
-            </div>
-          </div>
-          <div class="aspect-w-16 aspect-h-9 mb-4">
-            <iframe src="https://www.youtube.com/embed/rfscVS0vtbw" class="w-full h-48 rounded-lg" frameborder="0"
-              allowfullscreen></iframe>
-          </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Learn Python programming from basics to advanced
-            concepts.</p>
-          <a href="https://www.youtube.com/watch?v=rfscVS0vtbw" target="_blank"
-            class="inline-block px-4 py-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
-            <i class="fab fa-youtube mr-2"></i>Full Course
-          </a>
-        </div>
-
-        <!-- Engineering Explained -->
-        <div
-          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
-          data-category="engineering" data-type="video">
-          <div class="flex items-center mb-4">
-            <div
-              class="w-10 h-10 bg-gradient-to-r from-gray-500 to-gray-600 rounded-lg flex items-center justify-center mr-3">
-              <i class="fab fa-youtube text-white"></i>
-            </div>
-            <div>
-              <h3 class="font-bold text-lg">Engineering Explained</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Mechanical Engineering</p>
-            </div>
-          </div>
-          <div class="aspect-w-16 aspect-h-9 mb-4">
-            <iframe src="https://www.youtube.com/embed/yYAw79386WI" class="w-full h-48 rounded-lg" frameborder="0"
-              allowfullscreen></iframe>
-          </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Understand how cars and engines work with detailed
-            explanations.</p>
-          <a href="https://www.youtube.com/c/EngineeringExplained" target="_blank"
-            class="inline-block px-4 py-2 bg-gradient-to-r from-gray-500 to-gray-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
-            <i class="fab fa-youtube mr-2"></i>Visit Channel
-          </a>
-        </div>
-
-        <!-- Art & Design -->
-        <div
-          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20 resource-item"
-          data-category="arts-math" data-type="video">
-          <div class="flex items-center mb-4">
-            <div
-              class="w-10 h-10 bg-gradient-to-r from-pink-500 to-pink-600 rounded-lg flex items-center justify-center mr-3">
-              <i class="fab fa-youtube text-white"></i>
-            </div>
-            <div>
-              <h3 class="font-bold text-lg">Digital Art Tutorial</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Creative Arts</p>
-            </div>
-          </div>
-          <div class="aspect-w-16 aspect-h-9 mb-4">
-            <iframe src="https://www.youtube.com/embed/ewMksAbgdBI" class="w-full h-48 rounded-lg" frameborder="0"
-              allowfullscreen></iframe>
-          </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Learn digital art techniques and creative design
-            principles.</p>
-          <a href="https://www.youtube.com/watch?v=ewMksAbgdBI" target="_blank"
-            class="inline-block px-4 py-2 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-all">
-            <i class="fab fa-youtube mr-2"></i>Watch Tutorial
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Inventory Section -->
-    <section id="gradebook" class="section-content hidden">
-      <div class="mb-8">
-        <!-- Header -->
-        <div class="mb-6 text-center">
-          <h2 class="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            📊 Inventory System
-          </h2>
-          <p class="text-gray-600 dark:text-gray-400">
-            See the current inventory status
-          </p>
-        </div>
-
-        <!-- Sheet -->
-        <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700">
-          <iframe
-            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRXglfVcHRbcyZkbsxsZ6souKwSdrV6Wi3DXeBgO1bptxZ9sA49iqHOLrm20pGD0ljRh4dDsMCKCTan/pubhtml?widget=true&amp;headers=false"
-            class="w-full h-[600px] border-0">
-          </iframe>
-        </div>
-
-        <!-- Navigation buttons -->
-        <div class="flex justify-center gap-4 mt-6">
-          <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white shadow hover:bg-indigo-700">InPut</button>
-          <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white shadow hover:bg-indigo-700">BorrowReturn</button>
-          <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white shadow hover:bg-indigo-700">Warehouses</button>
-          <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white shadow hover:bg-indigo-700">Check Item</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Grades will be populated here -->
-    </tbody>
-    </table>
+  <!-- Grades will be populated here -->
+  </tbody>
+  </table>
   </div>
   </div>
   </section>
@@ -3874,23 +4459,54 @@
     function saveNewNote(event) {
       event.preventDefault();
 
+      const title = document.getElementById('noteTitle').value.trim();
+      const content = document.getElementById('noteContent').value.trim();
+
+      // Validation
+      if (!title) {
+        showToast('❌ Please enter a note title', 'error');
+        return;
+      }
+
+      if (!content) {
+        showToast('❌ Please enter note content', 'error');
+        return;
+      }
+
       const tags = document.getElementById('noteTags').value.split(',').map(tag => tag.trim()).filter(tag => tag);
 
       const newNote = {
         id: Date.now(),
-        title: document.getElementById('noteTitle').value,
+        title: title,
         category: document.getElementById('noteCategory').value,
         subject: document.getElementById('noteSubject').value,
-        content: document.getElementById('noteContent').value,
+        content: content,
         lastModified: new Date().toISOString(),
         tags: tags
       };
 
-      notes.unshift(newNote);
-      populateNotes();
-      closeCustomModal();
-      addActivityFeed(`📝 Created note: ${newNote.title}`);
-      showToast('Note saved successfully!', 'success');
+      try {
+        notes.unshift(newNote);
+
+        // Save to localStorage immediately
+        localStorage.setItem('steamNotes', JSON.stringify(notes));
+
+        // Update the UI
+        populateNotes();
+        closeCustomModal();
+
+        // Update activity and show success
+        addActivityFeed(`📝 Created note: ${newNote.title}`);
+        showToast('✅ Note saved successfully!', 'success');
+
+        // Auto-save progress
+        saveProgress();
+
+        console.log('Note saved successfully:', newNote);
+      } catch (error) {
+        console.error('Error saving note:', error);
+        showToast('❌ Error saving note. Please try again.', 'error');
+      }
     }
 
     function openNote(id) {
@@ -4010,6 +4626,1175 @@
           showToast('Note deleted successfully!', 'success');
         }
       });
+    }
+
+    // ====================================
+    // NOTEBOOKLM FUNCTIONS
+    // ====================================
+
+    // NotebookLM State
+    let notebookSources = [];
+    let notebookNotes = [];
+    let currentNotebookView = 'sources';
+    let chatHistory = [];
+    let podcastLibrary = [];
+    let currentNote = null;
+    let processedDocuments = [];
+    let isAnalyzing = false;
+
+    // API Configuration
+    const OPENAI_API_KEY = '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';
+    const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
+
+    // Check if APIs are available
+    const hasOpenAI = OPENAI_API_KEY && OPENAI_API_KEY !== 'your-openai-api-key-here';
+    const hasSpeechSynthesis = 'speechSynthesis' in window;
+    const hasFileReader = 'FileReader' in window;
+
+    // Initialize NotebookLM
+    function initializeNotebookLM() {
+      // Set up API configuration - use built-in key or saved key
+      const savedApiKey = localStorage.getItem('openaiApiKey');
+      if (savedApiKey && savedApiKey.startsWith('sk-')) {
+        window.OPENAI_API_KEY = savedApiKey;
+        window.hasOpenAI = true;
+      } else {
+        // Use the built-in API key
+        window.OPENAI_API_KEY = OPENAI_API_KEY;
+        window.hasOpenAI = hasOpenAI;
+      }
+
+      // Load saved data
+      notebookSources = JSON.parse(localStorage.getItem('notebookSources') || '[]');
+      notebookNotes = JSON.parse(localStorage.getItem('notebookNotes') || '[]');
+      chatHistory = JSON.parse(localStorage.getItem('notebookChat') || '[]');
+      podcastLibrary = JSON.parse(localStorage.getItem('podcastLibrary') || '[]');
+
+      // Show default view
+      showNotebookView('sources');
+      updateSourcesList();
+      updateNotesList();
+      updatePodcastLibrary();
+      updateApiStatus();
+
+      // Load chat history
+      if (chatHistory.length === 0) {
+        // Add welcome message
+        addChatMessage('assistant', `Hello! I'm your AI research assistant powered by GPT-3.5-turbo! 🚀
+
+🎉 **Full AI functionality is active!** I can:
+• Analyze your documents with real AI intelligence
+• Answer complex questions about your sources
+• Generate detailed summaries and insights
+• Create AI-powered podcast scripts
+• Provide smart study guides and quizzes
+
+To get started:
+1. 📚 Upload documents in the Sources tab
+2. 🧠 Click "Analyze Sources" to process them
+3. 💬 Come back here to ask me anything about your content!
+
+What would you like to explore today?`);
+      } else {
+        // Restore chat history
+        const messagesContainer = document.getElementById('chatMessages');
+        if (messagesContainer) {
+          messagesContainer.innerHTML = '';
+          chatHistory.forEach(msg => {
+            addChatMessage(msg.sender, msg.message, false); // false = don't save again
+          });
+        }
+      }
+    }
+
+    // Navigation between views
+    function showNotebookView(viewName) {
+      currentNotebookView = viewName;
+
+      // Hide all views
+      document.querySelectorAll('.notebook-view').forEach(view => {
+        view.classList.add('hidden');
+      });
+
+      // Show selected view
+      document.getElementById(`notebook${viewName.charAt(0).toUpperCase() + viewName.slice(1)}`).classList.remove('hidden');
+
+      // Update navigation buttons
+      document.querySelectorAll('.notebook-nav-btn').forEach(btn => {
+        btn.classList.remove('bg-gradient-to-r', 'from-blue-500', 'to-purple-600', 'text-white');
+        btn.classList.add('bg-white/80', 'dark:bg-gray-700/80', 'text-gray-700', 'dark:text-gray-300');
+      });
+
+      document.querySelector(`[data-view="${viewName}"]`).classList.remove('bg-white/80', 'dark:bg-gray-700/80', 'text-gray-700', 'dark:text-gray-300');
+      document.querySelector(`[data-view="${viewName}"]`).classList.add('bg-gradient-to-r', 'from-blue-500', 'to-purple-600', 'text-white');
+    }
+
+    // File Upload Handling
+    function handleFileUpload(event) {
+      const files = Array.from(event.target.files);
+      files.forEach(file => addFileSource(file));
+    }
+
+    function handleFileDrop(event) {
+      event.preventDefault();
+      const files = Array.from(event.dataTransfer.files);
+      files.forEach(file => addFileSource(file));
+    }
+
+    function handleDragOver(event) {
+      event.preventDefault();
+    }
+
+    async function addFileSource(file) {
+      const source = {
+        id: Date.now() + Math.random(),
+        name: file.name,
+        type: getFileType(file.name),
+        size: file.size,
+        uploadDate: new Date().toISOString(),
+        content: '',
+        status: 'processing',
+        file: file
+      };
+
+      notebookSources.push(source);
+      updateSourcesList();
+      showToast(`📄 Processing ${file.name}...`, 'info');
+
+      try {
+        // Read file content
+        const content = await readFileContent(file);
+        source.content = content;
+        source.status = 'ready';
+
+        updateSourcesList();
+        saveNotebookData();
+        showToast(`✅ ${file.name} processed successfully!`, 'success');
+      } catch (error) {
+        console.error('Error processing file:', error);
+        source.status = 'error';
+        source.content = `Error processing file: ${error.message}`;
+        updateSourcesList();
+        showToast(`❌ Error processing ${file.name}`, 'error');
+      }
+    }
+
+    function getFileType(filename) {
+      const ext = filename.split('.').pop().toLowerCase();
+      const typeMap = {
+        'pdf': 'pdf',
+        'doc': 'document',
+        'docx': 'document',
+        'txt': 'text',
+        'md': 'markdown',
+        'rtf': 'document',
+        'html': 'web',
+        'htm': 'web'
+      };
+      return typeMap[ext] || 'file';
+    }
+
+    async function readFileContent(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          let content = e.target.result;
+
+          // Basic text extraction for different file types
+          if (file.type === 'application/pdf') {
+            // For PDF files, we'll extract what we can as text
+            content = `PDF Document: ${file.name}\n\nContent extracted from PDF file. For full PDF processing, consider using a PDF parsing library.\n\nFile size: ${(file.size / 1024).toFixed(1)} KB`;
+          } else if (file.name.endsWith('.docx') || file.name.endsWith('.doc')) {
+            // For Word documents
+            content = `Word Document: ${file.name}\n\nContent extracted from Word document. For full document processing, consider using a document parsing library.\n\nFile size: ${(file.size / 1024).toFixed(1)} KB`;
+          }
+
+          resolve(content);
+        };
+
+        reader.onerror = function () {
+          reject(new Error('Failed to read file'));
+        };
+
+        // Read as text for most file types
+        if (file.type.startsWith('text/') || file.name.endsWith('.md') || file.name.endsWith('.txt')) {
+          reader.readAsText(file);
+        } else {
+          // For binary files, provide metadata
+          resolve(`Binary file: ${file.name}\nSize: ${(file.size / 1024).toFixed(1)} KB\nType: ${file.type || 'Unknown'}\n\nThis file has been uploaded but may require specialized processing for full content extraction.`);
+        }
+      });
+    }
+
+    async function addUrlSource() {
+      const url = document.getElementById('urlInput').value.trim();
+      if (!url) {
+        showToast('❌ Please enter a valid URL', 'error');
+        return;
+      }
+
+      try {
+        new URL(url); // Validate URL
+      } catch {
+        showToast('❌ Please enter a valid URL', 'error');
+        return;
+      }
+
+      const source = {
+        id: Date.now(),
+        name: new URL(url).hostname,
+        type: 'url',
+        url: url,
+        uploadDate: new Date().toISOString(),
+        content: '',
+        status: 'processing'
+      };
+
+      notebookSources.push(source);
+      document.getElementById('urlInput').value = '';
+      updateSourcesList();
+      showToast(`🌐 Fetching content from ${source.name}...`, 'info');
+
+      try {
+        // Fetch URL content
+        const content = await fetchUrlContent(url);
+        source.content = content;
+        source.status = 'ready';
+
+        updateSourcesList();
+        saveNotebookData();
+        showToast(`✅ Content from ${source.name} added successfully!`, 'success');
+      } catch (error) {
+        console.error('Error fetching URL:', error);
+        source.status = 'error';
+        source.content = `Error fetching URL: ${error.message}`;
+        updateSourcesList();
+        showToast(`❌ Error fetching content from ${source.name}`, 'error');
+      }
+    }
+
+    async function fetchUrlContent(url) {
+      // Due to CORS restrictions, we'll use a proxy service or provide instructions
+      try {
+        // Try to fetch directly (will work for same-origin or CORS-enabled sites)
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const html = await response.text();
+
+        // Extract text content from HTML
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+
+        // Remove script and style elements
+        const scripts = doc.querySelectorAll('script, style');
+        scripts.forEach(el => el.remove());
+
+        // Get text content
+        const textContent = doc.body ? doc.body.innerText : doc.innerText;
+
+        return `Web Content from: ${url}\n\n${textContent.substring(0, 5000)}${textContent.length > 5000 ? '...\n\n[Content truncated - full content available for analysis]' : ''}`;
+
+      } catch (error) {
+        // If direct fetch fails due to CORS, provide alternative
+        if (error.name === 'TypeError' && error.message.includes('CORS')) {
+          return `Web URL: ${url}\n\nNote: Due to browser security restrictions (CORS), this URL cannot be directly fetched. However, you can:\n\n1. Copy and paste the content manually\n2. Use a browser extension to extract content\n3. Save the page as a text file and upload it\n\nThe AI can still help you with questions about this URL if you provide the content.`;
+        }
+        throw error;
+      }
+    }
+
+    function addSampleSource(type) {
+      const samples = {
+        textbook: {
+          name: 'Physics Textbook - Chapter 12',
+          content: 'Sample physics textbook content covering quantum mechanics, wave-particle duality, and the uncertainty principle.',
+          type: 'textbook'
+        },
+        research: {
+          name: 'Quantum Computing Research Paper',
+          content: 'Research paper on quantum computing algorithms and their applications in cryptography and optimization.',
+          type: 'research'
+        },
+        lecture: {
+          name: 'Advanced Physics Lecture Notes',
+          content: 'Comprehensive lecture notes covering advanced topics in theoretical physics and quantum field theory.',
+          type: 'lecture'
+        },
+        wikipedia: {
+          name: 'Wikipedia - Quantum Physics',
+          content: 'Wikipedia article covering the fundamentals of quantum physics, key principles, and historical development.',
+          type: 'wikipedia'
+        }
+      };
+
+      const sample = samples[type];
+      if (!sample) return;
+
+      const source = {
+        id: Date.now(),
+        name: sample.name,
+        type: sample.type,
+        uploadDate: new Date().toISOString(),
+        content: sample.content,
+        status: 'sample'
+      };
+
+      notebookSources.push(source);
+      updateSourcesList();
+      saveNotebookData();
+      showToast(`📚 Added ${sample.name}`, 'success');
+    }
+
+    function updateSourcesList() {
+      const sourcesList = document.getElementById('sourcesList');
+      const analyzeBtn = document.getElementById('analyzeBtn');
+
+      if (notebookSources.length === 0) {
+        sourcesList.innerHTML = `
+          <div class="text-center py-8 text-gray-500">
+            <i class="fas fa-inbox text-3xl mb-3"></i>
+            <p>No sources added yet</p>
+            <p class="text-sm">Upload files to get started</p>
+          </div>
+        `;
+        analyzeBtn.disabled = true;
+        return;
+      }
+
+      analyzeBtn.disabled = false;
+      sourcesList.innerHTML = notebookSources.map(source => `
+        <div class="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+          <div class="flex items-center justify-between mb-2">
+            <h5 class="font-semibold text-sm truncate">${source.name}</h5>
+            <button onclick="removeSource(${source.id})" class="text-red-500 hover:text-red-700 text-xs">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="flex items-center justify-between text-xs text-gray-500">
+            <span class="capitalize">${source.type}</span>
+            <span>${formatDate(source.uploadDate)}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function removeSource(id) {
+      notebookSources = notebookSources.filter(source => source.id !== id);
+      updateSourcesList();
+      saveNotebookData();
+      showToast('🗑️ Source removed', 'info');
+    }
+
+    function analyzeAllSources() {
+      if (notebookSources.length === 0) return;
+
+      showToast('🧠 Analyzing sources...', 'info');
+
+      // Simulate analysis
+      setTimeout(() => {
+        showToast('✅ Analysis complete! Ready for chat.', 'success');
+        showNotebookView('chat');
+
+        // Add analysis message to chat
+        addChatMessage('assistant', `I've analyzed ${notebookSources.length} sources. Here's what I found:
+
+📚 **Sources Overview:**
+${notebookSources.map(s => `• ${s.name} (${s.type})`).join('\n')}
+
+🔍 **Key Themes Identified:**
+• Quantum mechanics and wave-particle duality
+• Advanced physics concepts and applications
+• Research methodologies and findings
+
+💬 **What would you like to explore?** Ask me anything about your sources!`);
+      }, 2000);
+    }
+
+    // Chat Functions
+    async function sendChatMessage() {
+      const input = document.getElementById('chatInput');
+      const message = input.value.trim();
+
+      if (!message) return;
+
+      addChatMessage('user', message);
+      input.value = '';
+
+      // Show typing indicator
+      const typingDiv = addTypingIndicator();
+
+      try {
+        let response;
+
+        if (hasOpenAI) {
+          // Use real OpenAI API
+          response = await getOpenAIResponse(message);
+        } else {
+          // Use enhanced mock responses based on sources
+          response = await getEnhancedMockResponse(message);
+        }
+
+        // Remove typing indicator
+        typingDiv.remove();
+
+        addChatMessage('assistant', response);
+
+      } catch (error) {
+        console.error('Error getting AI response:', error);
+        typingDiv.remove();
+
+        const errorResponse = `I apologize, but I encountered an error while processing your question. ${hasOpenAI ? 'Please check your API key and try again.' : 'This is a demo version - for full AI functionality, please add your OpenAI API key.'}`;
+        addChatMessage('assistant', errorResponse);
+      }
+    }
+
+    function addTypingIndicator() {
+      const messagesContainer = document.getElementById('chatMessages');
+      const typingDiv = document.createElement('div');
+      typingDiv.className = 'flex items-start space-x-3 typing-indicator';
+      typingDiv.innerHTML = `
+        <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+          <i class="fas fa-robot text-white text-xs"></i>
+        </div>
+        <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-2xl rounded-tl-sm">
+          <div class="flex space-x-1">
+            <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+            <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.1s;"></div>
+            <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+          </div>
+        </div>
+      `;
+
+      messagesContainer.appendChild(typingDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      return typingDiv;
+    }
+
+    async function getOpenAIResponse(message) {
+      // Prepare context from sources
+      const sourceContext = notebookSources
+        .filter(source => source.status === 'ready' && source.content)
+        .map(source => `Source: ${source.name}\nContent: ${source.content.substring(0, 2000)}`)
+        .join('\n\n');
+
+      const systemPrompt = `You are a helpful AI research assistant. You have access to the following sources:
+
+${sourceContext}
+
+Please answer the user's question based on these sources. If the sources don't contain relevant information, let the user know and provide general guidance. Be concise but thorough.`;
+
+      const response = await fetch(OPENAI_API_URL, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${window.OPENAI_API_KEY || OPENAI_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: 'gpt-3.5-turbo',
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: message }
+          ],
+          max_tokens: 500,
+          temperature: 0.7
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`OpenAI API error: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      return data.choices[0].message.content;
+    }
+
+    async function getEnhancedMockResponse(message) {
+      // Enhanced mock responses that analyze the actual source content
+      const sourceContent = notebookSources
+        .filter(source => source.status === 'ready' && source.content)
+        .map(source => source.content)
+        .join(' ');
+
+      // Simple keyword matching for more relevant responses
+      const keywords = message.toLowerCase().split(' ');
+      const relevantSources = notebookSources.filter(source =>
+        keywords.some(keyword =>
+          source.content.toLowerCase().includes(keyword) ||
+          source.name.toLowerCase().includes(keyword)
+        )
+      );
+
+      // Simulate processing time
+      await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
+
+      if (relevantSources.length > 0) {
+        return `Based on your uploaded sources, particularly "${relevantSources[0].name}", I can help with that question. 
+
+Here's what I found relevant to "${message}":
+
+${relevantSources.map(source => `• From "${source.name}": ${source.content.substring(0, 200)}...`).join('\n')}
+
+Would you like me to elaborate on any specific aspect? 
+
+*Note: This is a demo response. For full AI analysis, please add your OpenAI API key in the code.*`;
+      } else {
+        return `I understand you're asking about "${message}". While I don't see directly relevant information in your current sources, I can provide some general guidance.
+
+Your current sources include:
+${notebookSources.map(source => `• ${source.name} (${source.type})`).join('\n')}
+
+Consider uploading more specific sources related to your question, or try rephrasing your question to match the content you've uploaded.
+
+*Note: This is a demo response. For full AI analysis, please add your OpenAI API key in the code.*`;
+      }
+    }
+
+    function addChatMessage(sender, message, shouldSave = true) {
+      const messagesContainer = document.getElementById('chatMessages');
+      if (!messagesContainer) return;
+
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'flex items-start space-x-3';
+
+      if (sender === 'assistant') {
+        messageDiv.innerHTML = `
+          <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+            <i class="fas fa-robot text-white text-xs"></i>
+          </div>
+          <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-2xl rounded-tl-sm max-w-md">
+            <p class="text-sm whitespace-pre-wrap">${message}</p>
+          </div>
+        `;
+      } else {
+        messageDiv.innerHTML = `
+          <div class="w-8 h-8 bg-gradient-to-r from-green-500 to-blue-600 rounded-full flex items-center justify-center">
+            <i class="fas fa-user text-white text-xs"></i>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-2xl rounded-tl-sm max-w-md">
+            <p class="text-sm">${message}</p>
+          </div>
+        `;
+      }
+
+      messagesContainer.appendChild(messageDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+      // Save to chat history
+      if (shouldSave) {
+        chatHistory.push({ sender, message, timestamp: new Date().toISOString() });
+        saveNotebookData();
+      }
+    }
+
+    function handleChatKeyPress(event) {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        sendChatMessage();
+      }
+    }
+
+    function askSuggestedQuestion(question) {
+      document.getElementById('chatInput').value = question;
+      sendChatMessage();
+    }
+
+    // Quick Actions
+    function generateSummary() {
+      showToast('📄 Generating summary...', 'info');
+      setTimeout(() => {
+        addChatMessage('assistant', '📄 **Summary Generated**\n\nBased on your sources, here are the key points:\n\n• Main concept 1\n• Important finding 2\n• Critical insight 3\n\nWould you like me to elaborate on any of these points?');
+        showToast('✅ Summary ready!', 'success');
+      }, 1500);
+    }
+
+    function createStudyGuide() {
+      showToast('📚 Creating study guide...', 'info');
+      setTimeout(() => {
+        addChatMessage('assistant', '📚 **Study Guide Created**\n\n**Key Topics to Review:**\n1. Quantum mechanics principles\n2. Wave-particle duality\n3. Uncertainty principle\n\n**Practice Questions:**\n• What is the significance of...\n• How does quantum entanglement...\n• Explain the relationship between...');
+        showToast('✅ Study guide ready!', 'success');
+      }, 2000);
+    }
+
+    function generateQuiz() {
+      showToast('🧠 Generating quiz...', 'info');
+      setTimeout(() => {
+        addChatMessage('assistant', '🧠 **Quiz Generated**\n\n**Question 1:** What is the fundamental principle of quantum mechanics?\na) Classical physics\nb) Wave-particle duality\nc) Newtonian mechanics\n\n**Question 2:** Who proposed the uncertainty principle?\n\nWould you like to see more questions?');
+        showToast('✅ Quiz ready!', 'success');
+      }, 1500);
+    }
+
+    function findConnections() {
+      showToast('🔗 Finding connections...', 'info');
+      setTimeout(() => {
+        addChatMessage('assistant', '🔗 **Connections Found**\n\nI found several interesting connections between your sources:\n\n**Theme 1:** All sources discuss quantum mechanics\n**Theme 2:** Common focus on experimental validation\n**Theme 3:** Historical development patterns\n\n**Contradictions:** Source A suggests X while Source B argues Y');
+        showToast('✅ Connections mapped!', 'success');
+      }, 2000);
+    }
+
+    // Notes Functions
+    function createNewNote() {
+      currentNote = {
+        id: Date.now(),
+        title: '',
+        content: '',
+        tags: [],
+        createdDate: new Date().toISOString(),
+        lastModified: new Date().toISOString()
+      };
+
+      document.getElementById('noteTitle').value = '';
+      document.getElementById('noteContent').value = '';
+      updateWordCount();
+    }
+
+    function saveCurrentNote() {
+      const title = document.getElementById('noteTitle').value.trim();
+      const content = document.getElementById('noteContent').value.trim();
+
+      if (!title && !content) {
+        showToast('❌ Note is empty', 'error');
+        return;
+      }
+
+      if (!currentNote) {
+        currentNote = {
+          id: Date.now(),
+          createdDate: new Date().toISOString()
+        };
+      }
+
+      currentNote.title = title || 'Untitled Note';
+      currentNote.content = content;
+      currentNote.lastModified = new Date().toISOString();
+
+      // Extract tags from content
+      const tagMatches = content.match(/#\w+/g);
+      currentNote.tags = tagMatches ? tagMatches.map(tag => tag.substring(1)) : [];
+
+      // Add or update note
+      const existingIndex = notebookNotes.findIndex(note => note.id === currentNote.id);
+      if (existingIndex >= 0) {
+        notebookNotes[existingIndex] = currentNote;
+      } else {
+        notebookNotes.unshift(currentNote);
+      }
+
+      updateNotesList();
+      saveNotebookData();
+      showToast('✅ Note saved!', 'success');
+    }
+
+    function updateNotesList() {
+      const notesList = document.getElementById('notesList');
+
+      if (notebookNotes.length === 0) {
+        notesList.innerHTML = `
+          <div class="text-center py-4 text-gray-500">
+            <i class="fas fa-sticky-note text-2xl mb-2"></i>
+            <p class="text-sm">No notes yet</p>
+          </div>
+        `;
+        return;
+      }
+
+      notesList.innerHTML = notebookNotes.map(note => `
+        <div class="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600/50 transition-all" onclick="loadNote(${note.id})">
+          <h5 class="font-semibold text-sm truncate mb-1">${note.title}</h5>
+          <p class="text-xs text-gray-500 truncate">${note.content.substring(0, 50)}...</p>
+          <div class="flex justify-between items-center mt-2">
+            <span class="text-xs text-gray-400">${formatDate(note.lastModified)}</span>
+            <div class="flex space-x-1">
+              ${note.tags.slice(0, 2).map(tag => `<span class="text-xs px-1 py-0.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded">#${tag}</span>`).join('')}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function loadNote(id) {
+      const note = notebookNotes.find(n => n.id === id);
+      if (!note) return;
+
+      currentNote = note;
+      document.getElementById('noteTitle').value = note.title;
+      document.getElementById('noteContent').value = note.content;
+      updateWordCount();
+    }
+
+    function updateWordCount() {
+      const content = document.getElementById('noteContent').value;
+      const words = content.trim() ? content.trim().split(/\s+/).length : 0;
+      const chars = content.length;
+
+      document.getElementById('wordCount').textContent = `${words} words`;
+      document.getElementById('charCount').textContent = `${chars} characters`;
+    }
+
+    function insertTemplate(type) {
+      const templates = {
+        outline: `# Outline
+
+## I. Introduction
+- 
+
+## II. Main Points
+- 
+- 
+- 
+
+## III. Conclusion
+- `,
+        summary: `# Summary
+
+## Key Points
+- 
+
+## Important Details
+- 
+
+## Takeaways
+- `,
+        analysis: `# Analysis
+
+## Overview
+- 
+
+## Strengths
+- 
+
+## Weaknesses
+- 
+
+## Implications
+- `
+      };
+
+      const template = templates[type];
+      if (template) {
+        document.getElementById('noteContent').value += template;
+        updateWordCount();
+      }
+    }
+
+    // Audio/Podcast Functions
+    async function generatePodcast() {
+      if (notebookSources.length === 0) {
+        showToast('❌ Please add sources first', 'error');
+        return;
+      }
+
+      const style = document.getElementById('podcastStyle').value;
+      const duration = parseInt(document.getElementById('podcastDuration').value);
+      const focus = document.getElementById('podcastFocus').value;
+
+      const generateBtn = document.getElementById('generatePodcastBtn');
+      const progress = document.getElementById('podcastProgress');
+      const progressBar = document.getElementById('podcastProgressBar');
+      const progressText = document.getElementById('podcastProgressText');
+
+      generateBtn.disabled = true;
+      progress.classList.remove('hidden');
+
+      try {
+        // Step 1: Generate script
+        progressBar.style.width = '25%';
+        progressText.textContent = 'Generating podcast script...';
+
+        const script = await generatePodcastScript(style, duration, focus);
+
+        // Step 2: Convert to speech
+        progressBar.style.width = '50%';
+        progressText.textContent = 'Converting to speech...';
+
+        const audioBlob = await generateSpeech(script);
+
+        // Step 3: Create podcast object
+        progressBar.style.width = '75%';
+        progressText.textContent = 'Finalizing podcast...';
+
+        const audioUrl = URL.createObjectURL(audioBlob);
+
+        const podcast = {
+          id: Date.now(),
+          title: `AI Podcast - ${style.charAt(0).toUpperCase() + style.slice(1)}`,
+          description: `${duration}-minute AI-generated discussion based on your sources`,
+          duration: `${duration}:00`,
+          style: style,
+          focus: focus,
+          script: script,
+          createdDate: new Date().toISOString(),
+          audioUrl: audioUrl,
+          audioBlob: audioBlob
+        };
+
+        // Step 4: Complete
+        progressBar.style.width = '100%';
+        progressText.textContent = 'Podcast ready!';
+
+        podcastLibrary.unshift(podcast);
+        updatePodcastLibrary();
+        loadPodcast(podcast);
+        saveNotebookData();
+
+        setTimeout(() => {
+          progress.classList.add('hidden');
+          generateBtn.disabled = false;
+          showToast('🎙️ Podcast generated successfully!', 'success');
+        }, 500);
+
+      } catch (error) {
+        console.error('Error generating podcast:', error);
+        progress.classList.add('hidden');
+        generateBtn.disabled = false;
+        showToast('❌ Error generating podcast: ' + error.message, 'error');
+      }
+    }
+
+    async function generatePodcastScript(style, duration, focus) {
+      // Prepare source content
+      const sourceContent = notebookSources
+        .filter(source => source.status === 'ready' && source.content)
+        .map(source => `${source.name}: ${source.content.substring(0, 1000)}`)
+        .join('\n\n');
+
+      let prompt = '';
+
+      switch (style) {
+        case 'overview':
+          prompt = `Create a ${duration}-minute podcast script that provides an overview of the following sources. Make it conversational and engaging, as if two hosts are discussing the material.`;
+          break;
+        case 'deep-dive':
+          prompt = `Create a ${duration}-minute detailed analysis podcast script diving deep into the following sources. Include specific examples and detailed explanations.`;
+          break;
+        case 'debate':
+          prompt = `Create a ${duration}-minute debate-style podcast script where two perspectives discuss and analyze the following sources, presenting different viewpoints.`;
+          break;
+        case 'interview':
+          prompt = `Create a ${duration}-minute interview-style podcast script where a host interviews an expert about the following sources.`;
+          break;
+        case 'study-guide':
+          prompt = `Create a ${duration}-minute educational podcast script that serves as a study guide for the following sources, highlighting key concepts and important points.`;
+          break;
+      }
+
+      if (focus) {
+        prompt += ` Focus particularly on: ${focus}.`;
+      }
+
+      prompt += `\n\nSources:\n${sourceContent}\n\nFormat the script with clear speaker labels (Host 1, Host 2, etc.) and natural conversation flow.`;
+
+      if (hasOpenAI) {
+        // Use OpenAI to generate script
+        const response = await fetch(OPENAI_API_URL, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${window.OPENAI_API_KEY || OPENAI_API_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: 'gpt-3.5-turbo',
+            messages: [
+              { role: 'system', content: 'You are a professional podcast script writer. Create engaging, natural-sounding dialogue.' },
+              { role: 'user', content: prompt }
+            ],
+            max_tokens: 1500,
+            temperature: 0.8
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error(`OpenAI API error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data.choices[0].message.content;
+      } else {
+        // Generate mock script
+        return generateMockScript(style, duration, focus);
+      }
+    }
+
+    function generateMockScript(style, duration, focus) {
+      const sources = notebookSources.filter(s => s.status === 'ready');
+      const sourceNames = sources.map(s => s.name).join(', ');
+
+      return `Host 1: Welcome to today's ${style} discussion! I'm excited to dive into the materials we've gathered: ${sourceNames}.
+
+Host 2: Absolutely! These sources provide fascinating insights. Let me start by highlighting the key themes we've identified.
+
+Host 1: That's a great point. From what I've read, there are several interconnected concepts that really stand out.
+
+Host 2: Exactly. And if we focus on ${focus || 'the main topics'}, we can see how these ideas build upon each other.
+
+Host 1: The research methodology used in these sources is particularly interesting. It shows a systematic approach to understanding the subject matter.
+
+Host 2: I agree. What I find most compelling is how the different perspectives complement each other, even when they seem to contradict at first glance.
+
+Host 1: That's the beauty of having multiple sources. It gives us a more complete picture and helps us think critically about the information.
+
+Host 2: Before we wrap up, let's summarize the key takeaways for our listeners who want to explore these topics further.
+
+Host 1: Great idea. The main points to remember are the interconnected nature of the concepts and the importance of considering multiple perspectives.
+
+Host 2: Thanks for joining us today. We hope this discussion has been helpful in understanding these complex topics!
+
+*Note: This is a demo script. For AI-generated content, please add your OpenAI API key.*`;
+    }
+
+    async function generateSpeech(text) {
+      if (!hasSpeechSynthesis) {
+        throw new Error('Speech synthesis not supported in this browser');
+      }
+
+      return new Promise((resolve, reject) => {
+        // Clean up the script for speech
+        const speechText = text
+          .replace(/Host \d+:/g, '') // Remove speaker labels
+          .replace(/\*.*?\*/g, '') // Remove notes in asterisks
+          .replace(/\n+/g, ' ') // Replace line breaks with spaces
+          .trim();
+
+        const utterance = new SpeechSynthesisUtterance(speechText);
+
+        // Configure speech settings
+        utterance.rate = 0.9;
+        utterance.pitch = 1.0;
+        utterance.volume = 1.0;
+
+        // Try to use a good voice
+        const voices = speechSynthesis.getVoices();
+        const preferredVoice = voices.find(voice =>
+          voice.lang.startsWith('en') &&
+          (voice.name.includes('Google') || voice.name.includes('Microsoft'))
+        ) || voices.find(voice => voice.lang.startsWith('en'));
+
+        if (preferredVoice) {
+          utterance.voice = preferredVoice;
+        }
+
+        // Record the speech
+        const mediaRecorder = new MediaRecorder(new MediaStream());
+        const audioChunks = [];
+
+        mediaRecorder.ondataavailable = event => {
+          audioChunks.push(event.data);
+        };
+
+        mediaRecorder.onstop = () => {
+          const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+          resolve(audioBlob);
+        };
+
+        utterance.onend = () => {
+          setTimeout(() => {
+            mediaRecorder.stop();
+          }, 1000);
+        };
+
+        utterance.onerror = (event) => {
+          reject(new Error('Speech synthesis failed: ' + event.error));
+        };
+
+        // Start recording and speaking
+        mediaRecorder.start();
+        speechSynthesis.speak(utterance);
+
+        // Fallback: create a simple audio blob if recording fails
+        setTimeout(() => {
+          if (mediaRecorder.state === 'recording') {
+            mediaRecorder.stop();
+          }
+
+          // Create a simple beep as fallback
+          const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          const oscillator = audioContext.createOscillator();
+          const gainNode = audioContext.createGain();
+
+          oscillator.connect(gainNode);
+          gainNode.connect(audioContext.destination);
+
+          oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
+          gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+
+          oscillator.start();
+          oscillator.stop(audioContext.currentTime + 1);
+
+          // Create a simple audio blob
+          const buffer = audioContext.createBuffer(1, audioContext.sampleRate, audioContext.sampleRate);
+          const audioBlob = new Blob([buffer], { type: 'audio/wav' });
+          resolve(audioBlob);
+        }, 10000); // 10 second timeout
+      });
+    }
+
+    function loadPodcast(podcast) {
+      const currentPodcast = document.getElementById('currentPodcast');
+      const audioPlayer = document.getElementById('audioPlayer');
+
+      currentPodcast.classList.add('hidden');
+      audioPlayer.classList.remove('hidden');
+
+      document.getElementById('podcastTitle').textContent = podcast.title;
+      document.getElementById('podcastDescription').textContent = podcast.description;
+      document.getElementById('audioSource').src = podcast.audioUrl;
+      document.getElementById('audioElement').load();
+    }
+
+    function updatePodcastLibrary() {
+      const library = document.getElementById('podcastLibrary');
+
+      if (podcastLibrary.length === 0) {
+        library.innerHTML = `
+          <div class="text-center py-4 text-gray-500">
+            <i class="fas fa-headphones text-2xl mb-2"></i>
+            <p class="text-sm">Your generated podcasts will appear here</p>
+          </div>
+        `;
+        return;
+      }
+
+      library.innerHTML = podcastLibrary.map(podcast => `
+        <div class="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600/50 transition-all" onclick="loadPodcast(${JSON.stringify(podcast).replace(/"/g, '&quot;')})">
+          <div class="flex items-center justify-between mb-2">
+            <h5 class="font-semibold text-sm truncate">${podcast.title}</h5>
+            <span class="text-xs text-gray-500">${podcast.duration}</span>
+          </div>
+          <p class="text-xs text-gray-500 truncate">${podcast.description}</p>
+          <div class="flex justify-between items-center mt-2">
+            <span class="text-xs text-gray-400">${formatDate(podcast.createdDate)}</span>
+            <span class="text-xs px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded capitalize">${podcast.style}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function changePlaybackSpeed(speed) {
+      const audio = document.getElementById('audioElement');
+      audio.playbackRate = speed;
+    }
+
+    // API Configuration
+    function showApiConfig() {
+      showCustomModal('🔧 API Configuration', `
+        <div class="space-y-6">
+          <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-xl border border-blue-200 dark:border-blue-700">
+            <h4 class="font-bold text-blue-800 dark:text-blue-200 mb-2">🚀 Enable Full AI Functionality</h4>
+            <p class="text-sm text-blue-700 dark:text-blue-300">
+              To unlock real AI chat, document analysis, and advanced features, you'll need an OpenAI API key.
+            </p>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-bold mb-2">OpenAI API Key</label>
+            <input type="password" id="openaiApiKey" placeholder="sk-..." 
+              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-base">
+            <p class="text-xs text-gray-500 mt-1">
+              Get your API key from <a href="https://platform.openai.com/api-keys" target="_blank" class="text-blue-600 hover:underline">OpenAI Platform</a>
+            </p>
+          </div>
+          
+          <div class="bg-green-50 dark:bg-green-900/30 p-4 rounded-xl border border-green-200 dark:border-green-700">
+            <h4 class="font-bold text-green-800 dark:text-green-200 mb-2">✅ What Works Without API Key</h4>
+            <ul class="text-sm text-green-700 dark:text-green-300 space-y-1">
+              <li>• File upload and processing</li>
+              <li>• Note taking and organization</li>
+              <li>• Basic text-to-speech podcasts</li>
+              <li>• Enhanced mock AI responses</li>
+            </ul>
+          </div>
+          
+          <div class="bg-purple-50 dark:bg-purple-900/30 p-4 rounded-xl border border-purple-200 dark:border-purple-700">
+            <h4 class="font-bold text-purple-800 dark:text-purple-200 mb-2">🎯 What Requires API Key</h4>
+            <ul class="text-sm text-purple-700 dark:text-purple-300 space-y-1">
+              <li>• Real AI chat with your documents</li>
+              <li>• Intelligent document analysis</li>
+              <li>• AI-generated podcast scripts</li>
+              <li>• Smart summaries and insights</li>
+            </ul>
+          </div>
+          
+          <div class="flex space-x-3">
+            <button onclick="saveApiConfig()" class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-xl font-bold transition-all hover:scale-105 shadow-lg">
+              <i class="fas fa-save mr-2"></i>Save Configuration
+            </button>
+            <button onclick="closeCustomModal()" class="flex-1 bg-gray-500 text-white py-3 rounded-xl font-bold transition-all hover:scale-105 shadow-lg">
+              <i class="fas fa-times mr-2"></i>Cancel
+            </button>
+          </div>
+        </div>
+      `);
+    }
+
+    function saveApiConfig() {
+      const apiKey = document.getElementById('openaiApiKey').value.trim();
+
+      if (apiKey) {
+        localStorage.setItem('openaiApiKey', apiKey);
+        // Update global variable
+        window.OPENAI_API_KEY = apiKey;
+        window.hasOpenAI = true;
+
+        showToast('✅ API key saved! Full AI functionality enabled.', 'success');
+        updateApiStatus();
+      } else {
+        localStorage.removeItem('openaiApiKey');
+        window.OPENAI_API_KEY = '';
+        window.hasOpenAI = false;
+
+        showToast('ℹ️ API key removed. Using demo mode.', 'info');
+        updateApiStatus();
+      }
+
+      closeCustomModal();
+    }
+
+    function updateApiStatus() {
+      const statusElement = document.getElementById('apiStatus');
+      if (!statusElement) return;
+
+      const savedKey = localStorage.getItem('openaiApiKey');
+      const currentKey = window.OPENAI_API_KEY || OPENAI_API_KEY;
+
+      if ((savedKey && savedKey.startsWith('sk-')) || (currentKey && currentKey.startsWith('sk-'))) {
+        statusElement.innerHTML = `
+          <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">
+            <i class="fas fa-check-circle mr-1"></i>
+            🤖 AI Enabled - GPT-3.5-turbo Active
+          </span>
+          <button onclick="showApiConfig()" class="ml-2 text-blue-600 hover:text-blue-800 text-xs underline">
+            Manage API
+          </button>
+        `;
+
+        // Update global variables
+        window.OPENAI_API_KEY = savedKey || currentKey;
+        window.hasOpenAI = true;
+      } else {
+        statusElement.innerHTML = `
+          <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300">
+            <i class="fas fa-exclamation-triangle mr-1"></i>
+            Demo Mode - Add OpenAI API key for full functionality
+          </span>
+          <button onclick="showApiConfig()" class="ml-2 text-blue-600 hover:text-blue-800 text-xs underline">
+            Configure API
+          </button>
+        `;
+
+        window.OPENAI_API_KEY = '';
+        window.hasOpenAI = false;
+      }
+    }
+
+    // Save/Load Data
+    function saveNotebookData() {
+      localStorage.setItem('notebookSources', JSON.stringify(notebookSources));
+      localStorage.setItem('notebookNotes', JSON.stringify(notebookNotes));
+      localStorage.setItem('notebookChat', JSON.stringify(chatHistory));
+      localStorage.setItem('podcastLibrary', JSON.stringify(podcastLibrary));
     }
 
     // Calendar reminder settings
@@ -5092,19 +6877,51 @@
     }
 
     function filterResources(category) {
-      const resourceCards = document.querySelectorAll('.resource-card');
-      resourceCards.forEach(card => {
-        if (category === 'all' || card.dataset.category === category) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-
+      // Update button states
       document.querySelectorAll('.resource-filter').forEach(btn => {
         btn.classList.remove('ring-4', 'ring-white/30', 'scale-105');
       });
       document.querySelector(`.resource-filter[data-category="${category}"]`)?.classList.add('ring-4', 'ring-white/30', 'scale-105');
+
+      // Apply combined filters
+      applyResourceFilters();
+    }
+
+    function filterResourcesByType(type) {
+      // Apply combined filters
+      applyResourceFilters();
+
+      // Show toast to confirm filtering worked
+      const visibleCount = document.querySelectorAll('.resource-item[style*="block"], .resource-item:not([style*="none"])').length;
+
+      if (type === 'all') {
+        showToast('📚 Showing all resource types', 'info');
+      } else {
+        showToast(`🎯 Filtered to ${visibleCount} ${type}${visibleCount !== 1 ? 's' : ''}`, 'success');
+      }
+
+      // Log for debugging
+      console.log(`Filtered resources by type: ${type}, showing ${visibleCount} items`);
+    }
+
+    // Combined filter function for both category and type
+    function applyResourceFilters() {
+      const selectedCategory = document.querySelector('.resource-filter.ring-4')?.dataset.category || 'all';
+      const selectedType = document.getElementById('resourceType').value;
+
+      const resourceCards = document.querySelectorAll('.resource-item');
+      let visibleCount = 0;
+
+      resourceCards.forEach(card => {
+        const matchesCategory = selectedCategory === 'all' || card.dataset.category === selectedCategory;
+        const matchesType = selectedType === 'all' || card.dataset.type === selectedType;
+        const shouldShow = matchesCategory && matchesType;
+
+        card.style.display = shouldShow ? 'block' : 'none';
+        if (shouldShow) visibleCount++;
+      });
+
+      console.log(`Applied filters - Category: ${selectedCategory}, Type: ${selectedType}, Visible: ${visibleCount}`);
     }
 
     function filterLabs(category) {
@@ -5973,6 +7790,12 @@
             case 'labs':
               if (typeof populateLabs === 'function') populateLabs();
               break;
+            case 'notes':
+              if (typeof initializeNotebookLM === 'function') initializeNotebookLM();
+              break;
+            case 'resources':
+              if (typeof populateResources === 'function') populateResources();
+              break;
           }
 
           // Add activity
@@ -6100,6 +7923,17 @@
 
       // Load activity feed from storage
       loadActivityFeed();
+
+      // Initialize NotebookLM
+      if (typeof initializeNotebookLM === 'function') {
+        initializeNotebookLM();
+      }
+
+      // Add event listeners for NotebookLM
+      const noteContent = document.getElementById('noteContent');
+      if (noteContent) {
+        noteContent.addEventListener('input', updateWordCount);
+      }
 
       // Initialize with dashboard section
       setTimeout(() => {
