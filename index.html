@@ -213,79 +213,80 @@
         <div class="flex items-center space-x-4">
           <!-- Desktop Navigation -->
           <div
-            class="hidden lg:flex items-center space-x-1 bg-white/50 dark:bg-gray-700/50 rounded-xl p-1 backdrop-blur-sm">
-            <button onclick="showSection('dashboard')"
-              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 bg-primary text-white hover-lift"
-              data-section="dashboard">
-              <i class="fas fa-home mr-2"></i>Dashboard
-            </button>
-            <button onclick="showSection('labs')"
-              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
-              data-section="labs">
-              <i class="fas fa-flask mr-2"></i>Experiments
-            </button>
-            <button onclick="showSection('assignments')"
-              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
-              data-section="assignments">
-              <i class="fas fa-tasks mr-2"></i>Tasks
-            </button>
-            <button onclick="showSection('notes')"
-              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
-              data-section="notes">
-              <i class="fas fa-sticky-note mr-2"></i>Notes
-            </button>
-            <button onclick="showSection('calendar')"
-              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
-              data-section="calendar">
-              <i class="fas fa-calendar mr-2"></i>Calendar
-            </button>
-            <button onclick="showSection('calculator')"
-              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
-              data-section="calculator">
-              <i class="fas fa-calculator mr-2"></i>Calculator
-            </button>
-            <button onclick="showSection('data')"
-              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
-              data-section="data">
-              <i class="fas fa-chart-bar mr-2"></i>Data
-            </button>
-            <button onclick="showSection('resources')"
-              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
-              data-section="resources">
-              <i class="fas fa-book mr-2"></i>Resources
-            </button>
-            <button onclick="showSection('gradebook')"
-              class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
-              data-section="gradebook">
-              <i class="fas fa-chart-line mr-2"></i>Inventory
-            </button>
+            class="hidden lg:flex items-center space-x-2 bg-white/50 dark:bg-gray-700/50 rounded-xl p-2 backdrop-blur-sm shadow-sm">
+          </div>
+          <button onclick="showSection('dashboard')"
+            class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 bg-primary text-white hover-lift"
+            data-section="dashboard">
+            <i class="fas fa-home mr-2"></i>Dashboard
+          </button>
+          <button onclick="showSection('labs')"
+            class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
+            data-section="labs">
+            <i class="fas fa-flask mr-2"></i>Experiments
+          </button>
+          <button onclick="showSection('assignments')"
+            class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
+            data-section="assignments">
+            <i class="fas fa-tasks mr-2"></i>Tasks
+          </button>
+          <button onclick="showSection('notes')"
+            class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
+            data-section="notes">
+            <i class="fas fa-sticky-note mr-2"></i>Notes
+          </button>
+          <button onclick="showSection('calendar')"
+            class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
+            data-section="calendar">
+            <i class="fas fa-calendar mr-2"></i>Calendar
+          </button>
+          <button onclick="showSection('calculator')"
+            class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
+            data-section="calculator">
+            <i class="fas fa-calculator mr-2"></i>Calculator
+          </button>
+          <button onclick="showSection('data')"
+            class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
+            data-section="data">
+            <i class="fas fa-chart-bar mr-2"></i>Data
+          </button>
+          <button onclick="showSection('resources')"
+            class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
+            data-section="resources">
+            <i class="fas fa-book mr-2"></i>Resources
+          </button>
+          <button onclick="showSection('gradebook')"
+            class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 text-gray-600 dark:text-gray-400 hover-lift"
+            data-section="gradebook">
+            <i class="fas fa-chart-line mr-2"></i>Inventory
+          </button>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <div id="currentDateTime"
+            class="text-sm font-medium text-gray-600 dark:text-gray-400 bg-white/50 dark:bg-gray-700/50 px-3 py-2 rounded-lg backdrop-blur-sm whitespace-nowrap">
           </div>
 
-          <div class="flex items-center space-x-3">
-            <div id="currentDateTime"
-              class="text-sm text-gray-600 dark:text-gray-400 bg-white/50 dark:bg-gray-700/50 px-3 py-1 rounded-lg backdrop-blur-sm">
-            </div>
-
-            <div
-              class="flex items-center space-x-2 text-sm bg-white/50 dark:bg-gray-700/50 px-3 py-1 rounded-lg backdrop-blur-sm">
-              <span>🏆 Score:</span>
-              <span id="userScore" class="font-bold text-primary animate-pulse">0</span>
-            </div>
-
-            <button onclick="saveProgress()"
-              class="bg-success hover:bg-success/90 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 transform">
-              <i class="fas fa-save mr-1"></i>Save
-            </button>
-
-            <button onclick="toggleTheme()"
-              class="p-2 rounded-lg bg-white/50 dark:bg-gray-700/50 hover:bg-white dark:hover:bg-gray-600 transition-all hover:scale-110 transform backdrop-blur-sm hover-lift"
-              title="Toggle theme (Ctrl+T)" id="themeToggle">
-              <i class="fas fa-moon text-gray-600 dark:text-gray-400 transition-colors"></i>
-              <i class="fas fa-sun text-yellow-500 hidden transition-colors"></i>
-            </button>
+          <div
+            class="flex items-center space-x-2 text-sm bg-white/50 dark:bg-gray-700/50 px-3 py-2 rounded-lg backdrop-blur-sm">
+            <span>🏆 Score:</span>
+            <span id="userScore" class="font-bold text-primary animate-pulse">0</span>
           </div>
+
+          <button onclick="saveProgress()"
+            class="bg-success hover:bg-success/90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 transform shadow-sm">
+            <i class="fas fa-save mr-2"></i>Save
+          </button>
+
+          <button onclick="toggleTheme()"
+            class="p-2 rounded-lg bg-white/50 dark:bg-gray-700/50 hover:bg-white dark:hover:bg-gray-600 transition-all hover:scale-110 transform backdrop-blur-sm hover-lift shadow-sm"
+            title="Toggle theme (Ctrl+T)" id="themeToggle">
+            <i class="fas fa-moon text-gray-600 dark:text-gray-400 transition-colors"></i>
+            <i class="fas fa-sun text-yellow-500 hidden transition-colors"></i>
+          </button>
         </div>
       </div>
+    </div>
     </div>
   </nav>
 
@@ -781,7 +782,7 @@
       <div class="assignments-section">
         <h2>📂 Assignments</h2>
         <iframe
-          src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRXglfVcHRbcyZkbsxsZ6souKwSdrV6Wi3DXeBgO1bptxZ9sA49iqHOLrm20pGD0ljRh4dDsMCKCTan/pubhtml?widget=true&amp;headers=false"
+          src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSVxXjxw8beKmwsUllHiOc2N5pOxKiD8I-j5YLSZEgdb2FmcGZ_AghQdmMOBu286H6Px4Wi4NHJ-ABD/pubhtml?widget=true&amp;headers=false"
           style="border: none; width: 100%; height: 600px;">
         </iframe>
       </div>
@@ -1899,7 +1900,7 @@ Start typing to begin!"
       <!-- Sheet -->
       <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700">
         <iframe
-          src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRXglfVcHRbcyZkbsxsZ6souKwSdrV6Wi3DXeBgO1bptxZ9sA49iqHOLrm20pGD0ljRh4dDsMCKCTan/pubhtml?widget=true&amp;headers=false"
+          src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT69V_82_1Z2HaTDU-gspsccpc4e3cnJ77mpEHmZ9aplSx_xdRSzr-Ygw7xnT1zraWwp_gYBs2spNqb/pubhtml?widget=true&amp;headers=false"
           class="w-full h-[600px] border-0">
         </iframe>
       </div>
@@ -2207,6 +2208,9 @@ Start typing to begin!"
       initializeProgressChart();
       generateCalendar();
 
+      // Initialize resource filters
+      initializeResourceFilters();
+
       // Update date every 5 minutes (less frequent since we only show month/day)
       setInterval(updateDateTime, 300000);
 
@@ -2236,17 +2240,23 @@ Start typing to begin!"
 
       if (!dateElement) return;
 
-      // Simple month and day format
-      const options = {
+      // Format: "Dec 8, Wed"
+      const dateOptions = {
         month: 'short',
         day: 'numeric'
       };
 
-      const dateString = now.toLocaleDateString('en-US', options);
+      const dayOptions = {
+        weekday: 'short'
+      };
+
+      const dateString = now.toLocaleDateString('en-US', dateOptions);
+      const dayString = now.toLocaleDateString('en-US', dayOptions);
+      const fullDateString = `${dateString}, ${dayString}`;
 
       // Only update if the date has actually changed to prevent glitching
-      if (dateElement.textContent !== dateString) {
-        dateElement.textContent = dateString;
+      if (dateElement.textContent !== fullDateString) {
+        dateElement.textContent = fullDateString;
       }
     }
 
@@ -6876,45 +6886,98 @@ Host 2: Thanks for joining us today. We hope this discussion has been helpful in
       }
     }
 
+    // Store current filter state
+    let currentResourceCategory = 'all';
+    let currentResourceType = 'all';
+
+    function initializeResourceFilters() {
+      // Set initial filter state
+      currentResourceCategory = 'all';
+      currentResourceType = 'all';
+
+      // Make sure the "All Resources" button is selected initially
+      document.querySelectorAll('.resource-filter').forEach(btn => {
+        btn.classList.remove('ring-4', 'ring-white/30', 'scale-105');
+      });
+
+      const allButton = document.querySelector('.resource-filter[data-category="all"]');
+      if (allButton) {
+        allButton.classList.add('ring-4', 'ring-white/30', 'scale-105');
+      }
+
+      // Reset the type dropdown to "all"
+      const typeDropdown = document.getElementById('resourceType');
+      if (typeDropdown) {
+        typeDropdown.value = 'all';
+      }
+
+      // Make sure all resources are visible initially
+      const resourceCards = document.querySelectorAll('.resource-item');
+      resourceCards.forEach(card => {
+        card.style.display = 'block';
+      });
+
+      console.log(`Resource filters initialized - Found ${resourceCards.length} resource items`);
+    }
+
     function filterResources(category) {
+      console.log('Filtering resources by category:', category);
+
+      // Store the selected category
+      currentResourceCategory = category;
+
       // Update button states
       document.querySelectorAll('.resource-filter').forEach(btn => {
         btn.classList.remove('ring-4', 'ring-white/30', 'scale-105');
       });
-      document.querySelector(`.resource-filter[data-category="${category}"]`)?.classList.add('ring-4', 'ring-white/30', 'scale-105');
+
+      const selectedButton = document.querySelector(`.resource-filter[data-category="${category}"]`);
+      if (selectedButton) {
+        selectedButton.classList.add('ring-4', 'ring-white/30', 'scale-105');
+      }
 
       // Apply combined filters
       applyResourceFilters();
     }
 
     function filterResourcesByType(type) {
+      console.log('Filtering resources by type:', type);
+
+      // Store the selected type
+      currentResourceType = type;
+
       // Apply combined filters
       applyResourceFilters();
 
       // Show toast to confirm filtering worked
-      const visibleCount = document.querySelectorAll('.resource-item[style*="block"], .resource-item:not([style*="none"])').length;
+      const visibleCount = document.querySelectorAll('.resource-item:not([style*="none"])').length;
 
       if (type === 'all') {
         showToast('📚 Showing all resource types', 'info');
       } else {
         showToast(`🎯 Filtered to ${visibleCount} ${type}${visibleCount !== 1 ? 's' : ''}`, 'success');
       }
-
-      // Log for debugging
-      console.log(`Filtered resources by type: ${type}, showing ${visibleCount} items`);
     }
 
     // Combined filter function for both category and type
     function applyResourceFilters() {
-      const selectedCategory = document.querySelector('.resource-filter.ring-4')?.dataset.category || 'all';
-      const selectedType = document.getElementById('resourceType').value;
+      const selectedCategory = currentResourceCategory;
+      const selectedType = currentResourceType;
 
       const resourceCards = document.querySelectorAll('.resource-item');
       let visibleCount = 0;
 
+      console.log(`Applying filters - Category: ${selectedCategory}, Type: ${selectedType}`);
+      console.log(`Found ${resourceCards.length} resource items`);
+
       resourceCards.forEach(card => {
-        const matchesCategory = selectedCategory === 'all' || card.dataset.category === selectedCategory;
-        const matchesType = selectedType === 'all' || card.dataset.type === selectedType;
+        const cardCategory = card.dataset.category;
+        const cardType = card.dataset.type;
+
+        console.log(`Card category: ${cardCategory}, Card type: ${cardType}`);
+
+        const matchesCategory = selectedCategory === 'all' || cardCategory === selectedCategory;
+        const matchesType = selectedType === 'all' || cardType === selectedType;
         const shouldShow = matchesCategory && matchesType;
 
         card.style.display = shouldShow ? 'block' : 'none';
@@ -6922,6 +6985,11 @@ Host 2: Thanks for joining us today. We hope this discussion has been helpful in
       });
 
       console.log(`Applied filters - Category: ${selectedCategory}, Type: ${selectedType}, Visible: ${visibleCount}`);
+
+      // Show message if no results
+      if (visibleCount === 0 && selectedCategory !== 'all') {
+        showToast(`No resources found for ${selectedCategory}`, 'warning');
+      }
     }
 
     function filterLabs(category) {
