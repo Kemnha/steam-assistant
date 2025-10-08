@@ -1421,62 +1421,64 @@ Start typing to begin!"
   <!-- CALENDAR SECTION -->
   <section id="calendar" class="section-content hidden">
     <div class="mb-8">
-      <div class="flex justify-between items-center mb-6">
-        <div>
-          <h2 class="text-3xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            📅 Smart Academic Calendar</h2>
-          <p class="text-gray-600 dark:text-gray-400">Google Calendar integration with intelligent reminders.
-          <div id="calendarSection" class="flex justify-center"></div>
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          📅 Smart Academic Calendar</h2>
+        <p class="text-gray-600 dark:text-gray-400">Google Calendar integration with intelligent reminders.</p>
+      </div>
+
+      <!-- Calendar Container -->
+      <div id="calendarSection" class="flex justify-center mb-8">
+        <div class="w-full max-w-5xl">
           <iframe
             src="https://calendar.google.com/calendar/embed?src=4fc31f36c20f654e12fbd6bc4bca5cc2926f1764a8266a136bd71bdf835af5da%40group.calendar.google.com&ctz=Asia%2FHo_Chi_Minh"
-            class="rounded-xl shadow-lg border border-gray-200 dark:border-gray-600" width="970" height="600"
-            frameborder="0" scrolling="no">
+            class="w-full rounded-xl shadow-lg border border-gray-200 dark:border-gray-600" height="600" frameborder="0"
+            scrolling="no">
           </iframe>
         </div>
-        <!-- Events and Reminders -->
-        <div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div
-            class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-            <h3 class="text-lg font-semibold mb-4 flex items-center">
-              <span
-                class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
-                <i class="fas fa-calendar text-white text-sm"></i>
-              </span>
-              📅 Upcoming Events
-            </h3>
-            <div id="upcomingEvents" class="space-y-3 max-h-70 overflow-y-auto">
-              <div class="text-gray-500 text-sm">WRO 2025 !!! </div>
-            </div>
-          </div>
-
-          <div
-            class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-            <h3 class="text-lg font-semibold mb-4 flex items-center">
-              <span
-                class="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg flex items-center justify-center mr-3">
-                <i class="fas fa-clock text-white text-sm"></i>
-              </span>
-              ⏰ Today's Schedule
-            </h3>
-            <div id="todaySchedule" class="space-y-3 max-h-64 overflow-y-auto">
-              <div class="text-gray-500 text-sm">WRO 2025 !!!</div>
-            </div>
-          </div>
-
-          <div
-            class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
-            <h3 class="text-lg font-semibold mb-4 flex items-center">
-              <span
-                class="w-8 h-8 bg-gradient-to-r from-red-500 to-pink-600 rounded-lg flex items-center justify-center mr-3">
-                <i class="fas fa-bell text-white text-sm"></i>
-              </span>
-              🔔 Active Reminders
-            </h3>
-            <div id="activeReminders" class="space-y-3 max-h-64 overflow-y-auto">
-              <div class="text-gray-500 text-sm">WRO 2025 !!!</div>
-            </div>
+      </div>
+      <!-- Events and Reminders -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+          <h3 class="text-lg font-semibold mb-4 flex items-center">
+            <span
+              class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
+              <i class="fas fa-calendar text-white text-sm"></i>
+            </span>
+            📅 Upcoming Events
+          </h3>
+          <div id="upcomingEvents" class="space-y-3 max-h-70 overflow-y-auto">
+            <div class="text-gray-500 text-sm">WRO 2025 !!! </div>
           </div>
         </div>
+
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+          <h3 class="text-lg font-semibold mb-4 flex items-center">
+            <span
+              class="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg flex items-center justify-center mr-3">
+              <i class="fas fa-clock text-white text-sm"></i>
+            </span>
+            ⏰ Today's Schedule
+          </h3>
+          <div id="todaySchedule" class="space-y-3 max-h-64 overflow-y-auto">
+            <div class="text-gray-500 text-sm">WRO 2025 !!!</div>
+          </div>
+        </div>
+
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-xl border border-white/20">
+          <h3 class="text-lg font-semibold mb-4 flex items-center">
+            <span
+              class="w-8 h-8 bg-gradient-to-r from-red-500 to-pink-600 rounded-lg flex items-center justify-center mr-3">
+              <i class="fas fa-bell text-white text-sm"></i>
+            </span>
+            🔔 Active Reminders
+          </h3>
+          <div id="activeReminders" class="space-y-3 max-h-64 overflow-y-auto">
+            <div class="text-gray-500 text-sm">WRO 2025 !!!</div>
+          </div>
+        </div>
+      </div>
   </section>
 
   <!-- CALCULATOR SECTION -->
