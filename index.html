@@ -6938,11 +6938,18 @@ Host 2: Thanks for joining us today. We hope this discussion has been helpful in
     }
 
     function filterResources(category) {
-      console.log('🎯 FILTER RESOURCES CALLED:', category);
+      // Simple filtering - just show/hide based on category
+      const resourceCards = document.querySelectorAll('.resource-item');
 
-      // Store the selected category
-      currentResourceCategory = category;
-      console.log('📝 Set currentResourceCategory to:', currentResourceCategory);
+      resourceCards.forEach(card => {
+        const cardCategory = card.dataset.category;
+
+        if (category === 'all' || cardCategory === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
 
       // Update button states
       document.querySelectorAll('.resource-filter').forEach(btn => {
@@ -6952,24 +6959,22 @@ Host 2: Thanks for joining us today. We hope this discussion has been helpful in
       const selectedButton = document.querySelector(`.resource-filter[data-category="${category}"]`);
       if (selectedButton) {
         selectedButton.classList.add('ring-4', 'ring-white/30', 'scale-105');
-        console.log('✅ Button state updated for:', category);
-      } else {
-        console.log('❌ Button not found for category:', category);
       }
-
-      // Apply combined filters
-      console.log('🔄 Calling applyResourceFilters...');
-      applyResourceFilters();
     }
 
     function filterResourcesByType(type) {
-      console.log('Filtering resources by type:', type);
+      // Simple type filtering
+      const resourceCards = document.querySelectorAll('.resource-item');
 
-      // Store the selected type
-      currentResourceType = type;
+      resourceCards.forEach(card => {
+        const cardType = card.dataset.type;
 
-      // Apply combined filters (this will handle the toast messages)
-      applyResourceFilters();
+        if (type === 'all' || cardType === type || (type === 'video' && cardType === 'video')) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
     }
 
     // Enhanced search functionality
