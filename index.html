@@ -26,37 +26,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- EMERGENCY CSS FALLBACK -->
-  <style>
-    /* Ensure loading screen can be hidden */
-    #loadingScreen.force-hide {
-      display: none !important;
-    }
-
-    /* Basic fallback styles if Tailwind fails */
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #f0f9ff 0%, #fdf4ff 50%, #fef7f7 100%);
-      min-height: 100vh;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    /* Ensure content is visible */
-    .section-content {
-      display: block;
-      padding: 1rem;
-    }
-
-    .section-content.hidden {
-      display: none;
-    }
-  </style>
-
   <!-- Preload critical resources -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -210,19 +179,6 @@
 
 <body
   class="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900 text-gray-800 dark:text-white min-h-screen">
-
-  <!-- EMERGENCY LOADING SCREEN KILLER -->
-  <script>
-    // This runs immediately when body starts loading
-    setTimeout(() => {
-      const loading = document.getElementById('loadingScreen');
-      if (loading) {
-        loading.classList.add('force-hide');
-        loading.style.display = 'none';
-        console.log('🚨 EMERGENCY: Loading screen force hidden');
-      }
-    }, 500);
-  </script>
 
   <!-- NAVIGATION -->
   <nav
@@ -440,25 +396,16 @@
     </div>
   </div>
 
-  <!-- IMMEDIATE LOADING SCREEN FIX -->
+  <!-- Emergency loading screen hide -->
   <script>
-    // Hide loading screen immediately
-    document.addEventListener('DOMContentLoaded', function () {
-      const loadingScreen = document.getElementById('loadingScreen');
-      if (loadingScreen) {
-        loadingScreen.style.display = 'none';
-        console.log('✅ Loading screen hidden immediately');
-      }
-    });
-
-    // Backup - hide after 1 second no matter what
+    // Force hide loading screen after 3 seconds if it's still showing
     setTimeout(() => {
       const loadingScreen = document.getElementById('loadingScreen');
       if (loadingScreen) {
         loadingScreen.style.display = 'none';
-        console.log('🔧 Backup: Loading screen hidden');
+        console.log('Emergency: Loading screen hidden');
       }
-    }, 1000);
+    }, 3000);
   </script>
 
   <!-- MAIN CONTENT -->
@@ -6873,6 +6820,7 @@
     }
     console.log('Resource filters initialized');
 
+
     function filterLabs(category) {
       const labCards = document.querySelectorAll('.lab-card');
       labCards.forEach(card => {
@@ -8240,59 +8188,38 @@
     showNotification('🤖 AI Tutor feature coming soon!', 'info');
   }
 
-  // MAIN INITIALIZATION - FIXED
+  // Initialize everything
   document.addEventListener('DOMContentLoaded', function () {
-    console.log('🚀 Starting STEAM Lab Pro initialization...');
-
     try {
-      // 1. Hide loading screen FIRST
+      initializeTheme();
+      updateDateTime();
+
+      // Hide loading screen immediately for testing
       const loadingScreen = document.getElementById('loadingScreen');
       if (loadingScreen) {
         loadingScreen.style.display = 'none';
-        console.log('✅ Loading screen hidden');
       }
 
-      // 2. Initialize theme
-      if (typeof initializeTheme === 'function') {
-        initializeTheme();
-        console.log('✅ Theme initialized');
-      }
-
-      // 3. Update date/time  
-      if (typeof updateDateTime === 'function') {
-        updateDateTime();
-        console.log('✅ DateTime updated');
-      }
-
-      // 4. Show dashboard
-      setTimeout(() => {
-        try {
-          if (typeof showSection === 'function') {
-            showSection('dashboard');
-            console.log('✅ Dashboard shown');
-          } else {
-            // Fallback: manually show dashboard
-            const dashboard = document.getElementById('dashboard');
-            if (dashboard) {
-              dashboard.classList.remove('hidden');
-              console.log('✅ Dashboard shown (fallback)');
-            }
-          }
-        } catch (e) {
-          console.log('Dashboard show error:', e);
-        }
-      }, 100);
-
-      console.log('🎉 STEAM Lab Pro fully loaded and ready!');
-
+      console.log('✅ STEAM Lab Pro initialized successfully!');
     } catch (error) {
-      console.error('❌ Initialization error:', error);
-      // Still hide loading screen
+      console.error('Initialization error:', error);
+      // Hide loading screen even if there's an error
       const loadingScreen = document.getElementById('loadingScreen');
       if (loadingScreen) {
         loadingScreen.style.display = 'none';
       }
     }
+  });
+
+  // Backup initialization
+  window.addEventListener('load', function () {
+    setTimeout(() => {
+      const loadingScreen = document.getElementById('loadingScreen');
+      if (loadingScreen && loadingScreen.style.display !== 'none') {
+        loadingScreen.style.display = 'none';
+        console.log('Backup: Loading screen hidden');
+      }
+    }, 1000);
   });
 </script>
 
