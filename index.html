@@ -262,31 +262,30 @@
           </button>
         </div>
 
-        <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-3">
           <div id="currentDateTime"
-            class="text-sm font-medium text-gray-600 dark:text-gray-400 bg-white/50 dark:bg-gray-700/50 px-3 py-2 rounded-lg backdrop-blur-sm whitespace-nowrap">
+            class="hidden sm:block text-sm font-medium text-gray-600 dark:text-gray-400 bg-white/50 dark:bg-gray-700/50 px-3 py-2 rounded-lg backdrop-blur-sm whitespace-nowrap">
           </div>
 
           <div
             class="flex items-center space-x-2 text-sm bg-white/50 dark:bg-gray-700/50 px-3 py-2 rounded-lg backdrop-blur-sm">
-            <span>🏆 Score:</span>
-            <span id="userScore" class="font-bold text-primary animate-pulse">0</span>
+            <span>🏆</span>
+            <span id="userScore" class="font-bold text-primary">0</span>
           </div>
 
           <button onclick="saveProgress()"
-            class="bg-success hover:bg-success/90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 transform shadow-sm">
-            <i class="fas fa-save mr-2"></i>Save
+            class="bg-success hover:bg-success/90 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 transform">
+            <i class="fas fa-save mr-1"></i>Save
           </button>
 
           <button onclick="toggleTheme()"
-            class="p-2 rounded-lg bg-white/50 dark:bg-gray-700/50 hover:bg-white dark:hover:bg-gray-600 transition-all hover:scale-110 transform backdrop-blur-sm hover-lift shadow-sm"
+            class="p-2 rounded-lg bg-white/50 dark:bg-gray-700/50 hover:bg-white dark:hover:bg-gray-600 transition-all hover:scale-110 transform backdrop-blur-sm"
             title="Toggle theme (Ctrl+T)" id="themeToggle">
             <i class="fas fa-moon text-gray-600 dark:text-gray-400 transition-colors"></i>
             <i class="fas fa-sun text-yellow-500 hidden transition-colors"></i>
           </button>
         </div>
       </div>
-    </div>
     </div>
   </nav>
 
@@ -1677,10 +1676,14 @@ Start typing to begin!"
           <select id="resourceType" onchange="filterResourcesByType(this.value)"
             class="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white/50 dark:bg-gray-700/50 text-base backdrop-blur-sm">
             <option value="all">All Types</option>
-            <option value="video">Videos</option>
-            <option value="article">Articles</option>
-            <option value="book">Books</option>
-            <option value="website">Websites</option>
+            <option value="video">📹 All Videos</option>
+            <option value="educational-video">🎓 Educational Videos</option>
+            <option value="tutorial-video">📚 Tutorial Videos</option>
+            <option value="simulation-video">🧪 Simulation Videos</option>
+            <option value="article">📄 Articles</option>
+            <option value="book">📖 Books</option>
+            <option value="website">🌐 Websites</option>
+            <option value="interactive">🎮 Interactive</option>
           </select>
         </div>
       </div>
@@ -6911,6 +6914,15 @@ Host 2: Thanks for joining us today. We hope this discussion has been helpful in
         typeDropdown.value = 'all';
       }
 
+      // Clear search input
+      const searchInput = document.getElementById('resourceSearch');
+      if (searchInput) {
+        searchInput.value = '';
+      }
+
+      // Setup search functionality
+      setupResourceSearch();
+
       // Make sure all resources are visible initially
       const resourceCards = document.querySelectorAll('.resource-item');
       resourceCards.forEach(card => {
@@ -6952,43 +6964,92 @@ Host 2: Thanks for joining us today. We hope this discussion has been helpful in
       // Show toast to confirm filtering worked
       const visibleCount = document.querySelectorAll('.resource-item:not([style*="none"])').length;
 
+      const typeNames = {
+        'all': 'all resources',
+        'video': 'videos',
+        'educational-video': 'educational videos',
+        'tutorial-video': 'tutorial videos',
+        'simulation-video': 'simulation videos',
+        'article': 'articles',
+        'book': 'books',
+        'website': 'websites',
+        'interactive': 'interactive resources'
+      };
+
       if (type === 'all') {
         showToast('📚 Showing all resource types', 'info');
       } else {
-        showToast(`🎯 Filtered to ${visibleCount} ${type}${visibleCount !== 1 ? 's' : ''}`, 'success');
+        const typeName = typeNames[type] || type;
+        showToast(`🎯 Showing ${visibleCount} ${typeName}`, 'success');
       }
     }
 
-    // Combined filter function for both category and type
-    function applyResourceFilters() {
+    // Enhanced search functionality
+    function setupResourceSearch() {
+      const searchInput = document.getElementById('resourceSearch');
+      if (searchInput) {
+        searchInput.addEventListener('input', function (e) {
+          const searchTerm = e.target.value.toLowerCase();
+          applyResourceFilters(searchTerm);
+        });
+      }
+    }
+
+    // Combined filter function for category, type, and search
+    function applyResourceFilters(searchTerm = '') {
       const selectedCategory = currentResourceCategory;
       const selectedType = currentResourceType;
+      const searchInput = document.getElementById('resourceSearch');
+      const actualSearchTerm = searchTerm || (searchInput ? searchInput.value.toLowerCase() : '');
 
       const resourceCards = document.querySelectorAll('.resource-item');
       let visibleCount = 0;
 
-      console.log(`Applying filters - Category: ${selectedCategory}, Type: ${selectedType}`);
-      console.log(`Found ${resourceCards.length} resource items`);
+      console.log(`Applying filters - Category: ${selectedCategory}, Type: ${selectedType}, Search: "${actualSearchTerm}"`);
 
       resourceCards.forEach(card => {
         const cardCategory = card.dataset.category;
         const cardType = card.dataset.type;
+        const cardText = card.textContent.toLowerCase();
 
-        console.log(`Card category: ${cardCategory}, Card type: ${cardType}`);
-
+        // Category matching
         const matchesCategory = selectedCategory === 'all' || cardCategory === selectedCategory;
-        const matchesType = selectedType === 'all' || cardType === selectedType;
-        const shouldShow = matchesCategory && matchesType;
+
+        // Enhanced type matching - handle video subtypes properly
+        let matchesType = false;
+
+        if (selectedType === 'all') {
+          matchesType = true;
+        } else if (selectedType === 'video') {
+          // "All Videos" option - matches any video type
+          matchesType = cardType === 'video';
+        } else if (selectedType === 'educational-video' || selectedType === 'tutorial-video' || selectedType === 'simulation-video') {
+          // Specific video subtypes - since all current videos are just "video", 
+          // we'll match them all for now (you can add more specific data attributes later)
+          matchesType = cardType === 'video';
+        } else {
+          // Exact match for other types (article, book, website, etc.)
+          matchesType = cardType === selectedType;
+        }
+
+        // Search matching
+        const matchesSearch = actualSearchTerm === '' || cardText.includes(actualSearchTerm);
+
+        const shouldShow = matchesCategory && matchesType && matchesSearch;
 
         card.style.display = shouldShow ? 'block' : 'none';
         if (shouldShow) visibleCount++;
       });
 
-      console.log(`Applied filters - Category: ${selectedCategory}, Type: ${selectedType}, Visible: ${visibleCount}`);
+      console.log(`Applied filters - Visible: ${visibleCount} items`);
 
       // Show message if no results
-      if (visibleCount === 0 && selectedCategory !== 'all') {
-        showToast(`No resources found for ${selectedCategory}`, 'warning');
+      if (visibleCount === 0) {
+        if (actualSearchTerm) {
+          showToast(`No resources found for "${actualSearchTerm}"`, 'warning');
+        } else if (selectedCategory !== 'all' || selectedType !== 'all') {
+          showToast(`No resources match the current filters`, 'warning');
+        }
       }
     }
 
