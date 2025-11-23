@@ -1701,7 +1701,7 @@
     // AI CONFIGURATION
     // ============================================
     const AI_CONFIG = {
-      groq_key: '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',
+      groq_key: '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',
       gemini_key: 'AIzaSyCvNcWubR1VZgBI0qhW2cK_wryMGlmeW-w'
     };
     
@@ -1810,13 +1810,21 @@
           </div>
         `;
       } else {
+        // Format AI message with better styling
+        const formatted = message
+          .replace(/\*\*(.*?)\*\*/g, '<strong class="text-blue-300">$1</strong>')
+          .replace(/\*(.*?)\*/g, '<em class="text-purple-300">$1</em>')
+          .replace(/^• (.+)$/gm, '<div class="flex gap-2 my-1"><span class="text-blue-400">•</span><span>$1</span></div>')
+          .replace(/^(\d+)\. (.+)$/gm, '<div class="flex gap-2 my-1"><span class="text-purple-400 font-bold">$1.</span><span>$2</span></div>')
+          .replace(/`([^`]+)`/g, '<code class="bg-black/40 px-2 py-1 rounded text-cyan-300 font-mono text-sm">$1</code>');
+        
         chat.innerHTML += `
           <div class="flex items-start gap-3">
-            <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+            <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center flex-shrink-0 animate-pulse">
               <i class="fas fa-robot text-white"></i>
             </div>
             <div class="glass-card max-w-2xl">
-              <p class="text-white whitespace-pre-line">${message}</p>
+              <div class="text-white whitespace-pre-line leading-relaxed">${formatted}</div>
             </div>
           </div>
         `;
