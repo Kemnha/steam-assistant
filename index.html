@@ -959,29 +959,28 @@
           </div>
           <div class="glass-card max-w-2xl">
             <p class="text-white">
-              📚 Welcome to Your Personalized STEAM Learning Journey!
+              � Hi theere! Welcome to your STEAM Learning Assistant!
               
-              <strong class="text-purple-300">Let's create a custom learning path just for you!</strong>
+              I can help you with Science, Technology, Engineering, Arts, and Mathematics - plus answer questions about our lab equipment!
               
-              Please tell me about yourself:
+              <strong class="text-purple-300">Would you like me to personalize your learning experience?</strong>
               
-              1️⃣ <strong class="text-blue-300">Your Background:</strong>
-              • What grade/age are you?
-              • What's your experience level with STEAM? (Beginner/Intermediate/Advanced)
+              I can ask you a few quick questions (about 2 minutes) to understand:
+              • Your current skill level
+              • Your strengths and interests
+              • Areas you'd like to improve
+              • Your learning goals
               
-              2️⃣ <strong class="text-green-300">Your Strengths:</strong>
-              • What STEAM subjects are you good at?
-              • What skills do you already have? (coding, building, art, etc.)
+              This helps me give you better, more relevant answers!
               
-              3️⃣ <strong class="text-yellow-300">Areas to Improve:</strong>
-              • What topics do you find challenging?
-              • What would you like to get better at?
-              
-              4️⃣ <strong class="text-pink-300">Your Goals:</strong>
-              • What do you want to learn or build?
-              • Any specific projects in mind?
-              
-              Share as much or as little as you'd like - I'll adapt to help you learn best! 🚀
+              <div class="mt-4 flex gap-3">
+                <button onclick="startPersonalizationQuiz()" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-xl font-bold hover:scale-105 transition shadow-lg">
+                  ✨ Yes, personalize my experience!
+                </button>
+                <button onclick="skipPersonalization()" class="px-6 py-3 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition">
+                  Skip for now
+                </button>
+              </div>
             </p>
           </div>
         </div>
@@ -1974,10 +1973,61 @@ Use bullet points and keep responses under 200 words.`
       return "I'm here to help with STEAM subjects! Ask me about:\n\n• Science experiments and concepts\n• Technology and coding\n• Engineering projects\n• Art techniques and history\n• Mathematics problems and formulas\n\nWhat would you like to learn?";
     }
     
+    // Personalization Quiz
+    let quizStep = 0;
+    let userProfile = {};
+    
+    function startPersonalizationQuiz() {
+      quizStep = 1;
+      askNextQuestion();
+    }
+    
+    function skipPersonalization() {
+      addAIChatMessage("No problem! Feel free to ask me anything about STEAM or our lab equipment. I'm here to help! 🚀", 'ai');
+    }
+    
+    function askNextQuestion() {
+      const questions = [
+        "Great! Let's start. 📚\n\nQuestion 1/5: What grade are you in? (or your age if you prefer)",
+        "Question 2/5: How would you rate your STEAM experience?\n\nA) Beginner - Just starting out\nB) Intermediate - Some experience\nC) Advanced - Very experienced",
+        "Question 3/5: What STEAM subjects are you strongest in?\n\n(Examples: coding, robotics, 3D design, electronics, art, etc.)",
+        "Question 4/5: What topics do you find most challenging or want to improve?\n\n(Be honest - this helps me help you better!)",
+        "Question 5/5: What's your main goal? What do you want to learn or build?\n\n(Dream big! 🚀)"
+      ];
+      
+      if (quizStep <= questions.length) {
+        addAIChatMessage(questions[quizStep - 1], 'ai');
+      } else {
+        completeQuiz();
+      }
+    }
+    
+    function completeQuiz() {
+      const summary = `Perfect! Here's what I learned about you:\n\n✅ Grade/Age: ${userProfile.grade || 'Not specified'}\n✅ Experience: ${userProfile.experience || 'Not specified'}\n✅ Strengths: ${userProfile.strengths || 'Not specified'}\n✅ Areas to improve: ${userProfile.challenges || 'Not specified'}\n✅ Goals: ${userProfile.goals || 'Not specified'}\n\nI'll use this to give you personalized help! Let's start learning! 🎯`;
+      addAIChatMessage(summary, 'ai');
+      quizStep = 0;
+    }
+    
     // Send AI message
     async function sendAIChatMessage() {
       const input = document.getElementById('aiChatInput');
       const message = input.value.trim();
+      
+      // Handle quiz responses
+      if (quizStep > 0) {
+        if (quizStep === 1) userProfile.grade = message;
+        if (quizStep === 2) userProfile.experience = message;
+        if (quizStep === 3) userProfile.strengths = message;
+        if (quizStep === 4) userProfile.challenges = message;
+        if (quizStep === 5) userProfile.goals = message;
+        
+        addAIChatMessage(message, 'user');
+        input.value = '';
+        quizStep++;
+        
+        setTimeout(() => askNextQuestion(), 500);
+        return;
+      }
       
       if (!message) return;
       
