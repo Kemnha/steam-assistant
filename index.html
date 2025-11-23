@@ -1926,6 +1926,17 @@
 • Lab inventory and equipment availability
 • What tools/materials are in stock
 
+${Object.keys(userProfile).length > 0 ? `
+STUDENT PROFILE (personalize your responses based on this):
+- Grade/Age: ${userProfile.grade || 'Unknown'}
+- Experience Level: ${userProfile.experience || 'Unknown'}
+- Strengths: ${userProfile.strengths || 'Unknown'}
+- Areas to Improve: ${userProfile.challenges || 'Unknown'}
+- Learning Goals: ${userProfile.goals || 'Unknown'}
+
+Tailor your explanations to their level and focus on their goals!
+` : ''}
+
 INVENTORY ACCESS: You can answer "Do we have X?" or "How many X do we have?" questions using this data:
 - Arduino Kits: 26
 - Microbit Kits: 17
