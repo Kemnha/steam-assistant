@@ -1860,14 +1860,39 @@
           </div>
         `;
         
-        // Text-to-Speech for AI responses
+        // Text-to-Speech for AI responses with natural voice
         if ('speechSynthesis' in window) {
           window.speechSynthesis.cancel();
-          const cleanText = message.replace(/\*\*/g, '').replace(/\*/g, '').replace(/`/g, '');
+          
+          // Clean text for speech
+          const cleanText = message
+            .replace(/\*\*/g, '')
+            .replace(/\*/g, '')
+            .replace(/`/g, '')
+            .replace(/•/g, '')
+            .replace(/\n\n/g, '. ')
+            .replace(/\n/g, ', ');
+          
           const utterance = new SpeechSynthesisUtterance(cleanText);
-          utterance.rate = 1.1;
-          utterance.pitch = 1.0;
+          
+          // Get available voices and prefer natural ones
+          const voices = window.speechSynthesis.getVoices();
+          const preferredVoice = voices.find(v => 
+            v.name.includes('Natural') || 
+            v.name.includes('Premium') ||
+            v.name.includes('Enhanced') ||
+            (v.lang.startsWith('en') && v.localService === false)
+          ) || voices.find(v => v.lang.startsWith('en'));
+          
+          if (preferredVoice) {
+            utterance.voice = preferredVoice;
+          }
+          
+          // Natural speech settings
+          utterance.rate = 0.95;  // Slightly slower for clarity
+          utterance.pitch = 1.0;  // Natural pitch
           utterance.volume = 0.9;
+          
           window.speechSynthesis.speak(utterance);
         }
       }
