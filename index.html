@@ -1828,6 +1828,17 @@
             </div>
           </div>
         `;
+        
+        // Text-to-Speech for AI responses
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          const cleanText = message.replace(/\*\*/g, '').replace(/\*/g, '').replace(/`/g, '');
+          const utterance = new SpeechSynthesisUtterance(cleanText);
+          utterance.rate = 1.1;
+          utterance.pitch = 1.0;
+          utterance.volume = 0.9;
+          window.speechSynthesis.speak(utterance);
+        }
       }
       
       chat.scrollTop = chat.scrollHeight;
